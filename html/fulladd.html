@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        .btn-custom {
+            color: white;
+            background-color: black;
+            border-color: #483737;
+        }
+        
+        .btn.btn-custom:hover {
+            color: white;
+            background-color: #45a049;
+            border-color: #837171;
+            border-radius: 8 px;
+            transform: scale(1.015);
+        }
+        
+        div.hline {
+            border-bottom: solid #a8a6a6;
+            border-bottom-width: 0.5px;
+            width: 75%;
+        }
+    </style>
+
+
+
+
+    <title>FULL ADD</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+
+
+<body>
+    <div class="container-fluid" style="background-color:black">
+
+        <h3 class="text-center" style="font-family:roboto;color:white">FULL ADD</h3>
+        <h5 class="text-left" style="font-family:roboto;color:white"><a href="/html/dashboard.html">Click to return to Dashboard</a></h5>
+
+    </div>
+    <div id="main_window">
+        <div class="row" style="margin-top:5%">
+            <span style="margin-left:15%;" class="col-md-8">Enter Mobile No.: <input type="text" id="mob" placeholder="Your registered mobile number"> <input type="submit" value="Submit" id="btn"></span>
+        </div>
+
+
+
+
+
+    </div>
+    <script type="text/javascript">
+        var btn = document.getElementById('btn');
+        btn.onclick = function() {
+
+            var mobile = document.getElementById('mob').value;
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+
+                        var data = JSON.parse(this.responseText);
+                        if (data.length === 1) {
+                            alert('Match found for given number');
+                            var date = data[0].date_of_birth;
+                            console.log(date);
+                            date = new Date(date);
+
+                            date = new Date(date.getTime() + 330 * 60 * 1000); //time zone  conversion :)
+                            console.log(date.toISOString());
+
+                            var content = ` <div class="container-fluid" style="background-color:#f2f2f2">
+            <div class="container" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                <br>
+                <p>* indicates that it is a mandatory field</p><br>
+
+            </div>
+
+            <form action="/fulladd" method="POST">
+
+
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+                    <label for="profid">*Profile ID</label><br>
+                    <input class="form-control input-lg" type="text" id="profid" name="profile_id" value="${data[0].profile_id}" readonly><br>
+
+
+                    <label for="mob">*Mobile Number</label><br>
+                    <input class="form-control input-lg" type="text" id="mob" name="mobile_no" value="${data[0].mobile_no}" required><br>
+
+                    <label for="personcontacted">*Person Of Contact</label><br>
+                    <input class="form-control input-lg" type="text" id="personcontacted" name="person_of_contact" value="${data[0].person_of_contact}" required><br>
+                    <label for="gen">*Gender</label><br>
+                    <input class="form-control input-lg" type="text" name="gender" value="${data[0].gender}" required><br>
+
+                    <label for="email">*E-Mail ID</label><br>
+                    <input class="form-control input-lg" type="text" id="email" name="email" value="${data[0].email}" required><br>
+
+
+
+                    <label for="rel">*Relation With Candidate</label><br>
+                    <input class="form-control input-lg" type="text" id="rel" name="relation_with_candidate" value="${data[0].relation_with_candidate}" required><br>
+                    <label for="Address">*Address</label><br>
+                    <textarea class="form-control input-lg" type="text" id="Address" name="address"  required>${data[0].address}</textarea><br>
+
+
+
+                    <label for="city">*City</label><br>
+                    <input class="form-control input-lg" type="text" id="city" name="city" value="${data[0].city}" required><br>
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>BASIC INFORMATION</h3><br>
+
+                    <label for="candidatefirstname">*Candidate's First Name</label><br>
+                    <input class="form-control input-lg" type="text" id="first_name" name="first_name" value="${data[0].candidate_first_name}" required><br>
+
+                    <label for="candidatemiddlename">*Candidate's Middle Name</label><br>
+                    <input class="form-control input-lg" type="text" id="middle_name" name="middle_name" value="${data[0].candidate_middle_name}" required><br>
+
+                    <label for="candidatesurname">*Candidate's Surname</label><br>
+                    <input class="form-control input-lg" type="text" id="surname" name="surname" value="${data[0].candidate_surname}" required><br>
+
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>BIRTH DETAILS</h3><br>
+
+                    <label for="dateofbirth">*Candidate's Date Of Birth</label><br>
+                    <input class="form-control input-lg" type="date" id="dob" name="dob" value="${date.toISOString().split('T')[0]}" required><br>
+
+                    <label for="timeofbirth">*Candidate's Time Of Birth</label><br>
+                    <input class="form-control input-lg" type="time" id="time_of_birth" name="tob" value="${data[0].time_of_birth}" required><br>
+
+                    <label for="pob">*Candidate's Place Of Birth</label><br>
+                    <input class="form-control input-lg" type="text" id="pob" name="pob" value="${data[0].place_of_birth}" required><br>
+
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>PHYSICAL DETAILS</h3><br>
+
+                    <label for="bodytype">*Body Type</label><br>
+                    <input class="form-control input-lg" type="text" id="body_type" name="body_type" value="${data[0].body_type}" required><br>
+
+                    <label for="complexion">*Complexion</label><br>
+                    <input class="form-control input-lg" type="text" id="complexion" name="complexion" value="${data[0].complexion}" required><br>
+
+                    <label for="bloodgroup">*Blood Group</label><br>
+                    <input class="form-control input-lg" type="text" id="bloodgroup" name="blood_g" value="${data[0].blood_group}" required><br>
+
+                    <label for="height">*Height</label><br>
+                    <input class="form-control input-lg" type="text" id="height" name="height" value="${data[0].height}" required><br>
+                     <label for="weight">*Weight</label><br>
+                    <input class="form-control input-lg" type="text" id="weight" name="weight" value="${data[0].weight}" required><br>
+
+                    <label for="Age">*Age</label><br>
+                    <input class="form-control input-lg" type="text" id="age" name="age" value="${data[0].age}" required><br>
+
+                    <label for="physically_challenged">*Physically Challenged?</label><br>
+                    <input class="form-control input-lg" type="text" id="physically_challenged" name="pwd" value="${data[0].physically_challenged}" required><br>
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>EDUCATIONAL QUALIFICATIONS</h3><br>
+                    <label for="education">*Education</label><br>
+                    <select class="form-control input-lg" id="emplyoment-status" name="education" value="${data[0].employment_status} "required>
+        <option>MATRICULATION</option>
+        <option>INTERMEDIATE</option>
+        <option>GRADUATION</option>
+        <option>PG</option>
+        <option>DOCTORATE OR ABOVE</option>
+        </select>
+                    <br>
+
+                    <label for="highschool">*High School</label><br>
+                    <input class="form-control input-lg" type="text" id="high_school" name="high_s" value="${data[0].high_school}" required><br>
+
+                    <label for="intermediate">*Intermediate</label><br>
+                    <input class="form-control input-lg" type="text" id="intermediate" name="intermediate" value="${data[0].intermediate}" required><br>
+
+
+                    <label for="graduation">*Graduation</label><br>
+                    <input class="form-control input-lg" type="text" id="graduation" name="graduation" value="${data[0].graduation}" required><br>
+
+                    <label for="masters">*Masters</label><br>
+                    <input class="form-control input-lg" type="text" id="masters" name="masters" value="${data[0].masters}" required><br>
+
+                    <label for="otherqualification">*Other qualifications</label><br>
+                    <input class="form-control input-lg" type="text" id="other_qualifications" name="other_quali" value="${data[0].other_qualification}" required><br>
+
+
+                </div>
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Occupational Details</h3><br>
+
+                    <label for="employmentstatus">*Employment Status</label><br>
+                    <select class="form-control input-lg" id="emplyoment-status" name="emp_status" value="${data[0].employment_status}" required>
+        <option>Working</option>
+        <option>Student</option>
+        <option>None</option>
+        <option>Don't Want To Disclose</option>
+        </select>
+                    <br>
+
+                    <label for="employmentdetails">*Employment Details</label><br>
+
+
+                    <textarea class="form-control input-lg" rows="3" id="employmentdetails" name="employment_details"  required>${data[0].employment_details}</textarea> <br>
+
+                    <label for="Annual_Income">*Annual Income (in INR)</label><br>
+                    <input class="form-control input-lg" type="text" id="Annual_Income" name="annual_income" value="${data[0].annual_income}" required><br>
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>More About Candidate</h3><br>
+
+                    <label for="about_the_candidate">*About The Candidate</label><br>
+                    <textarea class="form-control input-lg" rows="3" id="more_about_candidate" name="more_candidate" >${data[0].more_about_candidate}</textarea> <br>
+
+                    <label for="linkedin_id">*Linkedin ID</label><br>
+                    <input class="form-control input-lg" type="text" id="linkedin_id" name="linkedin_id" value="${data[0].linkedin_id}"><br>
+
+                    <label for="facebook_id">*Facebook ID</label><br>
+                    <input class="form-control input-lg" type="text" id="Facebook_id" name="facebook_id" value="${data[0].facebook_id}"><br>
+
+                </div>
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Religion Details</h3><br>
+
+                    <label for="religion">*Religion</label><br>
+                    <input class="form-control input-lg" type="text" id="religion" name="religion" value="${data[0].religion}" required><br>
+
+                    <label for="caste">*Caste</label><br>
+                    <input class="form-control input-lg" type="text" id="caste" name="caste" value="${data[0].caste}" required><br>
+
+                    <label for="gotra">*Gotra</label><br>
+                    <input class="form-control input-lg" type="text" id="gotra" name="gotra" value="${data[0].gotra}" required><br>
+
+                    <label for="mothertongue">*Mothertongue</label><br>
+                    <input class="form-control input-lg" type="text" id="mother_tongue" name="mother_tongue" value="${data[0].mother_tongue}" required><br>
+
+                </div>
+
+
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Astrology Details</h3><br>
+
+                    <label for="manglik">*Manglik</label><br>
+                    <select class="form-control input-lg" id="manglik" name="manglik" value="${data[0].manglik}" required>
+         <option>No</option>
+         <option>Yes</option>
+        </select>
+                    <br>
+
+
+                    <label for="rashi">*Rashi</label><br>
+                    <input class="form-control input-lg" type="text" id="rashi" name="rashi" value="${data[0].rashi}" required><br>
+
+
+                    <label for="nakshtra">*Nakshtra</label><br>
+                    <input class="form-control input-lg" type="text" id="nakshtra" name="nakshtra" value="${data[0].nakshtra}" required><br>
+
+                </div>
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Maritial Details</h3><br>
+
+                    <label for="marital_status">*Marital Status</label><br>
+                    <select class="form-control input-lg" id="marital_status" name="marital_status"  value="${data[0].marital_status}" required>
+         <option>Unmarried</option>
+         <option>Separated</option>
+         <option>Divorced</option>
+         <option>Widowed</option>
+        </select>
+                    <br>
+
+                </div>
+
+                <div class="hline container-fluid"></div><br>
+
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Family Information</h3><br>
+
+                    <label for="Family_Values">*Family Values</label><br>
+                    <select class="form-control input-lg" id="Family_Values" name="family_values" value="${data[0].family_values}" required>
+         <option>Conservative</option>
+         <option>Traditional</option>
+         <option>Moderate</option>
+         <option>Liberal</option>
+        </select>
+                    <br>
+
+                    <label for="Family_Type">*Family Type</label><br>
+                    <select class="form-control input-lg" id="Family_Type" name="family_type" value="${data[0].family_type}" required>
+         <option>Nuclear</option>
+         <option>Joint</option>
+        </select>
+                    <br>
+
+
+                    <label for="detailsoffamily">*Details Of The Family</label><br>
+                    <textarea class="form-control input-lg" rows="4" id="details_of_family" name="details_of_family" required>${data[0].details_of_family}</textarea><br>
+
+                    <br><label for="about_father">*Father's Occupation</label><br>
+                    <select class="form-control input-lg" type="text" id="about_father" name="about_father" value="3">
+        <option>Employed</option>
+        <option>Bussiness</option>
+        <option>Professional</option>
+        <option>Retired</option>
+        <option>Other</option>
+        </select>
+
+
+                    <label for="details_of_fathers_employment">*Details Of Father's Employment</label><br>
+                    <textarea class="form-control input-lg" rows="4" id="details_of_fathers_employment" name="details_of_father" required>${data[0].details_of_father}</textarea><br>
+
+                    <label for="details_of_fathers_contact_number">Father's Contact</label><br>
+                    <input class="form-control input-lg" type="text" id="details_of_fathers_contact_number" name="fathers_contact" value="${data[0].fathers_contact}"><br>
+
+                    <br><label for="about_mother">*Mother's Occupation</label><br>
+                    <select class="form-control input-lg" id="about_mother" name="about_mother" value="${data[0].about_mother}">
+        <option>Bussiness</option>
+        <option>Professional</option>
+        <option>Retired</option>
+        <option>Homemaker (Housewife)</option>
+        <option>Other</option>
+        </select>
+
+
+                    <label for="details_of_mpother_employment">*Details Of Mother's Employment</label><br>
+                    <textarea class="form-control input-lg" rows="4" id="details_of_mothers_employment" name="details_of_mother" required>${data[0].details_of_mother}</textarea><br>
+
+                    <label for="details_of_mothers_contact_number">Mother's Contact</label><br>
+                    <input class="form-control input-lg" type="text" id="details_of_mothers_contact_number" name="mothers_contact" value="${data[0].mothers_contact}"><br>
+
+                    <br>
+                    <p><strong>Details Of Siblings</strong></p>
+
+                    <label for="siblings">Complete Details of all Siblings</label><br>
+                    <textarea class="form-control input-lg" type="text" id="sibling_details" name="sibling_details" placeholder="No of Siblings,Brothers,Sisters and their marital status">${data[0].sibling_details}</textarea><br>
+
+
+ </div>
+
+ <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>Prefered Partner Details</h3><br>
+
+                    <label for="preferredpartnerage">*Preferred Partner's  Age</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_age" name="pp_age" value="${data[0].preferred_partner_age}" required><br>
+
+
+                    <label for="preferredpartnercomplexion">*Preferred Partner's  Complexion</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_complexion" name="pp_complexion" value="${data[0].preferred_partner_complexion}" required><br>
+
+                    <label for="preferredpartnerheight">*Preferred Partner's  Height</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_height" name="pp_height" value=" ${data[0].preferred_partner_height}" required><br>
+
+                    <label for="preferredpartnerbodytype">*Preferred Partner's  Body Type</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_body_type" name="pp_body_type" value="${data[0].preferred_partner_body_type}" required><br>
+
+                    <label for="preferredpartnerreligion">*Preferred Partner's  Religion</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_religion" name="pp_religion" value="${data[0].preferred_partner_religion}" required><br>
+
+                    <label for="preferredpartnermaritalstatus">*Preferred Partner's  Marital Status</label><br>
+                    <select class="form-control input-lg" id="preferred_partner_marital_status" name="pp_marital_status" value="${data[0].preferred_partner_marital_status}">
+                <option>Unmarried</option>
+                <option>Separated</option>
+                <option>Divorced</option>
+                <option>Widowed</option>
+            </select><br>
+
+                    <label for="preferredpartnercaste">*Preferred Partner's Caste</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_caste" name="pp_caste" value="${data[0].preferred_partner_caste}" required><br>
+
+
+                    <label for="preferredpartnermothertongue">*Preferred Partner's Mother Tongue</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_mothertongue" name="pp_mother_tongue" value="${data[0].preferred_partner_mother_tongue}" required><br>
+
+
+                    <label for="preferredpartneroccupation">*Preferred Partner's  Occupation</label><br>
+                    <input class="form-control input-lg" type="text" id="preferred_partner_occupationt" name="pp_occupation" value="${data[0].preferred_partner_occupation}" required><br>
+
+                    <label for="ppfamilyvalues">*Preferred Partner's Family Values</label><br>
+                    <select class="form-control input-lg" id="ppfamily_values" name="pp_family_values" value="${data[0].preferred_partner_family_values}">
+            <option>Conservative</option>
+            <option>Traditional</option>
+            <option>Moderate</option>
+            <option>Liberal</option>
+            <option>Any</option>
+            </select><br>
+
+
+                    <label for="ppfamilytype">*Preferred Partner's Family Type</label><br>
+                    <select class="form-control input-lg" id="ppfamily_type" name="pp_family_type" value="${data[0].preferred_partner_family_type}">
+            <option>Any</option>
+            <option>Nuclear</option>
+            <option>Joint</option>
+            </select><br>
+
+
+
+
+
+                    <label for="preferredpartnermoredetails">*Preferred Partner's More Details</label><br>
+                    <textarea class="form-control input-lg" rows="4" id="preferred_partner_more_details" name="pp_more_details">${data[0].preferred_partner_more_details}</textarea><br>
+
+
+
+
+
+                </div>
+
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>DETAILS OF PERSON RESPOSIBLE FOR MARRAIGE NEGOTIATIONS</h3><br>
+
+                    <label for="PRname">* Name</label><br>
+                    <input class="form-control input-lg" type="text" id="PRname" name="n_name" value="${data[0].negotiator_name}" required><br>
+
+                    <label for="PRrel">*Relation With Candidate</label><br>
+                    <input class="form-control input-lg" type="text" id="PRrel" name="n_relation" value="${data[0].negotiator_relation}" required><br>
+
+                    
+
+                    <label for="PRmob">*Mobile Number</label><br>
+                    <input class="form-control input-lg" type="text" id="PRmob" name="n_mobile_no" value="${data[0].negotiator_mobile_no}" required><br>
+
+                    <label for="PRotherdetails">*Other Details</label><br>
+                    <textarea class="form-control input-lg" type="text" id="PRothers" name="n_other_details"  required>${data[0].negotiator_other_details}</textarea><br>
+
+                </div>
+
+
+
+                <div class="hline container-fluid"></div><br>
+
+                <div class="container form-group" style="letter-spacing: 1.5px;font-size: 18px;font-family:roboto">
+
+                    <h3>REFERENCES</h3><br>
+
+                    <label for="Raname">1. Name</label><br>
+                    <input class="form-control input-lg" type="text" id="Raname" name="ref1_name" value="${data[0].ref1_name}"><br>
+
+                    <label for="Ramob">Contact Number</label><br>
+                    <input class="form-control input-lg" type="text" id="Ramob" name="ref1_mob" value="${data[0].ref1_contact}"><br>
+
+
+                    <label for="Rbname">2. Name</label><br>
+                    <input class="form-control input-lg" type="text" id="Rbname" name="ref2_name" value="${data[0].ref2_name}"><br>
+
+                    <label for="Rbmob">Contact Number</label><br>
+                    <input class="form-control input-lg" type="text" id="Rbmob" name="ref2_mob" value="${data[0].ref2_contact}"><br>
+
+
+                    
+
+
+                </div>
+
+
+
+                <div class="container form-group" style="font-size: 18px;font-family:roboto">
+
+                    <input class="btn btn-custom btn-lg btn-block" type="submit" value="REGISTER">
+                </div>
+
+            </form>
+        </div>
+            `;
+                            document.getElementById('main_window').innerHTML = content;
+                        } else {
+                            alert('You have not registered yet !!');
+                        }
+                    } else {
+                        alert('something went wrong on the server');
+                    }
+
+                }
+            };
+
+            request.open('GET', '/entrycheck/' + mobile, true);
+            request.send(null);
+        }
+    </script>
+
+</body>
+
+</html>

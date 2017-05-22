@@ -1,17 +1,16 @@
-body
-{
+#title {
     width: 100%;
-    background-color: cornsilk;
-}
-#title
-{
-    margin-top: -2%;
-    text-align: center;
+    background-color: black;
     font-size: 25px;
-    text-decoration: underline;
+    border-style: double;
+    border-radius: 10px;
+    margin-bottom: 0.5%;
+    color: white;
+    margin-left: -0.5%;
+    padding-left: 0.5%;
 }
-.new_user
-{
+
+.new_user {
     font-size: 20px;
     text-align: center;
     width: 100%;
@@ -19,73 +18,80 @@ body
     text-decoration: underline;
     width: 80%;
     text-align: center;
-    border-color: green;
+    border-color: black;
     border-style: solid;
     border-width: medium;
     margin-left: 10%;
     padding-bottom: 1%;
-    
+    background-color: aliceblue;
+    border-radius: 10px;
 }
-.username_text
-{
+
+.username_text {
     font-size: 15px;
     text-decoration: underline;
 }
-.username_box
-{
+
+.username_box {
     padding-top: 0.3%;
     padding-bottom: 0.7%;
-    
 }
-.password
-{
+
+.password {
     font-size: 15px;
     text-decoration: underline;
 }
-.password_box
-{
+
+.password_box {
     padding-top: 0.3%;
     padding-bottom: 1%;
 }
-.btn-default
-{
 
-}
-.report
-{
+.btn-default {}
+
+.report {
     text-decoration: underline;
     width: 100%;
     text-align: center;
     font-size: 20px;
 }
-.headings
-{
+
+.headings {
     width: 100%;
     text-align: center;
     font-size: 20px;
 }
-.report-full
-{  
+
+.report-full {
     width: 80%;
     text-align: center;
-    border-color: red;
+    border-color: black;
     border-style: solid;
     border-width: medium;
     margin-left: 10%;
     margin-bottom: 2%;
+    background-color: aliceblue;
+    border-radius: 10px;
 }
-.logout
-{
-    margin-top: 1%;
-    margin-left: 45%;
+
+.logout {
+    margin-top: -41.5%;
+    margin-left: 80%;
     width: 10%;
     text-align: center;
     font-size: 30px;
-    border-color: black;
+    border-color: white;
     border-style: solid;
     border-width: medium;
     border-radius: 10px;
-    background-color: greenyellow;
 }
 
+a {
+    color: dodgerblue;
+    text-decoration: none;
+}
 
+span {
+    color: dodgerblue;
+    text-decoration: none;
+}

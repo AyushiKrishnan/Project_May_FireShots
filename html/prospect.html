@@ -173,30 +173,6 @@ add links to call-in and walk-in buttons.-->
 </html>
 
 <script type='text/javascript'>
-    function loadLogin() {
-        // Check if the user is already logged in
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status === 200) {
-                    loadLoggedInUser(this.responseText);
-                    // changediv(this.responseText);
-                }
-            }
-        };
-
-        request.open('GET', '/check-login', true);
-        request.send(null);
-    }
-
-    function loadLoggedInUser(username) {
-
-        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
-    }
-
-
-
-
     my_prosps = function() {
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
@@ -369,9 +345,9 @@ add links to call-in and walk-in buttons.-->
                     document.getElementById("partnerreligion").innerHTML = `<b>Preferred Partner Religion:</b>${data[i].preferred_partner_religion}`;
                     document.getElementById("partnerheight").innerHTML = `<b>Preferred Partner Height:</b>${data[i].preferred_partner_height}`;
                     document.getElementById("partnercaste").innerHTML = `<b>Preferred Partner Caste:</b>${data[i].preferred_partner_caste}`;
-                    document.getElementById("pic1").innerHTML = `<img src="uploads/${data[i].profile_pic_1}" />`;
-                    document.getElementById("pic2").innerHTML = `<img src="uploads/${data[i].profile_pic_2}" />`;
-                    document.getElementById("pic3").innerHTML = `<img src="uploads/${data[i].profile_pic_3}" />`;
+                    document.getElementById("pic1").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_1}" />`;
+                    document.getElementById("pic2").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_2}" />`;
+                    document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
                     var req = new XMLHttpRequest();
                     req.onreadystatechange = function() {
                         if (req.readyState === XMLHttpRequest.DONE) {
@@ -449,9 +425,28 @@ add links to call-in and walk-in buttons.-->
         request.send(null);
     }
 
+    function loadLogin() {
+        // Check if the user is already logged in
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    loadLoggedInUser(this.responseText);
+                    // changediv(this.responseText);
+                }
+            }
+        };
+
+        request.open('GET', '/check-login', true);
+        request.send(null);
+    }
+
+    function loadLoggedInUser(username) {
+
+        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+        my_prosps();
+    }
+
 
     loadLogin();
-
-
-    my_prosps();
 </script>

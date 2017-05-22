@@ -97,6 +97,20 @@ app.post('/updatestage',function(req,res){
             }
     });
 });
+app.get('/search-query/:mob',function(req,res){
+   var mob= req.params.mob;
+    pool.query('select * from user_details where mobile_no= $1',[mob],function(err,result){
+       
+        if(err)
+            {
+                res.status(500).send(err.toString());
+            }
+        else
+            {
+                res.send(JSON.stringify(result.rows));
+            }
+    });
+});
 app.get('/filter-query/:gender/:criteria/:value',function(req,res){
    
     var gender= req.params.gender;
@@ -266,6 +280,186 @@ app.post('/login', function(req, res) {
         }
     });
 });
+app.get('/entrycheck/:mob',function(req,res){
+    var mob= req.params.mob;
+    pool.query('select * from user_details where mobile_no=$1',[mob],function(err,result){
+       if(err)
+           {
+               res.status(500).send(err.toString());
+           }
+        else
+            {
+                res.send(JSON.stringify(result.rows));
+            }
+    });
+});
+app.post('/fulladd',function(req,res){
+   
+    var profile_id= req.body.profile_id;
+    var person_of_contact= req.body.person_of_contact;
+    var mobile_no =req.body.mobile_no;
+    var email= req.body.email;
+    var address = req.body.address;
+    var city = req.body.city;
+    var relation_with_candidate = req.body.relation_with_candidate;
+    var first_name= req.body.first_name;
+    var middle_name=req.body.middle_name;
+    var surname=req.body.surname;
+    var dob=req.body.dob;
+    var tob=req.body.tob;
+    var body_type=req.body.body_type;
+    var complexion =req.body.complexion;
+    var blood_g= req.body.blood_g;
+    var height= req.body.height;
+    var pwd= req.body.pwd;
+    var employment_details= req.body.employment_details;
+    var age= req.body.age;
+    var high_s= req.body.high_s;
+    var emp_status= req.body.emp_status;
+    var masters= req.body.masters;
+    var other_quali= req.body.other_quali;
+    var graduation = req.body.graduation;
+    var intermediate = req.body.intermediate;
+    var caste= req.body.caste;
+    var linkedin_id= req.body.linkedin_id;
+    var religion=req.body.religion;
+    var mother_tongue = req.body.mother_tongue;
+    var family_type = req.body.family_type;
+    var gotra = req.body.gotra;
+    var manglik= req.body.manglik;
+    var rashi = req.body.rashi;
+    var nakshtra=req.body.nakshtra;
+    var marital_status= req.body.marital_status;
+    var profile_pic_1= 'blank';
+    var profile_pic_2= 'blank';
+    var profile_pic_3='blank';
+    var facebook_id= req.body.facebook_id;
+    var details_of_family= req.body.details_of_family;
+    var about_father = req.body.about_father;
+    var details_of_father= req.body.details_of_father;
+    var about_mother= req.body.about_mother;
+    var details_of_mother = req.body.details_of_mother;
+    var pp_complexion= req.body.pp_complexion;
+    var pp_age= req.body.pp_age;
+    var pp_height= req.body.pp_height;
+    var sibling_details= req.body.sibling_details;
+    var pp_religion= req.body.pp_religion;
+    var pp_occupation= req.body.pp_occupation;
+    var pp_body_type= req.body.pp_body_type;
+    var pp_marital_status= req.body.pp_marital_status;
+    var pp_more_details= req.body.pp_more_details;
+    var family_values= req.body.family_values;
+    var pp_caste= req.body.pp_caste;
+    var gender= req.body.gender;
+    var education = req.body.education;
+    var pob= req.body.pob;
+    var weight= req.body.weight;
+    var annual_income= req.body.annual_income;
+    var more_candidate= req.body.more_candidate;
+    var fathers_contact = req.body.fathers_contact;
+    var mothers_contact = req.body.mothers_contact;
+    var n_name= req.body.n_name;
+    var n_mobile_no= req.body.n_mobile_no;
+    var n_relation = req.body.n_relation;
+    var n_other_details= req.body.n_other_details;
+    var ref1_name= req.body.ref1_name;
+    var ref1_mob= req.body.ref1_mob;
+    var ref2_name= req.body.ref2_name;
+    var ref2_mob=req.body.ref2_mob;
+    var pp_mother_tongue= req.body.pp_mother_tongue;
+    var pp_family_type= req.body.pp_family_type;
+    var pp_family_values=req.body.pp_family_values;
+    /*console.log(profile_id);
+    console.log(person_of_contact);
+    console.log(mobile_no);
+    console.log(email);
+    console.log(address);
+    console.log(relation_with_candidate);
+    console.log(city);
+    console.log(first_name);
+    console.log(middle_name);
+    console.log(surname);
+    console.log(dob);
+    console.log(tob);
+    console.log(body_type);
+    console.log(complexion);
+    console.log(blood_g);
+    console.log(height);
+    console.log(pwd);
+    console.log(employment_details);
+    console.log(age);
+    console.log(high_s);
+    console.log(emp_status);
+    console.log(masters);
+    console.log(other_quali);
+    console.log(graduation);
+    console.log(intermediate);
+    console.log(caste);
+    console.log(linkedin_id);
+    console.log(religion);
+    console.log(mother_tongue);
+    console.log(family_type);
+    console.log(gotra);
+    console.log(manglik);
+    console.log(rashi);
+    console.log(nakshtra);
+    console.log(marital_status);
+    console.log(facebook_id);
+    console.log(details_of_family);
+    console.log(about_father);
+    console.log(details_of_father);
+    console.log(pp_age);
+    console.log(pp_body_type);
+    console.log(pp_caste);
+    console.log(pp_complexion);
+    console.log(pp_family_type);
+    console.log(pp_family_values);
+    console.log(pp_height);
+    console.log(pp_marital_status);
+    console.log(pp_more_details);
+    console.log(pp_mother_tongue);
+    console.log(pp_religion);
+    console.log(about_mother);
+    console.log(details_of_mother);
+    console.log(sibling_details);
+    console.log(family_values);
+    console.log(gender);
+    console.log(education);
+    console.log(pob);
+    console.log(weight);
+    console.log(annual_income);
+    console.log(more_candidate);
+    console.log(fathers_contact);
+    console.log(mothers_contact);
+    console.log(n_mobile_no);
+    console.log(n_name);
+    console.log(n_other_details);
+    console.log(n_relation);
+    console.log(ref1_name);
+    console.log(ref1_mob);
+    console.log(ref2_name);*/
+    pool.query('update user_details set profile_id=$1,person_of_contact=$2,mobile_no=$3,address=$5,email=$4,relation_with_candidate=$6,city=$7,candidate_first_name=$8,candidate_middle_name=$9,candidate_surname=$10,date_of_birth=$11,time_of_birth=$12,body_type=$13,complexion=$14,blood_group=$15,height=$16,physically_challenged=$17,employment_details=$18,age=$19,high_school=$20,employment_status=$21,masters=$22,other_qualification=$23,graduation=$24,intermediate=$25,caste=$26,linkedin_id=$27,religion=$28,mother_tongue=$29,family_type=$30,gotra=$31,manglik=$32,rashi=$33,nakshtra=$34,marital_status=$35,facebook_id=$36,profile_pic_2=$37,details_of_family=$38,about_father=$39,details_of_father=$40,about_mother=$41,details_of_mother=$42,preferred_partner_complexion=$43,preferred_partner_age=$44,preferred_partner_height=$45,sibling_details=$46,profile_pic_3=$47,preferred_partner_religion=$48,preferred_partner_occupation=$49,preferred_partner_body_type=$50,preferred_partner_marital_status=$51,preferred_partner_more_details=$52,profile_pic_1=$53,family_values=$54,preferred_partner_caste=$55,gender=$56,education=$57,place_of_birth=$58,weight=$59,annual_income=$60,more_about_candidate=$61,fathers_contact=$62,mothers_contact=$63,negotiator_name=$64,negotiator_mobile_no=$65,negotiator_relation=$66,negotiator_other_details=$67,ref1_name=$68,ref1_contact=$69,ref2_name=$70,ref2_contact=$71,preferred_partner_mother_tongue=$72,preferred_partner_family_type=$73,preferred_partner_family_values=$74 where profile_id=$1',[profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,first_name,middle_name,surname,dob,tob,body_type,complexion,blood_g,height,pwd,employment_details,age,high_s,emp_status,masters,other_quali,graduation,intermediate,caste,linkedin_id,religion,mother_tongue,family_type,gotra,manglik,rashi,nakshtra,marital_status,facebook_id,profile_pic_2,details_of_family,about_father,details_of_father,about_mother,details_of_mother,pp_complexion,pp_age,pp_height,sibling_details,profile_pic_3,pp_religion,pp_occupation,pp_body_type,pp_marital_status,pp_more_details,profile_pic_1,family_values,pp_caste,gender,education,pob,weight,annual_income,more_candidate,fathers_contact,mothers_contact,n_name,n_mobile_no,n_relation,n_other_details,ref1_name,ref1_mob,ref2_name,ref2_mob,pp_mother_tongue,pp_family_type,pp_family_values],function(err,result){
+       
+        if(err)
+            {
+                res.status(500).send(err.toString());
+            }
+        else
+            {   
+                
+                res.redirect(`/upload_photo_form/${profile_id}/1`);
+            
+            }
+    });
+    
+});
+
+app.get('/redirect',function(req,res){
+   var htmltemplate= `<div style="text-align:center">
+                        <h2> Done !</h2><br>
+                          <a href='/html/dashboard.html'>Click to return to main menu !</a></div>`;
+    res.send(htmltemplate);
+});
 app.post('/quickadd',function(req,res){
    var pid= req.body.pid;
     var mob_no=req.body.mob_no;
@@ -386,7 +580,7 @@ app.post('/checkupdate',function(req,res){
     pool.query('insert into call_walkin_history values($1,$2,$3,$4,$5,$6,$7,$8,$9)',[profile_id,contact_date,mob_no,call_details,itype,call_resp,next_date,apt,type],function(err,result){
        if(err)
            {
-               res.staus(500).send(err.toString());
+               res.status(500).send(err.toString());
            }
         else
             {  
@@ -774,7 +968,10 @@ app.get('/displayapt',function(req,res){
                         }
     });
 });
-app.post('/api/photo/:id', function(req, res) {
+app.post('/api/photo/:id/:no', function(req, res) {
+    var no=req.params.no;
+    if(no==='1')
+        {
     upload(req, res, function(err) {
         if (err) {
             return res.end("Error uploading file.");
@@ -784,10 +981,80 @@ app.post('/api/photo/:id', function(req, res) {
                 {
                console.log(req.file.originalname);
                 console.log(req.file.filename);
-                //console.log(req.file.userPhoto.name);
-                //console.log(req.files.extension);
-                //console.log(req.files.encoding);
-                pool.query('update test set dp=$1 where profile_id=$2',[req.file.filename,req.params.id],function(err,result){
+                
+                pool.query('update user_details set profile_pic_1=$1 where profile_id=$2',[req.file.filename,req.params.id],function(err,result){
+                if(err)
+                    {
+                        res.status(500).send(err.toString());
+                        
+                    }
+                    else
+                        {  //controlwrite=0;
+                            var htmltemp=` <h3> 1st Photo Successfully uploaded </h3><hr><br> <a href='/upload_photo_form/${req.params.id}/2'>Proceed For Second </a>`;
+                            res.send(htmltemp);
+                        }
+                
+                
+            });
+                }
+             else
+                 {
+                     var htmltemplate = ` <h1> You are uploading a empty file ! </h1><br><a href="/upload_photo_form/${req.params.id}/2">To Skip </a> <br>
+                                                <a href='/upload_photo_form/${req.params.id}/1'>Click to upload it again </a>`;
+                     res.send(htmltemplate);
+                 }
+            }
+    });
+        }
+    if(no==='2')
+        {
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
+        }
+        else
+            {   if(req.file)
+                {
+               console.log(req.file.originalname);
+                console.log(req.file.filename);
+                
+                pool.query('update user_details set profile_pic_2=$1 where profile_id=$2',[req.file.filename,req.params.id],function(err,result){
+                if(err)
+                    {
+                        res.status(500).send(err.toString());
+                        
+                    }
+                    else
+                        {  //controlwrite=0;
+                            var htmltemp=` <h3> 2nd Photo Successfully uploaded </h3><hr><br> <a href='/upload_photo_form/${req.params.id}/3'>Proceed For Third</a>`;
+                            res.send(htmltemp);
+                        }
+                
+                
+            });
+                }
+             else
+                 {
+                     var htmltemplate = ` <h1> You are uploading a empty file ! </h1><br><a href="/upload_photo_form/${req.params.id}/3">To Skip </a> <br>
+                                                <a href='/upload_photo_form/${req.params.id}/2'>Click to upload it again </a>`;
+                     res.send(htmltemplate);
+                 }
+            }
+    });
+        }
+    if(no==='3')
+        {
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
+        }
+        else
+            {   if(req.file)
+                {
+               console.log(req.file.originalname);
+                console.log(req.file.filename);
+                
+                pool.query('update user_details set profile_pic_3=$1 where profile_id=$2',[req.file.filename,req.params.id],function(err,result){
                 if(err)
                     {
                         res.status(500).send(err.toString());
@@ -804,11 +1071,13 @@ app.post('/api/photo/:id', function(req, res) {
              else
                  {
                      var htmltemplate = ` <h1> You are uploading a empty file ! </h1><br><a href="/redirect">To Skip </a> <br>
-                                                <a href='/upload_photo_form/${req.params.id}'>Click to upload it again </a>`;
+                                                <a href='/upload_photo_form/${req.params.id}/3'>Click to upload it again </a>`;
                      res.send(htmltemplate);
                  }
             }
     });
+        }
+    
 });
 
 
@@ -819,19 +1088,29 @@ app.get('/uploads/:photoid',function(req,res){
     else
    res.sendFile(path.join(__dirname,'uploads',req.params.photoid)); 
 });
-app.get('/upload_photo_form/:id',function(req,res){
+app.get('/upload_photo_form/:id/:no',function(req,res){
     var id=req.params.id;
+    var no= req.params.no;
+    var skippart='';
+    if(no==='1')
+        skippart=`/upload_photo_form/${id}/2`;
+    else
+        if(no==='2')
+        skippart=`/upload_photo_form/${id}/3`;
+    else
+        skippart='/redirect';
    var htmltemplate= `<div style="text-align=center">
-          <span id="profileId">${id}</span>
+                <span style="text-align:center"> Upload Profile Pictures - ${no}</span><br>
+          <span id="profileId">${id}</span><hr><br>
           <form id        =  "uploadForm"
      enctype   =  "multipart/form-data"
-     action    =  "/api/photo/${id}"
+     action    =  "/api/photo/${id}/${no}"
      method    =  "post"
 >
 <input type="file" name="userPhoto" />
 <input type="submit" value="Upload Image" name="submit">
 </form>
-<br><span><a href='/redirect'>Skip</a></span></div>`;
+<br><span><a href=${skippart}>Skip</a></span></div>`;
     res.send(htmltemplate);
     
 });
