@@ -45,6 +45,7 @@
                 <li><a href="/html/prospect.html">Prospects</a></li>
                 <li><a href="/html/payment.html">Payment</a></li>
                 <li><a href="/html/query.html">Query</a></li>
+                <li><a href="/html/compare.html">Compatibility Match</a></li>
             </ul>
         </div>
     </nav>
@@ -53,8 +54,11 @@
         <div class="col-sm-2">
             <div id="afterlogin">
                 <br>
-                <p><b>Leads </b><span id="countleads" class="badge"></span></p><br>
+                <p><b>Leads </b><span id="countleads" class="badge"></span></p>
                 <p><b>Prospects </b><span id="countprospects" class="badge"></span></p>
+                <p><b>Walk-in </b><span id="no_of_walkin" class="badge"></span></p>
+                <p><b>Call-in </b><span id="no_of_callin" class="badge"></span></p>
+                <p><b>Paid Members </b><span id="paid_members" class="badge"></span></p>
 
             </div>
 
@@ -73,6 +77,8 @@
                             <th>Contact Date</th>
                             <th>Call-in Update</th>
                             <th>Walk-in Update</th>
+                            <th>Stage</th>
+                            <th>Print Profie</th>
 
                         </tr>
                     </thead>
@@ -94,6 +100,8 @@
                             <th>Contact Date</th>
                             <th>Call-in Update</th>
                             <th>Walk-in Update</th>
+                            <th>Stage</th>
+                            <th>Print Profie</th>
                         </tr>
                     </thead>
 
@@ -237,7 +245,7 @@
                         var m = new Date(`${data[i].contact_date}`);
                         // alert(data[i].appointment);
                         var k = new Date(`${data[i].next_followup_date}`); //imp line of date conversion
-                        console.log(k.toDateString());
+                        console.log(k);
                         if (data[i].type_call_walkin === 0) {
                             cw = "Call";
 
@@ -249,14 +257,14 @@
                                 aptcontent += `<tr><td><div class="myprofile">
                                                                                      
                                                                                           <input type="submit" class="view" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');">
-                                                                                          </div></td><td>${cw}</td><td>${data[i].contact_no}</td><td>${m.toDateString()}</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                                                                          </div></td><td>${cw}</td><td>${data[i].contact_no}</td><td>${m.toDateString()}</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td>${data[i].stage}</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
 
                             } else {
                                 // console.log('followup');
                                 followcontent += `<tr><td><div class="myprofile">
                                                                                      
                                                                                            <input type="submit" class="view" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');">
-                                                                                          </div></td><td>${cw}</td><td>${data[i].contact_no}</td><td>${m.toDateString()}</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                                                                          </div></td><td>${cw}</td><td>${data[i].contact_no}</td><td>${m.toDateString()}</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td>${data[i].stage}</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
                             }
                         }
 
@@ -276,7 +284,7 @@
                 }
             }
         };
-        request.open('GET', '/displayapt', true);
+        request.open('GET', '/displayapt1', true);
         request.send(null);
 
     }
@@ -453,6 +461,68 @@
 
     }
 
+    function callin() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    var l = this.responseText;
+                    document.getElementById("no_of_callin").innerHTML = l;
+
+
+                }
+
+            }
+        };
+
+        request.open('GET', '/no_of_callins', true);
+        request.send(null);
+
+
+    }
+    callin();
+
+    function walkin() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    var l = this.responseText;
+                    document.getElementById("no_of_walkin").innerHTML = l;
+
+
+                }
+
+            }
+        };
+
+        request.open('GET', '/no_of_walkins', true);
+        request.send(null);
+
+
+    }
+    walkin();
+
+    function paid_m() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    var l = this.responseText;
+                    document.getElementById("paid_members").innerHTML = l;
+
+
+                }
+
+            }
+        };
+
+        request.open('GET', '/no_of_paidmembers', true);
+        request.send(null);
+
+
+    }
+
     function prospects() {
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
@@ -471,6 +541,7 @@
         request.send(null);
 
     }
+    paid_m();
 
     function loadLogin() {
         // Check if the user is already logged in

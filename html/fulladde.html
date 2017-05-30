@@ -412,18 +412,18 @@
                                <label for="employmenttype">*Employment Type</label><br>
 
         <label class="checkbox-inline">
-            <input type="checkbox" name="employment_type" value="Business">Bussiness
+            <input type="checkbox" name="employment_type" value="">Bussiness
         </label>
         <label class="checkbox-inline">
-            <input type="checkbox" name="employment_type" value="Service">Service
+            <input type="checkbox" name="employment_type" value="">Service
         </label> 
             
         <label class="checkbox-inline">
-            <input type="checkbox" name="employment_type" value="Self-Employed">Self-Employed
+            <input type="checkbox" name="employment_type" value="">Self-Employed
         </label> 
             
         <label class="checkbox-inline">
-            <input type="checkbox" name="employment_type" value="Currently Unemployed">Currently Unemployed
+            <input type="checkbox" name="employment_type" value="">Currently Unemployed
         </label> <br>
                     
 
@@ -941,9 +941,13 @@
             </select>    <br>    
 
 
-               <label for="preferredpartneroccupation">*Preferred Partner's  Occupation</label><br>
- 
-        <select multiple class="form-control input-lg" id="preferred_partner_occupationt" name="pp_occupation" required>
+
+
+
+                    <label for="preferredpartneroccupation">*Preferred Partner's  Occupation</label><br>
+                    
+                   
+<select class="form-control input-lg" id="preferred_partner_occupationt" name="pp_occupation" value="${data[0].preferred_partner_occupation}required>
         <option>Any</option>
         <option>Software Professional</option>
         <option>Hardware Professional</option>
@@ -1015,25 +1019,29 @@
     
         <p>NB: Multiple select list: hold ctrl to select more than one</p>
         <br>    
-        
+
+       <br>
+       <br>
+       <hr>
 
 
-                   
+
+            <label for="ppfamilyvalues">*Preferred Partner's Family Values</label><br>
+                    <select class="form-control input-lg" id="ppfamily_values" name="pp_family_values" value="${data[0].preferred_partner_family_values}">
+            <option>Conservative</option>
+            <option>Traditional</option>
+            <option>Moderate</option>
+            <option>Liberal</option>
+            <option>Any</option>
+            </select><br>
+
+
                     <label for="ppfamilytype">*Preferred Partner's Family Type</label><br>
                     <select class="form-control input-lg" id="ppfamily_type" name="pp_family_type" value="${data[0].preferred_partner_family_type}">
             <option>Any</option>
             <option>Nuclear</option>
             <option>Joint</option>
             </select><br>
-            <label for="ppfamilyvalues">*Preferred Partner's Family Values</label><br>
-            <select  class="form-control input-lg"  id="ppfamily_values" name="pp_family_values">
-            <option>Conservative</option>
-            <option>Traditional</option>
-            <option>Moderate</option>
-            <option>Liberal</option>
-            <option>Any</option>
-            </select><br>   
-            
 
 
 

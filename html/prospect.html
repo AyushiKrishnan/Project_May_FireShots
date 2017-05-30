@@ -60,6 +60,7 @@ add links to call-in and walk-in buttons.-->
                             <th class='col-sm-1'>Call-in Update</th>
                             <th class='col-sm-1'>Walk-in Update</th>
                             <th class='col-sm-1'>Stage</th>
+                            <th class='col-sm-1'>Print/Email</th>
                         </tr>
                     </thead>
                     <tbody id='prosps_table'>
@@ -222,7 +223,7 @@ add links to call-in and walk-in buttons.-->
                             default:
                                 stagename = "-";
                         }
-                        content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td></tr>`;
+                        content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
                     }
                     document.getElementById('prosps_table').innerHTML = content;
                 } else if (request.status === 403) {

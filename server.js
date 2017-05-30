@@ -5,7 +5,8 @@ var Pool = require('pg').Pool;
 var bodyParser = require('body-parser'); //parsing post request data using JSON
 var multer = require('multer'); //for file  uploading system
 var session = require('express-session'); //for cookies and session
-
+var nodemailer = require('nodemailer');
+var xoauth2= require('xoauth2');
 
 var config = {
     user: 'postgres',
@@ -17,7 +18,6 @@ var config = {
 var date= new Date();
 var strdate = date.toLocaleDateString();
 console.log(strdate);
-//var global_id_control = 0;
 var app = express();
 var pool = new Pool(config);
 //var pid;
@@ -51,8 +51,82 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('userPhoto');
 //end photo upload
-app.get('/',function(req,res){
+
+app.post('/send_email', function (req, res) {
+    var email_pid = req.body.email_pid;
+    var content = req.body.content;
+   // var email='';
+    var pic_1=  req.body.pic_1;
+    console.log(pic_1);
+    var pid = req.body.pid;
+    var profileid=req.body.profileid;
+    if(pic_1==='blank'||pic_1===''||pic_1==='NULL')
+        pic_1='blank.jpg';
+    var querys= `update user_status set service_details = concat('${pid},',service_details) where profile_id='${profileid}'`;
+    console.log(profileid);
+    console.log(pid);
+    console.log(querys);
+    console.log(pic_1);
     
+   // var email_addrs = req.body.email_addrs;
+    //var para  = req.body.para;
+    
+    
+
+    let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            type: 'OAuth2',
+            clientId: '213919874528-gjprntcmi6ec84v1tjvuej93g5f4jg6s.apps.googleusercontent.com',
+            clientSecret: 'miE133Gy4PRGk4ePq1tC2kVS'
+        }
+    });
+
+    transporter.sendMail({
+        from: 'Greetings from Vivaah Centre <vivaahcentre@gmail.com>',
+        to: email_pid,
+        subject: 'Sending Profile',
+        html: content+`<br><img src="cid:${pic_1}@emailer.com"/>`,
+        attachments: [{
+            filename: pic_1,
+            //path: 'C:/Users/Anwesh/desktop/web/public/B215015.jpg',
+            path: path.join(__dirname,'uploads', pic_1),
+            cid: pic_1+'@emailer.com' //same cid value as in the html img src
+        }],
+
+       
+        auth: {
+            user: 'vivaahcentre@gmail.com',
+            refreshToken: '1/6wwQF0B-iWEkCMIL5q1N-4SNRmJKpDE--mSJEB9zq5A',
+            accessToken: 'ya29.GltYBMTPTZKRtpNZ1vLp7B8pTu576hfD3xrBUfbznLBG4dyZ-tumOTq29zgKO9O0BHFt2LlYkWm21mdtk-ABwRF1qGxzbbGab2HgdE1tqq4vXpI_wK17kTL7HjNg',
+            expires: 1484314697598
+        }
+    } , (error, info) => {
+        if(error){
+            res.status(500).send(error.toString());
+            return console.log(error);
+        }
+        pool.query(querys,function(err,result){
+           
+            if(err)
+                {
+                    res.status(500).send(err.toString());
+                }
+            else
+                {
+                     res.send('Email sent successfully !');
+        console.log("the message was sent! and service details updated !");
+        console.log(info);
+                }
+        });
+       
+        
+    });
+
+    });
+
+
+app.get('/',function(req,res){
    res.sendFile(path.join(__dirname,'html','Login.html')); 
 });
 app.get('/html/:filename',function(req,res){
@@ -369,6 +443,28 @@ app.post('/fulladd',function(req,res){
     var pp_mother_tongue= req.body.pp_mother_tongue;
     var pp_family_type= req.body.pp_family_type;
     var pp_family_values=req.body.pp_family_values;
+    var c_email=  req.body.cemail;
+    var c_mobile_no= req.body.cmobile_no;
+    var ca_email =  req.body.caemail;
+    var ca_mobile_no = req.body.camobile_no;
+    var c_address=  req.body.caddress;
+    var c_pincode= req.body.cpincode;
+    var c_state=  req.body.cstate;
+    var c_city = req.body.ccity;
+    var c_nationality= req.body.cnationality;
+    var graduation_institute = req.body.graduation_institute;
+    var masters_institute= req.body.masters_institute;
+    var other_institute = req.body.other_institute;
+    var employer_details= req.body.employer_details;
+    var employment_type= req.body.employment_type;
+    var fathers_name= req.body.fathers_name;
+    var mothers_name= req.body.mothers_name;
+    var no_brothers =req.body.no_brothers;
+    var no_sisters = req.body.no_sisters;
+    var brother_marital= req.body.brother_marital;
+    var sister_marital= req.body.sister_marital;
+    var pp_education = req.body.pp_education;
+    
     /*console.log(profile_id);
     console.log(person_of_contact);
     console.log(mobile_no);
@@ -438,7 +534,7 @@ app.post('/fulladd',function(req,res){
     console.log(ref1_name);
     console.log(ref1_mob);
     console.log(ref2_name);*/
-    pool.query('update user_details set profile_id=$1,person_of_contact=$2,mobile_no=$3,address=$5,email=$4,relation_with_candidate=$6,city=$7,candidate_first_name=$8,candidate_middle_name=$9,candidate_surname=$10,date_of_birth=$11,time_of_birth=$12,body_type=$13,complexion=$14,blood_group=$15,height=$16,physically_challenged=$17,employment_details=$18,age=$19,high_school=$20,employment_status=$21,masters=$22,other_qualification=$23,graduation=$24,intermediate=$25,caste=$26,linkedin_id=$27,religion=$28,mother_tongue=$29,family_type=$30,gotra=$31,manglik=$32,rashi=$33,nakshtra=$34,marital_status=$35,facebook_id=$36,profile_pic_2=$37,details_of_family=$38,about_father=$39,details_of_father=$40,about_mother=$41,details_of_mother=$42,preferred_partner_complexion=$43,preferred_partner_age=$44,preferred_partner_height=$45,sibling_details=$46,profile_pic_3=$47,preferred_partner_religion=$48,preferred_partner_occupation=$49,preferred_partner_body_type=$50,preferred_partner_marital_status=$51,preferred_partner_more_details=$52,profile_pic_1=$53,family_values=$54,preferred_partner_caste=$55,gender=$56,education=$57,place_of_birth=$58,weight=$59,annual_income=$60,more_about_candidate=$61,fathers_contact=$62,mothers_contact=$63,negotiator_name=$64,negotiator_mobile_no=$65,negotiator_relation=$66,negotiator_other_details=$67,ref1_name=$68,ref1_contact=$69,ref2_name=$70,ref2_contact=$71,preferred_partner_mother_tongue=$72,preferred_partner_family_type=$73,preferred_partner_family_values=$74 where profile_id=$1',[profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,first_name,middle_name,surname,dob,tob,body_type,complexion,blood_g,height,pwd,employment_details,age,high_s,emp_status,masters,other_quali,graduation,intermediate,caste,linkedin_id,religion,mother_tongue,family_type,gotra,manglik,rashi,nakshtra,marital_status,facebook_id,profile_pic_2,details_of_family,about_father,details_of_father,about_mother,details_of_mother,pp_complexion,pp_age,pp_height,sibling_details,profile_pic_3,pp_religion,pp_occupation,pp_body_type,pp_marital_status,pp_more_details,profile_pic_1,family_values,pp_caste,gender,education,pob,weight,annual_income,more_candidate,fathers_contact,mothers_contact,n_name,n_mobile_no,n_relation,n_other_details,ref1_name,ref1_mob,ref2_name,ref2_mob,pp_mother_tongue,pp_family_type,pp_family_values],function(err,result){
+    pool.query('update user_details set profile_id=$1,person_of_contact=$2,mobile_no=$3,address=$5,email=$4,relation_with_candidate=$6,city=$7,candidate_first_name=$8,candidate_middle_name=$9,candidate_surname=$10,date_of_birth=$11,time_of_birth=$12,body_type=$13,complexion=$14,blood_group=$15,height=$16,physically_challenged=$17,employment_details=$18,age=$19,high_school=$20,employment_status=$21,masters=$22,other_qualification=$23,graduation=$24,intermediate=$25,caste=$26,linkedin_id=$27,religion=$28,mother_tongue=$29,family_type=$30,gotra=$31,manglik=$32,rashi=$33,nakshtra=$34,marital_status=$35,facebook_id=$36,profile_pic_2=$37,details_of_family=$38,about_father=$39,details_of_father=$40,about_mother=$41,details_of_mother=$42,preferred_partner_complexion=$43,preferred_partner_age=$44,preferred_partner_height=$45,sibling_details=$46,profile_pic_3=$47,preferred_partner_religion=$48,preferred_partner_occupation=$49,preferred_partner_body_type=$50,preferred_partner_marital_status=$51,preferred_partner_more_details=$52,profile_pic_1=$53,family_values=$54,preferred_partner_caste=$55,gender=$56,education=$57,place_of_birth=$58,weight=$59,annual_income=$60,more_about_candidate=$61,fathers_contact=$62,mothers_contact=$63,negotiator_name=$64,negotiator_mobile_no=$65,negotiator_relation=$66,negotiator_other_details=$67,ref1_name=$68,ref1_contact=$69,ref2_name=$70,ref2_contact=$71,preferred_partner_mother_tongue=$72,preferred_partner_family_type=$73,preferred_partner_family_values=$74,c_email=$75,c_mobile_no=$76,ca_email=$77,ca_mobile_no=$78,c_address=$79,c_pincode=$80,c_state=$81,c_city=$82,c_nationality=$83,graduation_institute=$84,masters_institute=$85,other_institute=$86,employer_details=$87,employment_type=$88,fathers_name=$89,mothers_name=$90,no_brothers=$91,brother_marital=$92,no_sisters=$93,sister_marital=$94,preferred_partner_education=$95 where profile_id=$1',[profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,first_name,middle_name,surname,dob,tob,body_type,complexion,blood_g,height,pwd,employment_details,age,high_s,emp_status,masters,other_quali,graduation,intermediate,caste,linkedin_id,religion,mother_tongue,family_type,gotra,manglik,rashi,nakshtra,marital_status,facebook_id,profile_pic_2,details_of_family,about_father,details_of_father,about_mother,details_of_mother,pp_complexion,pp_age,pp_height,sibling_details,profile_pic_3,pp_religion,pp_occupation,pp_body_type,pp_marital_status,pp_more_details,profile_pic_1,family_values,pp_caste,gender,education,pob,weight,annual_income,more_candidate,fathers_contact,mothers_contact,n_name,n_mobile_no,n_relation,n_other_details,ref1_name,ref1_mob,ref2_name,ref2_mob,pp_mother_tongue,pp_family_type,pp_family_values,c_email,c_mobile_no,ca_email,ca_mobile_no,c_address,c_pincode,c_state,c_city,c_nationality,graduation_institute,masters_institute,other_institute,employer_details,employment_type,fathers_name,mothers_name,no_brothers,brother_marital,no_sisters,sister_marital,pp_education],function(err,result){
        
         if(err)
             {
@@ -471,6 +567,7 @@ app.post('/quickadd',function(req,res){
     var gender=req.body.gender;
     var username = req.session.auth.username;
     var stage=0;
+    var service_details ='';
     
     pool.query('insert into user_details (profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,gender) values($1,$2,$3,$4,$5,$6,$7,$8)',[pid,person_of_c,mob_no,email,address,relation,city,gender],function(err,result){
        if(err)
@@ -480,7 +577,7 @@ app.post('/quickadd',function(req,res){
         else
             {
                 
-                pool.query('insert into user_status values ($1,$2,$3,$4,$5)',[pid,person_of_c,mob_no,username,stage],function(err,result){
+                pool.query('insert into user_status values ($1,$2,$3,$4,$5,$6)',[pid,person_of_c,mob_no,username,stage,service_details],function(err,result){
                    if(err)
                        {
                            res.status(500).send(err.toString()+'<br><h3>Kindly Go Back on your browser and take required measures</h3>')
@@ -565,6 +662,7 @@ app.post('/checkupdate',function(req,res){
     var apt= req.body.apt;
     var next_date= req.body.fdate;
     var stage= req.body.stage;
+    var username=req.session.auth.username;
     
   /*  console.log('pid'+profile_id);
     console.log('type'+type);
@@ -577,7 +675,7 @@ app.post('/checkupdate',function(req,res){
     console.log(next_date);
     console.log(stage);
     res.end();*/
-    pool.query('insert into call_walkin_history values($1,$2,$3,$4,$5,$6,$7,$8,$9)',[profile_id,contact_date,mob_no,call_details,itype,call_resp,next_date,apt,type],function(err,result){
+    pool.query('insert into call_walkin_history values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[profile_id,contact_date,mob_no,call_details,itype,call_resp,next_date,apt,type,username],function(err,result){
        if(err)
            {
                res.status(500).send(err.toString());
@@ -691,10 +789,15 @@ app.get('/cwupdate/:id',function(req,res){
                 <div class="form-group">
                     <label class="col-sm-2" for="contacteddate">Contacted On:</label>
                     <div class="col-sm-10" id="contact">
-                        <input type="text" class="form-control" placeholder="Format (YYYY-MM-DD)" name="cdate" </input>
+                        <input type="date" class="form-control" name="cdate" </input>
                     </div>
                 </div>
-
+                  <div class="form-group">
+                    <label class="col-sm-2" for="servicedetail">Call Details:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" name="service_details" id="service_details" placeholder="Enter Call Details"></textarea>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2" for="calldetail">Call Details:</label>
                     <div class="col-sm-10">
@@ -743,7 +846,7 @@ app.get('/cwupdate/:id',function(req,res){
                         <label><input type="checkbox" name="stage" value="0"> Lead</label>
                         <label><input type="checkbox" name="stage" value="1"> Prospect</label>
                         <label><input type="checkbox" name="stage" value="2"> Opportunity</label>
-                        <label><input type="checkbox" name="stage" value="3"> Already Member</label>
+                        <label><input type="checkbox" name="stage" value="3"> Paid Member</label>
                         <label><input type="checkbox" name="stage" value="4"> Retain Stage </label>
 
                     </div>
@@ -754,7 +857,7 @@ app.get('/cwupdate/:id',function(req,res){
                     <label class="col-sm-2" for="followupdate">Next Follow Up Date:</label>
                     <div class="col-sm-10" id="followup">
 
-                        <input type="text" class="form-control" placeholder="Format (YYYY-MM-DD)" name="fdate" </input>
+                        <input type="date" class="form-control" name="fdate" </input>
                     </div>
                 </div>
                 <div class="form-group">
@@ -776,6 +879,180 @@ app.get('/cwupdate/:id',function(req,res){
 </html>` ;
     res.send(htmltemplate);
 });
+app.get('/printprofile/:id',function(req,res){
+   var id= req.params.id;
+    var htmltemplate= `<!DOCTYPE html>
+<style>
+
+</style>
+<html>
+
+<head>
+    <title>
+        Print Profile
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+        
+                    <div id="content" class="container" style="width:inherit">
+                        
+                            <p id="profileid">${id}</p>
+                            <p id="email"></p>
+                            <p id="firstname"></p>
+                            <p id="address"></p>
+                            <p id="tob"></p>
+                            <p id="height"></p>
+                            <p id="pwd"></p>
+                            <p id="highschool"></p>
+                            <p id="masters"></p>
+                            <p id="mothertongue"></p>
+                            <p id="gotra"></p>
+                            <p id="manglik"></p>
+                            <p id="familytype"></p>
+                            <p id="fatherdetail"></p>
+                            <p id="siblingdetail"></p>
+                            <p id="partnercomplexion"></p>
+                            <p id="partneroccupation"></p>
+                            <br>
+                            <br>
+                            <div id="pic1"></div>
+                
+                        
+                            <p id="contactperson"></p>
+                            <p id="mobile"></p>
+                            <p id="middlename"></p>
+                            <p id="city"></p>
+                            <p id="dob"></p>
+                            <p id="bodytype"></p>
+                            <p id="bloodgp"></p>
+                            <p id="employmentstatus"></p>
+                            <p id="intermediate"></p>
+                            <p id="otherqualification"></p>
+                            <p id="religion"></p>
+                            <p id="nakshatra"></p>
+                            <p id="familydetail"></p>
+                            <p id="aboutmother"></p>
+                            <p id="partnerage"></p>
+                            <p id="partnerbodytype"></p>
+                            <p id="partnermaritalstatus"></p>
+                            <p id="partnermoredetail"></p>
+                            <br>
+                            <br>
+                            <div id="pic2"></div>
+                
+                        
+                            <p id="gender"></p>
+                            <p id="linkedid"></p>
+                            <p id="lastname"></p>
+                            <p id="relation"></p>
+                            <p id="complexion"></p>
+                            <p id="age"></p>
+                            <p id="employmentdetail"></p>
+                            <p id="graduation"></p>
+                            <p id="fbid"></p>
+                            <p id="caste"></p>
+                            <p id="rashi"></p>
+                            <p id="maritalstatus"></p>
+                            <p id="familyvalues"></p>
+                            <p id="aboutfather"></p>
+                            <p id="motherdetail"></p>
+                            <p id="partnerreligion"></p>
+                            <p id="partnerheight"></p>
+                            <p id="partnercaste"></p>
+                            
+
+
+
+                            <br>
+                            <br>
+                            <div id="pic3"></div>
+            
+
+                    </div>
+                    <br>
+                    <br>
+                   <a href="/html/dashboard.html">Go to Dashboard</a><br>
+                   <button onclick="myFunction()">Print this page</button><br>
+<input type="text" id="_pid" placeholder="Enter Profile ID "><br>
+                   <input type="text" id="email_pid" placeholder="Enter Email">
+                   <button onclick="email()">Email</button>&nbsp&nbsp&nbsp<span id="loading"></span>
+
+
+                </div>
+
+                
+
+                   
+
+                
+
+            
+
+        
+    <script type="text/javascript" src="/script/printprofile.js"></script>
+</body>
+
+</html>
+
+
+`;
+    res.send(htmltemplate);
+});
+app.get('/no_of_walkins',function(req,res){
+    var username=req.session.auth.username;
+    pool.query('select * from call_walkin_history where type_call_walkin= 1 and emp_username=$1',[username],function(err,result){
+       
+        if(err)
+            {
+                res.status(500).send(err.toString());
+            }
+        else
+            {
+                res.send(JSON.stringify(result.rows.length));
+            }
+    });
+    
+});
+
+app.get('/no_of_callins',function(req,res){
+    var username=req.session.auth.username;
+    pool.query('select * from call_walkin_history where type_call_walkin= 0 and emp_username=$1',[username],function(err,result){
+       
+        if(err)
+            {
+                res.status(500).send(err.toString());
+            }
+        else
+            {
+                res.send(JSON.stringify(result.rows.length));
+            }
+    });
+    
+});
+app.get('/no_of_paidmembers',function(req,res){
+    var username=req.session.auth.username;
+    pool.query('select * from user_status where stage>=3 and emp_username=$1',[username],function(err,result){
+       
+        if(err)
+            {
+                res.status(500).send(err.toString());
+            }
+        else
+            {
+                res.send(JSON.stringify(result.rows.length));
+            }
+    });
+    
+});
+
+
 app.get('/allleadscount',function(req,res){
    pool.query('select * from user_status where stage=0',function(err,result){
        if(err)
@@ -859,7 +1136,7 @@ app.get('/getlatest/:id',function(req,res){
   // var username = req.session.auth.username;
    // var username='testuser';
     console.log('welcome');
-    pool.query('select * from call_walkin_history where profile_id=$1 order by contact_date desc',[req.params.id],function(err,result){
+    pool.query('select * from call_walkin_history full outer join user_status on call_walkin_history.profile_id=user_status.profile_id where call_walkin_history.profile_id=$1 order by call_walkin_history.contact_date desc;',[req.params.id],function(err,result){
        if(err)
            {
                res.status(500).send(err.toString());
@@ -953,10 +1230,9 @@ app.get('/logout', function(req, res) {
     res.send('<http><head><meta http-equiv="Refresh" content="1; /"><h1>Logged Out</h1></head>');
 });
 
-app.get('/displayapt',function(req,res){
-   var d= new Date.now();
-    console.log(d.toString());
-    pool.query('select * from call_walkin_history where appointment =1',function(err,result){
+app.get('/testdisplayapt',function(req,res){
+
+    pool.query('select call_walkin_history.profile_id,call_walkin_history.contact_date,call_walkin_history.contact_no,call_walkin_history.type_call_walkin,user_status.stage from call_walkin_history inner join user_status on call_walkin_history.profile_id=user_status.profile_id where call_walkin_history.type_call_walkin=1',function(err,result){
                     if(err)
                     {
                         res.status(500).send(err.toString());
@@ -968,8 +1244,26 @@ app.get('/displayapt',function(req,res){
                         }
     });
 });
+
+app.get('/displayapt1',function(req,res){
+var username=req.session.auth.username;
+    console.log(username+' hh');
+    pool.query('select call_walkin_history.profile_id,call_walkin_history.contact_date,call_walkin_history.contact_no,call_walkin_history.type_call_walkin,call_walkin_history.next_followup_date,call_walkin_history.appointment,user_status.stage from call_walkin_history inner join user_status on call_walkin_history.profile_id=user_status.profile_id where call_walkin_history.emp_username=$1',[username],function(err,result){
+                    if(err)
+                    {
+                        res.status(500).send(err.toString());
+                        
+                    }
+                    else
+                        {  //controlwrite=0;
+                            res.send(JSON.stringify(result.rows));
+                        }
+    });
+});
+
 app.post('/api/photo/:id/:no', function(req, res) {
     var no=req.params.no;
+    
     if(no==='1')
         {
     upload(req, res, function(err) {
@@ -1062,7 +1356,9 @@ app.post('/api/photo/:id/:no', function(req, res) {
                     }
                     else
                         {  //controlwrite=0;
-                            res.redirect('/redirect');
+                            var htmltemp=` <h3> 3rd Photo Successfully uploaded </h3><hr><br> <a href='/upload_photo_form/${req.params.id}/4'>Proceed For ID  Upload</a>`;
+                            res.send(htmltemp);
+                            
                         }
                 
                 
@@ -1077,10 +1373,78 @@ app.post('/api/photo/:id/:no', function(req, res) {
             }
     });
         }
+    if(no==='4')
+        {
+            
+            
+             upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
+        }
+        else
+            {   if(req.file)
+                {
+               console.log(req.file.originalname);
+                console.log(req.file.filename);
+                    var id_proof_type=req.body.id_proof_type;
+            var id_proof_other=req.body.id_proof_other;
+            
+        if(id_proof_type==='Others')
+            id_proof_type=id_proof_other;
+            console.log(id_proof_other);
+            console.log(id_proof_type);
+                
+                pool.query('update user_details set id_proof_image=$1 where profile_id=$2',[req.file.filename,req.params.id],function(err,result){
+                if(err)
+                    {
+                        res.status(500).send(err.toString());
+                        
+                    }
+                    else
+                        {  
+                            pool.query('update user_details set id_proof_type=$1 where profile_id=$2',[id_proof_type,req.params.id],function(err,result){
+                if(err)
+                    {
+                        res.status(500).send(err.toString());
+                        
+                    }
+                    else
+                        {  
+                            res.redirect('/redirect');
+                        }
+                
+                
+            });
+                        }
+                
+                
+            });
+                }
+             else
+                 {
+                     var htmltemplate = ` <h1> You are uploading a empty file ! </h1><br><a href="/redirect">To Skip </a> <br>
+                                                <a href='/upload_photo_form/${req.params.id}/4'>Click to upload it again </a>`;
+                     res.send(htmltemplate);
+                 }
+            }
+    });
+        }
     
 });
 
-
+app.get('/comparedetails',function(req,res){
+   
+    pool.query('select * from user_details',function(err,result){
+       if(err)
+           {
+               res.status(500).send(err.toString());
+           }
+        else
+            {
+                res.send(JSON.stringify(result.rows));
+            }
+    });
+});
 app.get('/uploads/:photoid',function(req,res){
     
     if(req.params.photoid==='blank')
@@ -1098,8 +1462,44 @@ app.get('/upload_photo_form/:id/:no',function(req,res){
         if(no==='2')
         skippart=`/upload_photo_form/${id}/3`;
     else
+        if(no==='3')
+            skippart=`/upload_photo_form/${id}/4`;
+    else
         skippart='/redirect';
-   var htmltemplate= `<div style="text-align=center">
+    var htmltemplate;
+    if(no==='4')
+        {
+             htmltemplate= `<div style="text-align=center">
+                <span style="text-align:center"> Upload Valid ID proof</span><br>
+          <span id="profileId">${id}</span><hr><br>
+          <form id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "/api/photo/${id}/${no}"
+     method    =  "post"
+>
+<div class="form-group">
+ <label for="idproof">ID Proof Type</label><br>            
+                    <select id="idprooftype" name="id_proof_type" required>
+                    <option>-Select-</option>
+                    <option>ADHAAR Card</option>
+                    <option>Driving Liscence</option>
+                    <option>Passport</option>
+                    <option>Voter Id</option>
+                    <option>Others</option>
+                    </select>
+                    <br>
+                    </div>
+                  <div class="form-group">
+                    <input class="form-control input-lg" type="text" id="idproof" name="id_proof_other" placeholder="Specify If Others" required>
+                  </div>
+<input type="file" name="userPhoto" />
+<input type="submit" value="Upload Image" name="submit">
+</form>
+<br><span><a href=${skippart}>Skip</a></span></div>`;
+        }
+    else
+        {
+    htmltemplate= `<div style="text-align=center">
                 <span style="text-align:center"> Upload Profile Pictures - ${no}</span><br>
           <span id="profileId">${id}</span><hr><br>
           <form id        =  "uploadForm"
@@ -1111,6 +1511,8 @@ app.get('/upload_photo_form/:id/:no',function(req,res){
 <input type="submit" value="Upload Image" name="submit">
 </form>
 <br><span><a href=${skippart}>Skip</a></span></div>`;
+        }
+    
     res.send(htmltemplate);
     
 });

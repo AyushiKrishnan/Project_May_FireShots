@@ -138,6 +138,10 @@
                             <p id="partnerreligion"></p>
                             <p id="partnerheight"></p>
                             <p id="partnercaste"></p>
+                            <a href="#" onclick="printInfo()">Print</a>
+
+
+
                             <br>
                             <br>
                             <div id="pic3"></div>
@@ -170,6 +174,20 @@
 
 </html>
 <script>
+    function printInfo() {
+        var prtContent = document.getElementById("myModal");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+
+    function myFunction() {
+        window.print();
+    }
+
     function viewleads() {
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
