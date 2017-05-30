@@ -13,10 +13,11 @@
                  for (; i < 1; i++) {
 
                      if (data[i].type_call_walkin === 0) {
-
+                         var contact_date = new Date(`${data[i].contact_date}`);
+                         contact_date = contact_date.toDateString();
                          content += `<p> <b>Type: Call</b></p>
                             <p><b>Contact: ${data[i].contact_no}</b></p>
-                            <p><b>Last Follow-up Date: ${data[i].contact_date}</b></p>
+                            <p><b>Last Follow-up Date:${contact_date} </b></p>
                             <p><b>Interaction Type: ${data[i].interaction_type}</b></p>
                             <p><b>Response Type: ${data[i].call_walkin_response}</b></p>
                             <p><b>Call/Walk-in Details: ${data[i].call_walkin_details}</b></p>
