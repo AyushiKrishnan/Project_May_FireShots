@@ -1,6 +1,4 @@
 var pic_1 = '';
-var pic_2 = '';
-var pic_3 = '';
 var pid;
 
 function email() {
@@ -38,7 +36,7 @@ function email() {
 
     request.open('POST', '/send_email', true);
     request.setRequestHeader('Content-Type', 'application/json');
-    request.send(JSON.stringify({ email_pid: email_pid, content: content, pic_1: pic_1, pic_2: pic_2, pic_3: pic_3, pid: pid, profileid: profileid }));
+    request.send(JSON.stringify({ email_pid: email_pid, content: content, pic_1: pic_1, pid: pid, profileid: profileid }));
 
 
 }
@@ -115,52 +113,9 @@ function fill() {
                 document.getElementById("pic1").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_1}" />`;
                 document.getElementById("pic2").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_2}" />`;
                 document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
-                document.getElementById("place_of_birth").innerHTML = `<b>Place of Birth:</b>${data[i].place_of_birth}`;
-                document.getElementById("weight").innerHTML = `<b>Weight:</b>${data[i].weight}`;
-                document.getElementById("education").innerHTML = `<b>Education:</b>${data[i].education}`;
-                document.getElementById("annual_income").innerHTML = `<b>Annual Income:</b>${data[i].annual_income}`;
-                document.getElementById("more_about_candidate").innerHTML = `<b>More about Candidate:</b>${data[i].more_about_candidate}`;
-                document.getElementById("fathers_contact").innerHTML = `<b>Father's Contact:</b>${data[i].fathers_contact}`;
-                document.getElementById("mothers_contact").innerHTML = `<b>Mother's Contact:</b>${data[i].mothers_contact}`;
-                document.getElementById("partner_mother_tongue").innerHTML = `<b>Preferred Partner Mother Tongue:</b>${data[i].preferred_partner_mother_tongue}`;
-                document.getElementById("partner_family_type").innerHTML = `<b>Preferred Partner Family Type:</b>${data[i].preferred_partner_family_type}`;
-                document.getElementById("partner_family_values").innerHTML = `<b>Preferred Partner Family Values:</b>${data[i].preferred_partner_family_values}`;
-                document.getElementById("negotiator_name").innerHTML = `<b>Negotiator Name:</b>${data[i].negotiator_name}`;
-                document.getElementById("negotiator_mobile_no").innerHTML = `<b>Negotiator Mobile no:</b>${data[i].negotiator_mobile_no}`;
-                document.getElementById("negotiator_relation").innerHTML = `<b>Negotiator Relation:</b>${data[i].negotiator_relation}`;
-                document.getElementById("negotiator_other_details").innerHTML = `<b>Negotiator other details:</b>${data[i].negotiator_other_details}`;
-                document.getElementById("ref1_name").innerHTML = `<b>Reference_1 Name:</b>${data[i].ref1_name}`;
-                document.getElementById("ref1_contact").innerHTML = `<b>Reference_1 Contact:</b>${data[i].ref1_contact}`;
-                document.getElementById("ref2_name").innerHTML = `<b>Reference_2 Name:</b>${data[i].ref2_name}`;
-                document.getElementById("ref2_contact").innerHTML = `<b>Reference_2 Contact:</b>${data[i].ref2_contact}`;
-                document.getElementById("c_email").innerHTML = `<b>Candidate Email:</b>${data[i].c_email}`;
-                document.getElementById("c_mobile_no").innerHTML = `<b>Candidate Mobile:</b>${data[i].c_mobile_no}`;
-                document.getElementById("ca_email").innerHTML = `<b>Candidate Alternate Email:</b>${data[i].ca_email}`;
-                document.getElementById("ca_mobile_no").innerHTML = `<b>Candidate Alternate Mobile:</b>${data[i].ca_mobile_no}`;
-                document.getElementById("c_address").innerHTML = `<b>Candidate Address:</b>${data[i].c_address}`;
-                document.getElementById("c_pincode").innerHTML = `<b>Candidate Pincode:</b>${data[i].c_pincode}`;
-                document.getElementById("c_state").innerHTML = `<b>Candidate State:</b>${data[i].c_state}`;
-                document.getElementById("c_city").innerHTML = `<b>Candidate City:</b>${data[i].c_city}`;
-                document.getElementById("c_nationality").innerHTML = `<b>Candidate Nationality:</b>${data[i].c_nationality}`;
-                document.getElementById("graduation_institute").innerHTML = `<b>Graduation Institute:</b>${data[i].graduation_institute}`;
-                document.getElementById("masters_institute").innerHTML = `<b>Masters Institute:</b>${data[i].masters_institute}`;
-                document.getElementById("other_institute").innerHTML = `<b>Other Institute:</b>${data[i].other_institute}`;
-                document.getElementById("employer_details").innerHTML = `<b>Employer Details:</b>${data[i].employer_details}`;
-                document.getElementById("employment_type").innerHTML = `<b>Employment Type:</b>${data[i].employment_type}`;
-                document.getElementById("fathers_name").innerHTML = `<b>Father's Name:</b>${data[i].fathers_name}`;
-                document.getElementById("mothers_name").innerHTML = `<b>Mother's Name:</b>${data[i].mothers_name}`;
-                document.getElementById("no_brothers").innerHTML = `<b>No. of Brothers:</b>${data[i].no_brothers}`;
-                document.getElementById("brother_marital").innerHTML = `<b>Brother Marital Status:</b>${data[i].brother_marital}`;
-                document.getElementById("no_sisters").innerHTML = `<b>No. of Sisters:</b>${data[i].no_sisters}`;
-                document.getElementById("sister_marital").innerHTML = `<b>Sister Marital Status:</b>${data[i].sister_marital}`;
-                document.getElementById("partner_education").innerHTML = `<b>Preferred Partner Education:</b>${data[i].preferred_partner_education}`;
-                document.getElementById("id_proof_type").innerHTML = `<b>ID Proof Type:</b>${data[i].id_proof_type}`;
-                document.getElementById("id_proof_image").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].id_proof_image}" />`;
 
                 pic_1 = data[i].profile_pic_1;
                 pid = data[i].profile_id;
-                pic_2 = data[i].profile_pic_2;
-                pic_3 = data[i].profile_pic_3;
                 document.getElementById("history").innerHTML = hcontent;
 
             }

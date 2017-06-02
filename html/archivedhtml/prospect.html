@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<style>
+<!--add links to profile ids.
+add links to call-in and walk-in buttons.-->
 
-</style>
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>
-        My Leads
+        MY PROSPECTS
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +15,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
+<style></style>
+
 <body>
+
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
             <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
 
-            <div id="logout" style="padding-top:10px">
+            <div id="logout">
                 <br>
 
             </div>
@@ -31,42 +34,42 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="/html/dashboard.html">Dashboard</a></li>
-                <li class="active"><a href="/html/leads.html">Leads</a></li>
+                <li><a href="/html/leads.html">Leads</a></li>
                 <li><a href="/html/enquiry2.html">Create New Enquiry</a></li>
-                <li><a href="/html/prospect.html">Prospects</a></li>
+                <li class="active"><a href="/html/prospect.html">Prospects</a></li>
                 <li><a href="/html/payment.html">Payment</a></li>
                 <li><a href="/html/query.html">Query</a></li>
-                <li><a href="/html/compare.html">Compatibility Match</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
-        <h4 style="text-decoration:underline;text-align:center"><b>My Leads</b></h4>
-        <div style="height:435px;overflow:auto;background-color: aliceblue">
-            <table class="table table-condensed">
 
-                <thead style="background-color:darkgrey">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Contact no.</th>
-                        <th>Stage</th>
-                        <th>Call-in Update</th>
-                        <th>Walk-in Update</th>
-                        <th>Print/Email</th>
-                    </tr>
-                </thead>
-                <tbody id='leads'>
 
-                </tbody>
-
-            </table>
+        <div class="col-sm-10">
+            <h2>My Prospects/Oppurtunities/Memberships</h2>
+            <hr/>
+            <br/>
+            <div style=" background-color: aliceblue">
+                <table class="table table-condensed">
+                    <thead style="background-color : darkgrey">
+                        <tr>
+                            <th class='col-sm-2'>Profile id</th>
+                            <th class='col-sm-3'>Name</th>
+                            <th class='col-sm-2'>Phone no.</th>
+                            <th class='col-sm-1'>Call-in Update</th>
+                            <th class='col-sm-1'>Walk-in Update</th>
+                            <th class='col-sm-1'>Stage</th>
+                            <th class='col-sm-1'>Print/Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id='prosps_table'>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-
-    <!-- Modal HTML -->
     <div id="myModal" class="modal fade">
         <div class="modal-dialog" style="width:1080px">
             <div class="modal-content">
@@ -80,124 +83,75 @@
                             <p id="profileid"></p>
                             <p id="email"></p>
                             <p id="firstname"></p>
-                            <p id="c_email"></p>
-                            <p id="ca_mobile_no"></p>
-                            <p id="c_state"></p>
                             <p id="address"></p>
-                            <p id="age"></p>
+                            <p id="tob"></p>
                             <p id="height"></p>
-                            <p id="complexion"></p>
-                            <p id="annual_income"></p>
-                            <p id="employment_type"></p>
+                            <p id="pwd"></p>
                             <p id="highschool"></p>
                             <p id="masters"></p>
-                            <p id="graduation_institute"></p>
-                            <p id="fbid"></p>
-                            <p id="religion"></p>
+                            <p id="mothertongue"></p>
                             <p id="gotra"></p>
-                            <p id="fathers_name"></p>
-                            <p id="no_sisters"></p>
                             <p id="manglik"></p>
-                            <p id="familyvalues"></p>
-                            <p id="fathers_contact"></p>
+                            <p id="familytype"></p>
                             <p id="fatherdetail"></p>
-                            <p id="partnerage"></p>
-                            <p id="partnerheight"></p>
+                            <p id="siblingdetail"></p>
+                            <p id="partnercomplexion"></p>
                             <p id="partneroccupation"></p>
-                            <p id="partner_family_type"></p>
-                            <p id="negotiator_relation"></p>
-                            <p id="ref1_name"></p>
-                            <p id="ref1_contact"></p>
+                            <br>
+                            <br>
+                            <div id="pic1"></div>
                         </div>
                         <div class="col-sm-4">
                             <p id="contactperson"></p>
                             <p id="mobile"></p>
                             <p id="middlename"></p>
-                            <p id="c_mobile_no"></p>
-                            <p id="c_address"></p>
-                            <p id="c_city"></p>
-                            <p id="gender"></p>
+                            <p id="city"></p>
                             <p id="dob"></p>
-                            <p id="weight"></p>
+                            <p id="bodytype"></p>
                             <p id="bloodgp"></p>
                             <p id="employmentstatus"></p>
-                            <p id="employer_details"></p>
                             <p id="intermediate"></p>
-                            <p id="masters_institute"></p>
                             <p id="otherqualification"></p>
-                            <p id="linkedid"></p>
-                            <p id="caste"></p>
-                            <p id="mothers_name"></p>
-                            <p id="brother_marital"></p>
-                            <p id="rashi"></p>
-                            <p id="familytype"></p>
-                            <p id="aboutfather"></p>
-                            <p id="mothers_contact"></p>
-                            <p id="siblingdetail"></p>
-                            <p id="partnercomplexion"></p>
-                            <p id="partnercaste"></p>
-                            <p id="partner_family_values"></p>
-                            <p id="negotiator_mobile_no"></p>
-                            <p id="partner_education"></p>
-                            <p id="partnermoredetail"></p>
-
-
-                        </div>
-                        <div class="col-sm-4">
-                            <p id="city"></p>
-                            <p id="relation"></p>
-                            <p id="lastname"></p>
-                            <p id="ca_email"></p>
-                            <p id="c_pincode"></p>
-                            <p id="c_nationality"></p>
-                            <p id="place_of_birth"></p>
-                            <p id="tob"></p>
-                            <p id="bodytype"></p>
-                            <p id="pwd"></p>
-                            <p id="employmentdetail"></p>
-                            <p id="education"></p>
-                            <p id="graduation"></p>
-                            <p id="more_about_candidate"></p>
-                            <p id="other_institute"></p>
-                            <p id="mothertongue"></p>
-                            <p id="maritalstatus"></p>
+                            <p id="religion"></p>
                             <p id="nakshatra"></p>
-                            <p id="no_brothers"></p>
-                            <p id="sister_marital"></p>
                             <p id="familydetail"></p>
                             <p id="aboutmother"></p>
+                            <p id="partnerage"></p>
+                            <p id="partnerbodytype"></p>
+                            <p id="partnermaritalstatus"></p>
+                            <p id="partnermoredetail"></p>
+                            <br>
+                            <br>
+                            <div id="pic2"></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <p id="gender"></p>
+                            <p id="linkedid"></p>
+                            <p id="lastname"></p>
+                            <p id="relation"></p>
+                            <p id="complexion"></p>
+                            <p id="age"></p>
+                            <p id="employmentdetail"></p>
+                            <p id="graduation"></p>
+                            <p id="fbid"></p>
+                            <p id="caste"></p>
+                            <p id="rashi"></p>
+                            <p id="maritalstatus"></p>
+                            <p id="familyvalues"></p>
+                            <p id="aboutfather"></p>
                             <p id="motherdetail"></p>
                             <p id="partnerreligion"></p>
-                            <p id="partnerbodytype"></p>
-                            <p id="partner_mother_tongue"></p>
-                            <p id="partnermaritalstatus"></p>
-                            <p id="negotiator_name"></p>
-                            <p id="negotiator_other_details"></p>
-                            <p id="ref2_name"></p>
-                            <p id="ref2_contact"></p>
+                            <p id="partnerheight"></p>
+                            <p id="partnercaste"></p>
+                            <br>
+                            <br>
+                            <div id="pic3"></div>
                         </div>
 
                     </div>
-                    <br>
-                    <br>
-
-                    <div class="container" style="width:inherit">
-                        <div class="col-sm-4" id="pic1"></div>
-                        <div class="col-sm-4" id="pic2"></div>
-                        <div class="col-sm-4" id="pic3"></div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="container" style="width:inherit">
-                        <div id="id_proof_type"></div>
-                        <div id="id_proof_image" style="text-align:center"></div>
-
-                    </div>
-
                     <br>
                     <br>
                 </div>
-
                 <div class="modal-header">
 
                     <h5 class="modal-title" style="text-align:center">Call/Walkin History</h5>
@@ -215,74 +169,117 @@
         </div>
     </div>
 
-
-
 </body>
 
 </html>
-<script>
-    function viewleads() {
+
+<script type='text/javascript'>
+    my_prosps = function() {
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
-
                 if (request.status === 200) {
-
+                    /*var content = '<table><tr><td>Prof. id</td><td>Name</td><td>Phone no.</td><td>Call-in</td><td>Walk-in</td><td>Stage</td></tr>' ;
+                    var jArr = JSON.parse(this.responseText);
+                    var i = 0;
+                    for(;i<data.length;i++)
+                        {
+                            $.each(jArr,function(index,data){
+                                content += '<tr><td>'+data.profile_id+'</td><td>'+data.person_of_contact+'</td><td>'+ data.mobile_no+'</td><td><input type = "button" id = "callin_"+data.profile_id value = "Click here"></td><td><input type = "button" id = "walkin_"+data.profile_id value = "Click here"></td><td>'+data.stage+'</td></tr>';
+                            });
+                            console.log('parsed row ${i+1} ');
+                        }*/
                     var content = '';
                     var data = JSON.parse(this.responseText);
                     var i = 0;
-                    console.log(data.length);
+                    var stagename = "";
                     for (; i < data.length; i++) {
-                        if (data[i].stage === 0) {
-                            content += `<tr><td><div class="myprofile">
-                                                                                     
-                                 <input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');">
-                             </div></td><td>${data[i].person_of_contact}</td><td>${data[i].mobile_no}<td>Lead</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td>
-                             <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
+
+                        switch (data[i].stage) {
+                            case 0:
+                                stagename = "LEAD";
+                                break;
+                            case 1:
+                                stagename = "PROSPECT";
+                                break;
+                            case 2:
+                                stagename = "OPPURTUNITY";
+                                break;
+                            case 3:
+                                stagename = "VCC-3 MONTHS";
+                                break;
+                            case 4:
+                                stagename = "VCC-6 MONTHS";
+                                break;
+                            case 5:
+                                stagename = "VCC-12 MONTHS";
+                                break;
+                            case 6:
+                                stagename = "VAC-3 MONTHS";
+                                break;
+                            case 7:
+                                stagename = "VAC-6 MONTHS";
+                                break;
+                            default:
+                                stagename = "-";
                         }
+                        content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
                     }
-                    document.getElementById('leads').innerHTML = content;
-
+                    document.getElementById('prosps_table').innerHTML = content;
                 } else if (request.status === 403) {
-                    alert('something went wrong on the server');
-                } else if (request.status === 500) {
-                    alert('Something went wrong on the server');
-
-                } else {
-
                     alert('Something went wrong');
-
-                }
-            }
-        };
-        request.open('GET', '/viewleads', true);
-        request.send(null);
-
-    }
-
-    function loadLoggedInUser(username) {
-
-        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
-        viewleads();
-    }
-
-    function loadLogin() {
-        // Check if the user is already logged in
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status === 200) {
-                    loadLoggedInUser(this.responseText);
-
+                } else if (request.status === 500) {
+                    alert('Something went wrong on the server.');
+                } else {
+                    alert('Something else went wrong with the server.');
                 }
 
             }
         };
-
-        request.open('GET', '/check-login', true);
+        request.open('GET', '/viewprospects', true);
         request.send(null);
-    }
+    };
 
+
+    //var click_call_in = document.getElementsByClassName('callin');
+    /*  click_call_in = function(poi_prof_id) {
+          var request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+              if (request.readyState === XMLHttpRequest.DONE) {
+                  if (request.status === 200) {
+                      click_call_in = "updating";
+                  } else if (request.status === 403) {
+                      alert('Something went wrong');
+                  } else if (request.status === 500) {
+                      alert('Something went wrong on the server');
+                  } else {
+                      alert('Something went wrong with the server');
+                  }
+              }
+          };
+          request.open('POST', '#', true); //request callin page
+          request.send(poi_prof_id); //send profile id
+      };
+
+      //var click_walk_in = document.getElementsByClassName('walkin');
+      click_walk_in = function(poi_prof_id) {
+          var request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+              if (request.readyState === XMLHttpRequest.DONE) {
+                  if (request.status === 200) {
+                      click_call_in = "updating";
+                  } else if (request.status === 403) {
+                      alert('Something went wrong');
+                  } else if (request.status === 500) {
+                      alert('Something went wrong on the server');
+                  } else {
+                      alert('Something went wrong with the server');
+                  }
+              }
+          };
+          request.open('POST', '#', true); //request walkin page
+          request.send(poi_prof_id); //send profile id
+      };*/
     function clicked(item) {
         console.log('clicked');
         alert(item);
@@ -296,7 +293,6 @@
                     console.log('hi');
                     var data = JSON.parse(this.responseText);
                     var i = 0;
-                    var dob = new Date(`${data[i].date_of_birth}`);
                     document.getElementById("profileid").innerHTML = `<b>Profile Id:</b>${data[i].profile_id}`;
                     document.getElementById("email").innerHTML = `<b>Email:</b>${data[i].email}`;
                     document.getElementById("firstname").innerHTML = `<b>First Name:</b>${data[i].candidate_first_name}`;
@@ -318,7 +314,7 @@
                     document.getElementById("mobile").innerHTML = `<b>Mobile:</b>${data[i].mobile_no}`;
                     document.getElementById("middlename").innerHTML = `<b>Middle Name:</b>${data[i].candidate_middle_name}`;
                     document.getElementById("city").innerHTML = `<b>City:</b>${data[i].city}`;
-                    document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${dob.toDateString()}`;
+                    document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${data[i].date_of_birth}`;
                     document.getElementById("bodytype").innerHTML = `<b>Body Type:</b>${data[i].body_type}`;
                     document.getElementById("bloodgp").innerHTML = `<b>Blood Group:</b>${data[i].blood_group}`;
                     document.getElementById("employmentstatus").innerHTML = `<b>Employment Status:</b>${data[i].employment_status}`;
@@ -353,56 +349,13 @@
                     document.getElementById("pic1").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_1}" />`;
                     document.getElementById("pic2").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_2}" />`;
                     document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
-                    document.getElementById("place_of_birth").innerHTML = `<b>Place of Birth:</b>${data[i].place_of_birth}`;
-                    document.getElementById("weight").innerHTML = `<b>Weight:</b>${data[i].weight}`;
-                    document.getElementById("education").innerHTML = `<b>Education:</b>${data[i].education}`;
-                    document.getElementById("annual_income").innerHTML = `<b>Annual Incme:</b>${data[i].annual_income}`;
-                    document.getElementById("more_about_candidate").innerHTML = `<b>More about Candidate:</b>${data[i].more_about_candidate}`;
-                    document.getElementById("fathers_contact").innerHTML = `<b>Father's Contact:</b>${data[i].fathers_contact}`;
-                    document.getElementById("mothers_contact").innerHTML = `<b>Mother's Contact:</b>${data[i].mothers_contact}`;
-                    document.getElementById("partner_mother_tongue").innerHTML = `<b>Preferred Partner Mother Tongue:</b>${data[i].preferred_partner_mother_tongue}`;
-                    document.getElementById("partner_family_type").innerHTML = `<b>Preferred Partner Family Type:</b>${data[i].preferred_partner_family_type}`;
-                    document.getElementById("partner_family_values").innerHTML = `<b>Preferred Partner Family Values:</b>${data[i].preferred_partner_family_values}`;
-                    document.getElementById("negotiator_name").innerHTML = `<b>Negotiator Name:</b>${data[i].negotiator_name}`;
-                    document.getElementById("negotiator_mobile_no").innerHTML = `<b>Negotiator Mobile no:</b>${data[i].negotiator_mobile_no}`;
-                    document.getElementById("negotiator_relation").innerHTML = `<b>Negotiator Relation:</b>${data[i].negotiator_relation}`;
-                    document.getElementById("negotiator_other_details").innerHTML = `<b>Negotiator other details:</b>${data[i].negotiator_other_details}`;
-                    document.getElementById("ref1_name").innerHTML = `<b>Reference_1 Name:</b>${data[i].ref1_name}`;
-                    document.getElementById("ref1_contact").innerHTML = `<b>Reference_1 Contact:</b>${data[i].ref1_contact}`;
-                    document.getElementById("ref2_name").innerHTML = `<b>Reference_2 Name:</b>${data[i].ref2_name}`;
-                    document.getElementById("ref2_contact").innerHTML = `<b>Reference_2 Contact:</b>${data[i].ref2_contact}`;
-                    document.getElementById("c_email").innerHTML = `<b>Candidate Email:</b>${data[i].c_email}`;
-                    document.getElementById("c_mobile_no").innerHTML = `<b>Candidate Mobile:</b>${data[i].c_mobile_no}`;
-                    document.getElementById("ca_email").innerHTML = `<b>Candidate Alternate Email:</b>${data[i].ca_email}`;
-                    document.getElementById("ca_mobile_no").innerHTML = `<b>Candidate Alternate Mobile:</b>${data[i].ca_mobile_no}`;
-                    document.getElementById("c_address").innerHTML = `<b>Candidate Address:</b>${data[i].c_address}`;
-                    document.getElementById("c_pincode").innerHTML = `<b>Candidate Pincode:</b>${data[i].c_pincode}`;
-                    document.getElementById("c_state").innerHTML = `<b>Candidate State:</b>${data[i].c_state}`;
-                    document.getElementById("c_city").innerHTML = `<b>Candidate City:</b>${data[i].c_city}`;
-                    document.getElementById("c_nationality").innerHTML = `<b>Candidate Nationality:</b>${data[i].c_nationality}`;
-                    document.getElementById("graduation_institute").innerHTML = `<b>Graduation Institute:</b>${data[i].graduation_institute}`;
-                    document.getElementById("masters_institute").innerHTML = `<b>Masters Institute:</b>${data[i].masters_institute}`;
-                    document.getElementById("other_institute").innerHTML = `<b>Other Institute:</b>${data[i].other_institute}`;
-                    document.getElementById("employer_details").innerHTML = `<b>Employer Details:</b>${data[i].employer_details}`;
-                    document.getElementById("employment_type").innerHTML = `<b>Employment Type:</b>${data[i].employment_type}`;
-                    document.getElementById("fathers_name").innerHTML = `<b>Father's Name:</b>${data[i].fathers_name}`;
-                    document.getElementById("mothers_name").innerHTML = `<b>Mother's Name:</b>${data[i].mothers_name}`;
-                    document.getElementById("no_brothers").innerHTML = `<b>No. of Brothers:</b>${data[i].no_brothers}`;
-                    document.getElementById("brother_marital").innerHTML = `<b>Brother Marital Status:</b>${data[i].brother_marital}`;
-                    document.getElementById("no_sisters").innerHTML = `<b>No. of Sisters:</b>${data[i].no_sisters}`;
-                    document.getElementById("sister_marital").innerHTML = `<b>Sister Marital Status:</b>${data[i].sister_marital}`;
-                    document.getElementById("partner_education").innerHTML = `<b>Preferred Partner Education:</b>${data[i].preferred_partner_education}`;
-                    document.getElementById("id_proof_type").innerHTML = `<b>ID Proof Type:</b>${data[i].id_proof_type}`;
-                    document.getElementById("id_proof_image").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].id_proof_image}" />`;
-
-
                     var req = new XMLHttpRequest();
                     req.onreadystatechange = function() {
                         if (req.readyState === XMLHttpRequest.DONE) {
 
                             if (req.status === 200) {
                                 var data = JSON.parse(this.responseText);
-                                var hcontent = '';
+                                var hcontent;
                                 var typ;
                                 var apt;
                                 for (i = 0; i < data.length; i++) {
@@ -416,9 +369,7 @@
                                     } else {
                                         apt = "Yes";
                                     }
-                                    var cdate = new Date(`${data[i].contact_date}`);
-                                    var fdate = new Date(`${data[i].next_followup_date}`);
-                                    hcontent += `<br><div class="col-sm-4">
+                                    hcontent += `<div class="col-sm-4">
                             
                             <p><b>Type:</b>${typ}</p>
                             <p><b>Contact No:</b>${data[i].contact_no}</p>
@@ -428,15 +379,15 @@
                         <div class="col-sm-4">
                             <p><b>Profile Id:</b>${data[i].profile_id}</p>
                             <p><b>Call Details:</b>${data[i].call_walkin_details}</p>
-                            <p><b>Follow up Date</b>${fdate.toDateString()}</p>
+                            <p><b>Follow up Date</b>${data[i].next_followup_date}</p>
                             
                         </div>
                         <div class="col-sm-4">
-                            <p><b>Contact Date:</b>${cdate.toDateString()}</p>
+                            <p><b>Contact Date:</b>${data[i].contact_date}</p>
                             <p><b>Interaction Type:</b>${data[i].interaction_type}</p>
                             <p><b>Appointment:</b>${apt}</p>
                             
-                        </div> <hr>`;
+                        </div> `;
 
                                 }
 
@@ -475,6 +426,28 @@
         request.send(null);
     }
 
+    function loadLogin() {
+        // Check if the user is already logged in
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    loadLoggedInUser(this.responseText);
+                    // changediv(this.responseText);
+                }
+            }
+        };
+
+        request.open('GET', '/check-login', true);
+        request.send(null);
+    }
+
+    function loadLoggedInUser(username) {
+
+        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+        my_prosps();
+    }
+
+
     loadLogin();
-    //viewleads();
 </script>

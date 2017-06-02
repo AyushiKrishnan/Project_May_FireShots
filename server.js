@@ -57,11 +57,20 @@ app.post('/send_email', function (req, res) {
     var content = req.body.content;
    // var email='';
     var pic_1=  req.body.pic_1;
-    console.log(pic_1);
+     var pic_2=  req.body.pic_2;
+     var pic_3=  req.body.pic_3;
+    console.log(pic_1 + pic_2 + pic_3 );
     var pid = req.body.pid;
     var profileid=req.body.profileid;
+    
     if(pic_1==='blank'||pic_1===''||pic_1==='NULL')
         pic_1='blank.jpg';
+        if(pic_2==='blank'||pic_2===''||pic_2==='NULL')
+        pic_2='blank.jpg';
+        if(pic_3==='blank'||pic_3===''||pic_3==='NULL')
+        pic_3='blank.jpg';
+ 
+ 
     var querys= `update user_status set service_details = concat('${pid},',service_details) where profile_id='${profileid}'`;
     console.log(profileid);
     console.log(pid);
@@ -73,7 +82,7 @@ app.post('/send_email', function (req, res) {
     
     
 
-    let transporter = nodemailer.createTransport({
+    var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
             type: 'OAuth2',
@@ -792,12 +801,7 @@ app.get('/cwupdate/:id',function(req,res){
                         <input type="date" class="form-control" name="cdate" </input>
                     </div>
                 </div>
-                  <div class="form-group">
-                    <label class="col-sm-2" for="servicedetail">Call Details:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" name="service_details" id="service_details" placeholder="Enter Call Details"></textarea>
-                    </div>
-                </div>
+                  
                 <div class="form-group">
                     <label class="col-sm-2" for="calldetail">Call Details:</label>
                     <div class="col-sm-10">
@@ -899,90 +903,140 @@ app.get('/printprofile/:id',function(req,res){
 </head>
 
 <body>
-
-        
-                    <div id="content" class="container" style="width:inherit">
-                        
+	                <div id="content" class="container" style="width:inherit">
+                            <h4><b>Contact Person Details</b></h4>
                             <p id="profileid">${id}</p>
+                            <p id="contactperson"></p>
+                            <p id="relation"></p>
                             <p id="email"></p>
-                            <p id="firstname"></p>
+                            <p id="mobile"></p>
                             <p id="address"></p>
+                            <p id="city"></p>
+                            <br>
+                            <h4><b>About the Candidate</b></h4>
+                            <p id="firstname"></p>
+                            <p id="middlename"></p>
+                            <p id="lastname"></p>
+                            <p id="age"></p>
+                            <p id="gender"></p>
+                            <p id="c_address"></p>
+                            <p id="c_pincode"></p>
+                            <p id="c_city"></p>
+                            <p id="c_state"></p>
+                            <p id="c_nationality"></p>
+                            <p id="c_email"></p>
+                            <p id="c_mobile_no"></p>
+                            <p id="ca_email"></p>
+                            <p id="ca_mobile_no"></p>
+                            <br>
+                            <h4><b>Details of the Candidate</b></h4>
+                            
+                            <p id="place_of_birth"></p>
+                            <p id="dob"></p>
                             <p id="tob"></p>
                             <p id="height"></p>
-                            <p id="pwd"></p>
-                            <p id="highschool"></p>
-                            <p id="masters"></p>
-                            <p id="mothertongue"></p>
-                            <p id="gotra"></p>
-                            <p id="manglik"></p>
-                            <p id="familytype"></p>
-                            <p id="fatherdetail"></p>
-                            <p id="siblingdetail"></p>
-                            <p id="partnercomplexion"></p>
-                            <p id="partneroccupation"></p>
-                            <br>
-                            <br>
-                            <div id="pic1"></div>
-                
-                        
-                            <p id="contactperson"></p>
-                            <p id="mobile"></p>
-                            <p id="middlename"></p>
-                            <p id="city"></p>
-                            <p id="dob"></p>
+                            <p id="weight"></p>
                             <p id="bodytype"></p>
+                            <p id="complexion"></p>
                             <p id="bloodgp"></p>
+                            <p id="pwd"></p>
+                            <p id="annual_income"></p>
                             <p id="employmentstatus"></p>
+                            <p id="employmentdetail"></p>
+                            <p id="employment_type"></p>
+                            <p id="employer_details"></p>
+                            <p id="education"></p>
+                            <p id="highschool"></p>
                             <p id="intermediate"></p>
+                            <p id="graduation"></p>
+                            <p id="graduation_institute"></p>
+                            <p id="masters"></p>
+                            <p id="masters_institute"></p>
                             <p id="otherqualification"></p>
+                            <p id="other_institute"></p>
+                            <p id="more_about_candidate"></p>
+                            <p id="fbid"></p>
+                            <p id="linkedid"></p>
+                            <p id="mothertongue"></p>
                             <p id="religion"></p>
+                            <p id="caste"></p>
+                            <p id="maritalstatus"></p>
+                            <p id="gotra"></p>
+                            <p id="rashi"></p>
                             <p id="nakshatra"></p>
-                            <p id="familydetail"></p>
+                            <p id="manglik"></p>
+                            <p id="familyvalues"></p>
+                            <br>
+                            <h4><b>Family Details of the Candidate</b></h4>
+                            <p id="familytype"></p>
+                            <p id="fathers_name"></p>
+                            <p id="aboutfather"></p>
+                            <p id="fathers_contact"></p>
+                            <p id="fatherdetail"></p>
+                            <p id="mothers_name"></p>
                             <p id="aboutmother"></p>
+                            <p id="mothers_contact"></p>
+                            <p id="motherdetail"></p>
+                            <p id="no_brothers"></p>
+                            <p id="no_sisters"></p>
+                            <p id="brother_marital"></p>
+                            <p id="sister_marital"></p>
+                            <p id="familydetail"></p>
+                            <p id="siblingdetail"></p>
+                            <br>
+                            <h4><b>Preferred Candidate Details</b></h4>
+                            
+                            <p id="partnerreligion"></p>
                             <p id="partnerage"></p>
+                            <p id="partnerheight"></p>
+                            <p id="partneroccupation"></p>
+                            <p id="partner_family_type"></p>
+                            <p id="partnercomplexion"></p>
+                            <p id="partnercaste"></p>
+                            <p id="partner_family_values"></p>
                             <p id="partnerbodytype"></p>
+                            <p id="partner_mother_tongue"></p>
+                            <p id="partner_education"></p>
                             <p id="partnermaritalstatus"></p>
                             <p id="partnermoredetail"></p>
                             <br>
-                            <br>
-                            <div id="pic2"></div>
-                
-                        
-                            <p id="gender"></p>
-                            <p id="linkedid"></p>
-                            <p id="lastname"></p>
-                            <p id="relation"></p>
-                            <p id="complexion"></p>
-                            <p id="age"></p>
-                            <p id="employmentdetail"></p>
-                            <p id="graduation"></p>
-                            <p id="fbid"></p>
-                            <p id="caste"></p>
-                            <p id="rashi"></p>
-                            <p id="maritalstatus"></p>
-                            <p id="familyvalues"></p>
-                            <p id="aboutfather"></p>
-                            <p id="motherdetail"></p>
-                            <p id="partnerreligion"></p>
-                            <p id="partnerheight"></p>
-                            <p id="partnercaste"></p>
+                            <h4><b>Negotiator Details</b></h4>
                             
-
-
-
+                            <p id="negotiator_relation"></p>
+                            <p id="negotiator_name"></p>
+                            <p id="negotiator_mobile_no"></p>
+                            <p id="negotiator_other_details"></p>
                             <br>
+                            <h4><b>References</b></h4>
+                            
+                            <p id="ref1_name"></p>
+                            <p id="ref1_contact"></p>
+                            <p id="ref2_name"></p>
+                            <p id="ref2_contact"></p>
+                            
                             <br>
-                            <div id="pic3"></div>
-            
-
+                            
                     </div>
                     <br>
+                            <div id="pic1"></div>
+                            <br>
+                            <div id="pic2"></div>
+                            <br>
+                            <div id="pic3"></div>
+                            <br>
+                            <br>
+                            
+		            <div id="id_proof_type"></div>
+                    <div id="id_proof_image" style="text-align:center"></div>
                     <br>
-                   <a href="/html/dashboard.html">Go to Dashboard</a><br>
-                   <button onclick="myFunction()">Print this page</button><br>
-<input type="text" id="_pid" placeholder="Enter Profile ID "><br>
-                   <input type="text" id="email_pid" placeholder="Enter Email">
-                   <button onclick="email()">Email</button>&nbsp&nbsp&nbsp<span id="loading"></span>
+                    <br>
+                    <br>
+                   <a href="/html/dashboard.html" style="margin-left:45%">Go to Dashboard</a><br><br>
+                   <button onclick="myFunction()" style="margin-left:45%">Print this page</button><br><br><br><br>
+                   <input type="text" id="_pid" placeholder="Enter Profile ID " style="margin-left:43%"><br><br>
+                   <input type="text" id="email_pid" placeholder="Enter Email" style="margin-left:43%"><br>
+                   <br>
+                   <button onclick="email()" style="margin-left:48%">Email</button>&nbsp&nbsp&nbsp<span id="loading"></span>
 
 
                 </div>
@@ -1482,7 +1536,7 @@ app.get('/upload_photo_form/:id/:no',function(req,res){
                     <select id="idprooftype" name="id_proof_type" required>
                     <option>-Select-</option>
                     <option>ADHAAR Card</option>
-                    <option>Driving Liscence</option>
+                    <option>Driving License</option>
                     <option>Passport</option>
                     <option>Voter Id</option>
                     <option>Others</option>

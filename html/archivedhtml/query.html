@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <!------------------------check background and update the header portion----------------------------------------------->
+
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
             <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
@@ -52,8 +52,22 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        Search tool
-                        <!-----------------------Search tool goes here----------------------------------->
+
+
+                        <div class="col-sm-3">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="mobile_number">Mobile: </label>
+                                    <input class="text" class="form-control" id="mobile">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn" id="search_submit">Search</button>
+                        </div>
+                        <div class="col-sm-12" id="search_table">
+
+                        </div>
 
                     </div>
                 </div>
@@ -67,7 +81,7 @@
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <!---------------------------Filter tool goes here-------------------------------------------->
+
                         <h4>Filter options</h4>
                         <hr/>
                         <div class="col-sm-3">
@@ -220,224 +234,220 @@
         </div>
     </div>
 
-</body>
-
-</html>
-
-<script type="application/javascript">
-    function loadLogin() {
-        // Check if the user is already logged in
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status === 200) {
-                    loadLoggedInUser(this.responseText);
-                    // changediv(this.responseText);
-                }
-            }
-        };
-
-        request.open('GET', '/check-login', true);
-        request.send(null);
-    }
-
-    function loadLoggedInUser(username) {
-
-        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
-    }
-
-    loadLogin();
-
-
-
-    function show_filter_table() {
-        var filter_submit_btn = document.getElementById('filter_submit');
-        filter_submit_btn.onclick = function() {
+    <script type="application/javascript">
+        function loadLogin() {
+            // Check if the user is already logged in
             var request = new XMLHttpRequest();
-            var inp_gender = document.getElementById("sel1");
-            var inp_criteria = document.getElementById("sel2");
-            var inp_value = document.getElementById("inp_value");
-            if (inp_value.value === '') {
-                alert("Please enter inputs to the required field....");
-                return;
-            }
-
-            var criteria = '';
-            switch (inp_criteria.value) {
-                case 'Marital-status':
-                    criteria = 'marital-status';
-                    break;
-                case 'Mother tongue':
-                    criteria = 'mother-tongue';
-                    break;
-                default:
-                    criteria = inp_criteria.value.toLowerCase();
-                    break;
-            }
-
             request.onreadystatechange = function() {
                 if (request.readyState === XMLHttpRequest.DONE) {
                     if (request.status === 200) {
-                        var content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Name</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Stage</th></tr></thead><tbody>`;
-
-
-                        var data = JSON.parse(this.responseText);
-                        if (data.length === 0) {
-                            alert('Empty string');
-                            return;
-                        }
-                        var i = 0;
-                        var stagename = "";
-                        for (; i < data.length; i++) {
-
-                            switch (data[i].stage) {
-                                case 0:
-                                    stagename = "LEAD";
-                                    break;
-                                case 1:
-                                    stagename = "PROSPECT";
-                                    break;
-                                case 2:
-                                    stagename = "OPPURTUNITY";
-                                    break;
-                                case 3:
-                                    stagename = "VCC-3 MONTHS";
-                                    break;
-                                case 4:
-                                    stagename = "VCC-6 MONTHS";
-                                    break;
-                                case 5:
-                                    stagename = "VCC-12 MONTHS";
-                                    break;
-                                case 6:
-                                    stagename = "VAC-3 MONTHS";
-                                    break;
-                                case 7:
-                                    stagename = "VAC-6 MONTHS";
-                                    break;
-                                default:
-                                    stagename = "-";
-                            }
-                            content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td>${stagename}&nbsp</td></tr>`;
-                            //check qualification in schema..
-                            //double check content.
-                        }
-                        content += `</tbody></table>`
-                        document.getElementById('filtered_table').innerHTML = content;
-
-                    } else if (request.status === 403) {
-                        alert('Something went wrong');
-                    } else if (request.status === 500) {
-                        alert("Internal server error...You may be seeing this because input value doesn't exist in database..");
-                    } else {
-                        alert('Something else went wrong with the server.');
+                        loadLoggedInUser(this.responseText);
+                        // changediv(this.responseText);
                     }
                 }
             };
 
-            request.open('GET', '/filter-query/' + inp_gender.value.toLowerCase() + '/' + criteria + '/' + inp_value.value.toUpperCase(), true);
-            /*request.setRequestHeader('content-type','application/json');
-            request.send(JSON.stringify({
-                gender:inp_gender.value.toLowerCase(),
-                criteria:criteria,
-                value:inp_value.value
-            }));*/
+            request.open('GET', '/check-login', true);
             request.send(null);
-        };
-    }
-    show_filter_table();
+        }
+
+        function loadLoggedInUser(username) {
+
+            document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+        }
+
+        loadLogin();
 
 
-    function clicked(item) {
-        console.log('clicked');
-        alert(item);
-        var request = new XMLHttpRequest();
 
-        request.onreadystatechange = function() {
-            console.log('hi');
-            if (request.readyState === XMLHttpRequest.DONE) {
+        function show_filter_table() {
+            var filter_submit_btn = document.getElementById('filter_submit');
+            filter_submit_btn.onclick = function() {
+                var request = new XMLHttpRequest();
+                var inp_gender = document.getElementById("sel1");
+                var inp_criteria = document.getElementById("sel2");
+                var inp_value = document.getElementById("inp_value");
+                if (inp_value.value === '') {
+                    alert("Please enter inputs to the required field....");
+                    return;
+                }
 
-                if (request.status === 200) {
-                    console.log('hi');
-                    var data = JSON.parse(this.responseText);
-                    var i = 0;
-                    document.getElementById("profileid").innerHTML = `<b>Profile Id:</b>${data[i].profile_id}`;
-                    document.getElementById("email").innerHTML = `<b>Email:</b>${data[i].email}`;
-                    document.getElementById("firstname").innerHTML = `<b>First Name:</b>${data[i].candidate_first_name}`;
-                    document.getElementById("address").innerHTML = `<b>Address:</b>${data[i].address}`;
-                    document.getElementById("tob").innerHTML = `<b>Time of Birth:</b>${data[i].time_of_birth}`;
-                    document.getElementById("height").innerHTML = `<b>Height:</b>${data[i].height}`;
-                    document.getElementById("pwd").innerHTML = `<b>Physically Challenged:</b>${data[i].physically_challenged}`;
-                    document.getElementById("highschool").innerHTML = `<b>High School:</b>${data[i].high_school}`;
-                    document.getElementById("masters").innerHTML = `<b>Masters:</b>${data[i].masters}`;
-                    document.getElementById("mothertongue").innerHTML = `<b>Mother Tongue:</b>${data[i].mother_tongue}`;
-                    document.getElementById("gotra").innerHTML = `<b>Gotra:</b>${data[i].gotra}`;
-                    document.getElementById("manglik").innerHTML = `<b>Manglik:</b>${data[i].manglik}`;
-                    document.getElementById("familytype").innerHTML = `<b>Family Type:</b>${data[i].family_type}`;
-                    document.getElementById("fatherdetail").innerHTML = `<b>Father Details:</b>${data[i].details_of_father}`;
-                    document.getElementById("siblingdetail").innerHTML = `<b>Sibling Details:</b>${data[i].sibling_details}`;
-                    document.getElementById("partnercomplexion").innerHTML = `<b>Preferred Partner Complexion:</b>${data[i].preferred_partner_complexion}`;
-                    document.getElementById("partneroccupation").innerHTML = `<b>Preferred Partner Occupation:</b>${data[i].preferred_partner_occupation}`;
-                    document.getElementById("contactperson").innerHTML = `<b>Person of Contact:</b>${data[i].person_of_contact}`;
-                    document.getElementById("mobile").innerHTML = `<b>Mobile:</b>${data[i].mobile_no}`;
-                    document.getElementById("middlename").innerHTML = `<b>Middle Name:</b>${data[i].candidate_middle_name}`;
-                    document.getElementById("city").innerHTML = `<b>City:</b>${data[i].city}`;
-                    document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${data[i].date_of_birth}`;
-                    document.getElementById("bodytype").innerHTML = `<b>Body Type:</b>${data[i].body_type}`;
-                    document.getElementById("bloodgp").innerHTML = `<b>Blood Group:</b>${data[i].blood_group}`;
-                    document.getElementById("employmentstatus").innerHTML = `<b>Employment Status:</b>${data[i].employment_status}`;
-                    document.getElementById("intermediate").innerHTML = `<b>Intermediate:</b>${data[i].intermediate}`;
-                    document.getElementById("otherqualification").innerHTML = `<b>Other Qualification:</b>${data[i].other_qualification}`;
-                    document.getElementById("religion").innerHTML = `<b>Religion:</b>${data[i].religion}`;
-                    document.getElementById("nakshatra").innerHTML = `<b>Nakshtra:</b>${data[i].nakshtra}`;
-                    document.getElementById("familydetail").innerHTML = `<b>Family Details:</b>${data[i].details_of_family}`;
-                    document.getElementById("aboutmother").innerHTML = `<b>About Mother:</b>${data[i].about_mother}`;
-                    document.getElementById("partnerage").innerHTML = `<b>Preferred Partner Age:</b>${data[i].preferred_partner_age}`;
-                    document.getElementById("partnerbodytype").innerHTML = `<b>Preferred Partner Body Type:</b>${data[i].preferred_partner_body_type}`;
-                    document.getElementById("partnermaritalstatus").innerHTML = `<b>Preferred Partner Marital Status:</b>${data[i].preferred_partner_marital_status}`;
-                    document.getElementById("partnermoredetail").innerHTML = `<b>Preferred Partner More Details:</b>${data[i].preferred_partner_more_details}`;
-                    document.getElementById("gender").innerHTML = `<b>Gender:</b>${data[i].gender}`;
-                    document.getElementById("linkedid").innerHTML = `<b>Linkedin Id:</b>${data[i].linkedin_id}`;
-                    document.getElementById("lastname").innerHTML = `<b>Last Name:</b>${data[i].candidate_surname}`;
-                    document.getElementById("relation").innerHTML = `<b>Relation with Candidate:</b>${data[i].relation_with_candidate}`;
-                    document.getElementById("complexion").innerHTML = `<b>Complexion:</b>${data[i].complexion}`;
-                    document.getElementById("age").innerHTML = `<b>Age:</b>${data[i].age}`;
-                    document.getElementById("employmentdetail").innerHTML = `<b>Employment Details:</b>${data[i].employment_details}`;
-                    document.getElementById("graduation").innerHTML = `<b>Graduation:</b>${data[i].graduation}`;
-                    document.getElementById("fbid").innerHTML = `<b>Facebook Id:</b>${data[i].facebook_id}`;
-                    document.getElementById("caste").innerHTML = `<b>Caste:</b>${data[i].caste}`;
-                    document.getElementById("rashi").innerHTML = `<b>Rashi:</b>${data[i].rashi}`;
-                    document.getElementById("maritalstatus").innerHTML = `<b>Marital Status:</b>${data[i].marital_status}`;
-                    document.getElementById("familyvalues").innerHTML = `<b>Family Values:</b>${data[i].family_values}`;
-                    document.getElementById("aboutfather").innerHTML = `<b>About Father:</b>${data[i].about_father}`;
-                    document.getElementById("motherdetail").innerHTML = `<b>Mother Details:</b>${data[i].details_of_mother}`;
-                    document.getElementById("partnerreligion").innerHTML = `<b>Preferred Partner Religion:</b>${data[i].preferred_partner_religion}`;
-                    document.getElementById("partnerheight").innerHTML = `<b>Preferred Partner Height:</b>${data[i].preferred_partner_height}`;
-                    document.getElementById("partnercaste").innerHTML = `<b>Preferred Partner Caste:</b>${data[i].preferred_partner_caste}`;
-                    document.getElementById("pic1").innerHTML = `<img src="uploads/${data[i].profile_pic_1}" />`;
-                    document.getElementById("pic2").innerHTML = `<img src="uploads/${data[i].profile_pic_2}" />`;
-                    document.getElementById("pic3").innerHTML = `<img src="uploads/${data[i].profile_pic_3}" />`;
-                    var req = new XMLHttpRequest();
-                    req.onreadystatechange = function() {
-                        if (req.readyState === XMLHttpRequest.DONE) {
+                var criteria = '';
+                switch (inp_criteria.value) {
+                    case 'Marital-status':
+                        criteria = 'marital-status';
+                        break;
+                    case 'Mother tongue':
+                        criteria = 'mother-tongue';
+                        break;
+                    default:
+                        criteria = inp_criteria.value.toLowerCase();
+                        break;
+                }
 
-                            if (req.status === 200) {
-                                var data = JSON.parse(this.responseText);
-                                var hcontent;
-                                var typ;
-                                var apt;
-                                for (i = 0; i < data.length; i++) {
-                                    if (data[i].type_call_walkin === 0) {
-                                        typ = "Call";
-                                    } else {
-                                        typ = "Walk-in";
-                                    }
-                                    if (data[i].appointment === 0) {
-                                        apt = "No";
-                                    } else {
-                                        apt = "Yes";
-                                    }
-                                    hcontent += `<div class="col-sm-4">
+                request.onreadystatechange = function() {
+                    if (request.readyState === XMLHttpRequest.DONE) {
+                        if (request.status === 200) {
+                            var content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Name</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th></tr></thead><tbody>`;
+
+
+                            var data = JSON.parse(this.responseText);
+                            if (data.length === 0) {
+                                alert('Empty string');
+                                return;
+                            }
+                            var i = 0;
+                            var stagename = "";
+                            for (; i < data.length; i++) {
+
+                                switch (data[i].stage) {
+                                    case 0:
+                                        stagename = "LEAD";
+                                        break;
+                                    case 1:
+                                        stagename = "PROSPECT";
+                                        break;
+                                    case 2:
+                                        stagename = "OPPURTUNITY";
+                                        break;
+                                    case 3:
+                                        stagename = "VCC-3 MONTHS";
+                                        break;
+                                    case 4:
+                                        stagename = "VCC-6 MONTHS";
+                                        break;
+                                    case 5:
+                                        stagename = "VCC-12 MONTHS";
+                                        break;
+                                    case 6:
+                                        stagename = "VAC-3 MONTHS";
+                                        break;
+                                    case 7:
+                                        stagename = "VAC-6 MONTHS";
+                                        break;
+                                    default:
+                                        stagename = "-";
+                                }
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                //check qualification in schema..
+                                //double check content.
+                            }
+                            content += `</tbody></table>`
+                            document.getElementById('filtered_table').innerHTML = content;
+
+                        } else if (request.status === 403) {
+                            alert('Something went wrong');
+                        } else if (request.status === 500) {
+                            alert("Internal server error...You may be seeing this because input value doesn't exist in database..");
+                        } else {
+                            alert('Something else went wrong with the server.');
+                        }
+                    }
+                };
+
+                request.open('GET', '/filter-query/' + inp_gender.value.toLowerCase() + '/' + criteria + '/' + inp_value.value.toUpperCase(), true);
+                /*request.setRequestHeader('content-type','application/json');
+                request.send(JSON.stringify({
+                    gender:inp_gender.value.toLowerCase(),
+                    criteria:criteria,
+                    value:inp_value.value
+                }));*/
+                request.send(null);
+            };
+        }
+        show_filter_table();
+
+
+        function clicked(item) {
+            console.log('clicked');
+            alert(item);
+            var request = new XMLHttpRequest();
+
+            request.onreadystatechange = function() {
+                console.log('hi');
+                if (request.readyState === XMLHttpRequest.DONE) {
+
+                    if (request.status === 200) {
+                        console.log('hi');
+                        var data = JSON.parse(this.responseText);
+                        var i = 0;
+                        document.getElementById("profileid").innerHTML = `<b>Profile Id:</b>${data[i].profile_id}`;
+                        document.getElementById("email").innerHTML = `<b>Email:</b>${data[i].email}`;
+                        document.getElementById("firstname").innerHTML = `<b>First Name:</b>${data[i].candidate_first_name}`;
+                        document.getElementById("address").innerHTML = `<b>Address:</b>${data[i].address}`;
+                        document.getElementById("tob").innerHTML = `<b>Time of Birth:</b>${data[i].time_of_birth}`;
+                        document.getElementById("height").innerHTML = `<b>Height:</b>${data[i].height}`;
+                        document.getElementById("pwd").innerHTML = `<b>Physically Challenged:</b>${data[i].physically_challenged}`;
+                        document.getElementById("highschool").innerHTML = `<b>High School:</b>${data[i].high_school}`;
+                        document.getElementById("masters").innerHTML = `<b>Masters:</b>${data[i].masters}`;
+                        document.getElementById("mothertongue").innerHTML = `<b>Mother Tongue:</b>${data[i].mother_tongue}`;
+                        document.getElementById("gotra").innerHTML = `<b>Gotra:</b>${data[i].gotra}`;
+                        document.getElementById("manglik").innerHTML = `<b>Manglik:</b>${data[i].manglik}`;
+                        document.getElementById("familytype").innerHTML = `<b>Family Type:</b>${data[i].family_type}`;
+                        document.getElementById("fatherdetail").innerHTML = `<b>Father Details:</b>${data[i].details_of_father}`;
+                        document.getElementById("siblingdetail").innerHTML = `<b>Sibling Details:</b>${data[i].sibling_details}`;
+                        document.getElementById("partnercomplexion").innerHTML = `<b>Preferred Partner Complexion:</b>${data[i].preferred_partner_complexion}`;
+                        document.getElementById("partneroccupation").innerHTML = `<b>Preferred Partner Occupation:</b>${data[i].preferred_partner_occupation}`;
+                        document.getElementById("contactperson").innerHTML = `<b>Person of Contact:</b>${data[i].person_of_contact}`;
+                        document.getElementById("mobile").innerHTML = `<b>Mobile:</b>${data[i].mobile_no}`;
+                        document.getElementById("middlename").innerHTML = `<b>Middle Name:</b>${data[i].candidate_middle_name}`;
+                        document.getElementById("city").innerHTML = `<b>City:</b>${data[i].city}`;
+                        document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${data[i].date_of_birth}`;
+                        document.getElementById("bodytype").innerHTML = `<b>Body Type:</b>${data[i].body_type}`;
+                        document.getElementById("bloodgp").innerHTML = `<b>Blood Group:</b>${data[i].blood_group}`;
+                        document.getElementById("employmentstatus").innerHTML = `<b>Employment Status:</b>${data[i].employment_status}`;
+                        document.getElementById("intermediate").innerHTML = `<b>Intermediate:</b>${data[i].intermediate}`;
+                        document.getElementById("otherqualification").innerHTML = `<b>Other Qualification:</b>${data[i].other_qualification}`;
+                        document.getElementById("religion").innerHTML = `<b>Religion:</b>${data[i].religion}`;
+                        document.getElementById("nakshatra").innerHTML = `<b>Nakshtra:</b>${data[i].nakshtra}`;
+                        document.getElementById("familydetail").innerHTML = `<b>Family Details:</b>${data[i].details_of_family}`;
+                        document.getElementById("aboutmother").innerHTML = `<b>About Mother:</b>${data[i].about_mother}`;
+                        document.getElementById("partnerage").innerHTML = `<b>Preferred Partner Age:</b>${data[i].preferred_partner_age}`;
+                        document.getElementById("partnerbodytype").innerHTML = `<b>Preferred Partner Body Type:</b>${data[i].preferred_partner_body_type}`;
+                        document.getElementById("partnermaritalstatus").innerHTML = `<b>Preferred Partner Marital Status:</b>${data[i].preferred_partner_marital_status}`;
+                        document.getElementById("partnermoredetail").innerHTML = `<b>Preferred Partner More Details:</b>${data[i].preferred_partner_more_details}`;
+                        document.getElementById("gender").innerHTML = `<b>Gender:</b>${data[i].gender}`;
+                        document.getElementById("linkedid").innerHTML = `<b>Linkedin Id:</b>${data[i].linkedin_id}`;
+                        document.getElementById("lastname").innerHTML = `<b>Last Name:</b>${data[i].candidate_surname}`;
+                        document.getElementById("relation").innerHTML = `<b>Relation with Candidate:</b>${data[i].relation_with_candidate}`;
+                        document.getElementById("complexion").innerHTML = `<b>Complexion:</b>${data[i].complexion}`;
+                        document.getElementById("age").innerHTML = `<b>Age:</b>${data[i].age}`;
+                        document.getElementById("employmentdetail").innerHTML = `<b>Employment Details:</b>${data[i].employment_details}`;
+                        document.getElementById("graduation").innerHTML = `<b>Graduation:</b>${data[i].graduation}`;
+                        document.getElementById("fbid").innerHTML = `<b>Facebook Id:</b>${data[i].facebook_id}`;
+                        document.getElementById("caste").innerHTML = `<b>Caste:</b>${data[i].caste}`;
+                        document.getElementById("rashi").innerHTML = `<b>Rashi:</b>${data[i].rashi}`;
+                        document.getElementById("maritalstatus").innerHTML = `<b>Marital Status:</b>${data[i].marital_status}`;
+                        document.getElementById("familyvalues").innerHTML = `<b>Family Values:</b>${data[i].family_values}`;
+                        document.getElementById("aboutfather").innerHTML = `<b>About Father:</b>${data[i].about_father}`;
+                        document.getElementById("motherdetail").innerHTML = `<b>Mother Details:</b>${data[i].details_of_mother}`;
+                        document.getElementById("partnerreligion").innerHTML = `<b>Preferred Partner Religion:</b>${data[i].preferred_partner_religion}`;
+                        document.getElementById("partnerheight").innerHTML = `<b>Preferred Partner Height:</b>${data[i].preferred_partner_height}`;
+                        document.getElementById("partnercaste").innerHTML = `<b>Preferred Partner Caste:</b>${data[i].preferred_partner_caste}`;
+                        document.getElementById("pic1").innerHTML = 'okkkkk';
+                        document.getElementById("pic2").innerHTML = ` cool`;
+                        document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
+                        var req = new XMLHttpRequest();
+                        req.onreadystatechange = function() {
+                            if (req.readyState === XMLHttpRequest.DONE) {
+
+                                if (req.status === 200) {
+                                    var data = JSON.parse(this.responseText);
+                                    var hcontent;
+                                    var typ;
+                                    var apt;
+                                    for (i = 0; i < data.length; i++) {
+                                        if (data[i].type_call_walkin === 0) {
+                                            typ = "Call";
+                                        } else {
+                                            typ = "Walk-in";
+                                        }
+                                        if (data[i].appointment === 0) {
+                                            apt = "No";
+                                        } else {
+                                            apt = "Yes";
+                                        }
+                                        hcontent += `<div class="col-sm-4">
                             
                             <p><b>Type:</b>${typ}</p>
                             <p><b>Contact No:</b>${data[i].contact_no}</p>
@@ -457,40 +467,277 @@
                             
                         </div> `;
 
+                                    }
+
+                                    document.getElementById("history").innerHTML = hcontent;
+                                    $("#myModal").modal('show');
+                                    //Yahan pe isliye kar rahe hain kyunki dono ek saath complete hoga tab popup open hoga      
+                                } else if (req.status === 403) {
+                                    alert('something went wrong on the server');
+                                } else if (req.status === 500) {
+                                    alert('Something went wrong on the server');
+
+                                } else {
+
+                                    alert('Something went wrong');
+
                                 }
-
-                                document.getElementById("history").innerHTML = hcontent;
-                                $("#myModal").modal('show');
-                                //Yahan pe isliye kar rahe hain kyunki dono ek saath complete hoga tab popup open hoga      
-                            } else if (req.status === 403) {
-                                alert('something went wrong on the server');
-                            } else if (req.status === 500) {
-                                alert('Something went wrong on the server');
-
-                            } else {
-
-                                alert('Something went wrong');
-
                             }
-                        }
-                    };
-                    req.open('GET', `/callhistory/${item}`, true);
-                    req.send(null);
+                        };
+                        req.open('GET', `/callhistory/${item}`, true);
+                        req.send(null);
 
 
-                } else if (request.status === 403) {
-                    alert('something went wrong on the server');
-                } else if (request.status === 500) {
-                    alert('Something went wrong on the server');
+                    } else if (request.status === 403) {
+                        alert('something went wrong on the server');
+                    } else if (request.status === 500) {
+                        alert('Something went wrong on the server');
 
-                } else {
+                    } else {
 
-                    alert('Something went wrong');
+                        alert('Something went wrong');
 
+                    }
                 }
-            }
-        };
-        request.open('GET', `/user_details/${item}`, true);
-        request.send(null);
-    }
-</script>
+            };
+            request.open('GET', `/user_details/${item}`, true);
+            request.send(null);
+        }
+
+        /* SEARCH FUNCTION */
+
+        function show_search_table() {
+            var search_submit_btn = document.getElementById('search_submit');
+            search_submit_btn.onclick = function() {
+                var request = new XMLHttpRequest();
+                var inp_phone = document.getElementById("mobile");
+                if (inp_phone.value === '') {
+                    alert("Please Enter Data");
+                    return;
+                }
+
+
+                request.onreadystatechange = function() {
+                    if (request.readyState === XMLHttpRequest.DONE) {
+                        if (request.status === 200) {
+                            var content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Name</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th></tr></thead><tbody>`;
+
+
+                            var data = JSON.parse(this.responseText);
+                            if (data.length === 0) {
+                                alert('Empty string');
+                                return;
+                            }
+                            var i = 0;
+                            var stagename = "";
+                            for (; i < data.length; i++) {
+
+                                switch (data[i].stage) {
+                                    case 0:
+                                        stagename = "LEAD";
+                                        break;
+                                    case 1:
+                                        stagename = "PROSPECT";
+                                        break;
+                                    case 2:
+                                        stagename = "OPPURTUNITY";
+                                        break;
+                                    case 3:
+                                        stagename = "VCC-3 MONTHS";
+                                        break;
+                                    case 4:
+                                        stagename = "VCC-6 MONTHS";
+                                        break;
+                                    case 5:
+                                        stagename = "VCC-12 MONTHS";
+                                        break;
+                                    case 6:
+                                        stagename = "VAC-3 MONTHS";
+                                        break;
+                                    case 7:
+                                        stagename = "VAC-6 MONTHS";
+                                        break;
+                                    default:
+                                        stagename = "-";
+                                }
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                //check qualification in schema..
+                                //double check content.
+                            }
+                            content += `</tbody></table>`
+                            document.getElementById('search_table').innerHTML = content;
+
+                        } else if (request.status === 403) {
+                            alert('Something went wrong');
+                        } else if (request.status === 500) {
+                            alert("Internal server error...You may be seeing this because input value doesn't exist in database..");
+                        } else {
+                            alert('Something else went wrong with the server.');
+                        }
+                    }
+                };
+
+
+                request.open('GET', '/search-query/' + inp_phone.value, true);
+                /*request.setRequestHeader('content-type','application/json');
+                request.send(JSON.stringify({
+                    gender:inp_gender.value.toLowerCase(),
+                    criteria:criteria,
+                    value:inp_value.value
+                }));*/
+                request.send(null);
+            };
+        }
+
+        show_search_table();
+
+
+        function clicked(item) {
+            console.log('clicked');
+            alert(item);
+            var request = new XMLHttpRequest();
+
+            request.onreadystatechange = function() {
+                console.log('hi');
+                if (request.readyState === XMLHttpRequest.DONE) {
+
+                    if (request.status === 200) {
+                        console.log('hi');
+                        var data = JSON.parse(this.responseText);
+                        var i = 0;
+                        document.getElementById("profileid").innerHTML = `<b>Profile Id:</b>${data[i].profile_id}`;
+                        document.getElementById("email").innerHTML = `<b>Email:</b>${data[i].email}`;
+                        document.getElementById("firstname").innerHTML = `<b>First Name:</b>${data[i].candidate_first_name}`;
+                        document.getElementById("address").innerHTML = `<b>Address:</b>${data[i].address}`;
+                        document.getElementById("tob").innerHTML = `<b>Time of Birth:</b>${data[i].time_of_birth}`;
+                        document.getElementById("height").innerHTML = `<b>Height:</b>${data[i].height}`;
+                        document.getElementById("pwd").innerHTML = `<b>Physically Challenged:</b>${data[i].physically_challenged}`;
+                        document.getElementById("highschool").innerHTML = `<b>High School:</b>${data[i].high_school}`;
+                        document.getElementById("masters").innerHTML = `<b>Masters:</b>${data[i].masters}`;
+                        document.getElementById("mothertongue").innerHTML = `<b>Mother Tongue:</b>${data[i].mother_tongue}`;
+                        document.getElementById("gotra").innerHTML = `<b>Gotra:</b>${data[i].gotra}`;
+                        document.getElementById("manglik").innerHTML = `<b>Manglik:</b>${data[i].manglik}`;
+                        document.getElementById("familytype").innerHTML = `<b>Family Type:</b>${data[i].family_type}`;
+                        document.getElementById("fatherdetail").innerHTML = `<b>Father Details:</b>${data[i].details_of_father}`;
+                        document.getElementById("siblingdetail").innerHTML = `<b>Sibling Details:</b>${data[i].sibling_details}`;
+                        document.getElementById("partnercomplexion").innerHTML = `<b>Preferred Partner Complexion:</b>${data[i].preferred_partner_complexion}`;
+                        document.getElementById("partneroccupation").innerHTML = `<b>Preferred Partner Occupation:</b>${data[i].preferred_partner_occupation}`;
+                        document.getElementById("contactperson").innerHTML = `<b>Person of Contact:</b>${data[i].person_of_contact}`;
+                        document.getElementById("mobile").innerHTML = `<b>Mobile:</b>${data[i].mobile_no}`;
+                        document.getElementById("middlename").innerHTML = `<b>Middle Name:</b>${data[i].candidate_middle_name}`;
+                        document.getElementById("city").innerHTML = `<b>City:</b>${data[i].city}`;
+                        document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${data[i].date_of_birth}`;
+                        document.getElementById("bodytype").innerHTML = `<b>Body Type:</b>${data[i].body_type}`;
+                        document.getElementById("bloodgp").innerHTML = `<b>Blood Group:</b>${data[i].blood_group}`;
+                        document.getElementById("employmentstatus").innerHTML = `<b>Employment Status:</b>${data[i].employment_status}`;
+                        document.getElementById("intermediate").innerHTML = `<b>Intermediate:</b>${data[i].intermediate}`;
+                        document.getElementById("otherqualification").innerHTML = `<b>Other Qualification:</b>${data[i].other_qualification}`;
+                        document.getElementById("religion").innerHTML = `<b>Religion:</b>${data[i].religion}`;
+                        document.getElementById("nakshatra").innerHTML = `<b>Nakshtra:</b>${data[i].nakshtra}`;
+                        document.getElementById("familydetail").innerHTML = `<b>Family Details:</b>${data[i].details_of_family}`;
+                        document.getElementById("aboutmother").innerHTML = `<b>About Mother:</b>${data[i].about_mother}`;
+                        document.getElementById("partnerage").innerHTML = `<b>Preferred Partner Age:</b>${data[i].preferred_partner_age}`;
+                        document.getElementById("partnerbodytype").innerHTML = `<b>Preferred Partner Body Type:</b>${data[i].preferred_partner_body_type}`;
+                        document.getElementById("partnermaritalstatus").innerHTML = `<b>Preferred Partner Marital Status:</b>${data[i].preferred_partner_marital_status}`;
+                        document.getElementById("partnermoredetail").innerHTML = `<b>Preferred Partner More Details:</b>${data[i].preferred_partner_more_details}`;
+                        document.getElementById("gender").innerHTML = `<b>Gender:</b>${data[i].gender}`;
+                        document.getElementById("linkedid").innerHTML = `<b>Linkedin Id:</b>${data[i].linkedin_id}`;
+                        document.getElementById("lastname").innerHTML = `<b>Last Name:</b>${data[i].candidate_surname}`;
+                        document.getElementById("relation").innerHTML = `<b>Relation with Candidate:</b>${data[i].relation_with_candidate}`;
+                        document.getElementById("complexion").innerHTML = `<b>Complexion:</b>${data[i].complexion}`;
+                        document.getElementById("age").innerHTML = `<b>Age:</b>${data[i].age}`;
+                        document.getElementById("employmentdetail").innerHTML = `<b>Employment Details:</b>${data[i].employment_details}`;
+                        document.getElementById("graduation").innerHTML = `<b>Graduation:</b>${data[i].graduation}`;
+                        document.getElementById("fbid").innerHTML = `<b>Facebook Id:</b>${data[i].facebook_id}`;
+                        document.getElementById("caste").innerHTML = `<b>Caste:</b>${data[i].caste}`;
+                        document.getElementById("rashi").innerHTML = `<b>Rashi:</b>${data[i].rashi}`;
+                        document.getElementById("maritalstatus").innerHTML = `<b>Marital Status:</b>${data[i].marital_status}`;
+                        document.getElementById("familyvalues").innerHTML = `<b>Family Values:</b>${data[i].family_values}`;
+                        document.getElementById("aboutfather").innerHTML = `<b>About Father:</b>${data[i].about_father}`;
+                        document.getElementById("motherdetail").innerHTML = `<b>Mother Details:</b>${data[i].details_of_mother}`;
+                        document.getElementById("partnerreligion").innerHTML = `<b>Preferred Partner Religion:</b>${data[i].preferred_partner_religion}`;
+                        document.getElementById("partnerheight").innerHTML = `<b>Preferred Partner Height:</b>${data[i].preferred_partner_height}`;
+                        document.getElementById("partnercaste").innerHTML = `<b>Preferred Partner Caste:</b>${data[i].preferred_partner_caste}`;
+                        document.getElementById("pic1").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_1}" />`;
+                        document.getElementById("pic2").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_2}" />`;
+                        document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
+                        var req = new XMLHttpRequest();
+                        req.onreadystatechange = function() {
+                            if (req.readyState === XMLHttpRequest.DONE) {
+
+                                if (req.status === 200) {
+                                    var data = JSON.parse(this.responseText);
+                                    var hcontent;
+                                    var typ;
+                                    var apt;
+                                    for (i = 0; i < data.length; i++) {
+                                        if (data[i].type_call_walkin === 0) {
+                                            typ = "Call";
+                                        } else {
+                                            typ = "Walk-in";
+                                        }
+                                        if (data[i].appointment === 0) {
+                                            apt = "No";
+                                        } else {
+                                            apt = "Yes";
+                                        }
+                                        hcontent += `<div class="col-sm-4">
+                            
+                            <p><b>Type:</b>${typ}</p>
+                            <p><b>Contact No:</b>${data[i].contact_no}</p>
+                            <p><b>Response:</b>${data[i].call_walkin_response}</p>
+                            
+                        </div>
+                        <div class="col-sm-4">
+                            <p><b>Profile Id:</b>${data[i].profile_id}</p>
+                            <p><b>Call Details:</b>${data[i].call_walkin_details}</p>
+                            <p><b>Follow up Date</b>${data[i].next_followup_date}</p>
+                            
+                        </div>
+                        <div class="col-sm-4">
+                            <p><b>Contact Date:</b>${data[i].contact_date}</p>
+                            <p><b>Interaction Type:</b>${data[i].interaction_type}</p>
+                            <p><b>Appointment:</b>${apt}</p>
+                            
+                        </div> `;
+
+                                    }
+
+                                    document.getElementById("history").innerHTML = hcontent;
+                                    $("#myModal").modal('show');
+                                    //Yahan pe isliye kar rahe hain kyunki dono ek saath complete hoga tab popup open hoga      
+                                } else if (req.status === 403) {
+                                    alert('something went wrong on the server');
+                                } else if (req.status === 500) {
+                                    alert('Something went wrong on the server');
+
+                                } else {
+
+                                    alert('Something went wrong');
+
+                                }
+                            }
+                        };
+                        req.open('GET', `/callhistory/${item}`, true);
+                        req.send(null);
+
+
+                    } else if (request.status === 403) {
+                        alert('something went wrong on the server');
+                    } else if (request.status === 500) {
+                        alert('Something went wrong on the server');
+
+                    } else {
+
+                        alert('Something went wrong');
+
+                    }
+                }
+            };
+            request.open('GET', `/user_details/${item}`, true);
+            request.send(null);
+        }
+    </script>
+</body>
+
+</html>
