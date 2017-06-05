@@ -21,13 +21,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style="background: linear-gradient(to top left, #003366 0%, #ff9999 100%) fixed">
 
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
-            <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
+            <img src="/uploads/logol.jpg" class="img-rounded" style="float:left;height:100px;width:300px;margin-left:-60px" />
 
-            <div id="logout">
+            <div id="logout" style="padding-top:10px">
                 <br>
 
             </div>
@@ -71,50 +71,55 @@
             var occupation = '';
             // alert(str);
             // alert(emp_detail);
-            if (str[0] === '{') {
+            if (str != null && emp_detail != null) {
+                if (str[0] === '{') {
 
-                var temp = '';
-                for (var i = 0; i < str.length; i++) {
-                    if (str[i] === '"') {
-                        for (var j = i + 1; str[j] != '"'; j++) {
-                            temp = temp + str[j];
-                            // console.log(str[j]);
-                            i = j + 1;
+                    var temp = '';
+                    for (var i = 0; i < str.length; i++) {
+                        if (str[i] === '"') {
+                            for (var j = i + 1; str[j] != '"'; j++) {
+                                temp = temp + str[j];
+                                // console.log(str[j]);
+                                i = j + 1;
 
 
+                            }
+                            // alert(temp);
+
+                            if (emp_detail.toUpperCase() === temp.toUpperCase()) {
+                                occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${temp})<br>(Available:${emp_detail})</button>`;
+                                return occupation;
+                            }
+                            temp = '';
                         }
-                        // alert(temp);
-
-                        if (emp_detail.toUpperCase() === temp.toUpperCase()) {
-                            occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${temp})<br>(Available:${emp_detail})</button>`;
-                            return occupation;
-                        }
-                        temp = '';
                     }
-                }
-                occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Available:${emp_detail})</button>`;
-                return occupation;
+                    occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Available:${emp_detail})</button>`;
+                    return occupation;
 
-            } else {
-                if (str === 'Any') {
-                    occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available: --)</button>`;
-                    return occupation;
-                } else
-                if (str.toUpperCase() === emp_detail.toUpperCase()) {
-                    occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
-                    return occupation;
                 } else {
-                    occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
-                    return occupation;
+                    if (str === 'Any') {
+                        occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available: --)</button>`;
+                        return occupation;
+                    } else
+                    if (str.toUpperCase() === emp_detail.toUpperCase()) {
+                        occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
+                        return occupation;
+                    } else {
+                        occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
+                        return occupation;
+                    }
+
                 }
-
+            } else {
+                occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Desired :null)<br>(Available:null)</button>`;
+                return occupation;
             }
-
         }
 
         function loadLoggedInUser(username) {
 
-            document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+            document.getElementById("logout").innerHTML = `<p style = "font-size:1.5em">Hi, <span class="glyphicon glyphicon-user"><strong>${username}</strong></span></p><a href="/logout" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-log-out"></span> Log out</a>`;
+
             //viewleads();
         }
 
@@ -168,47 +173,48 @@
                           }
                          }
                          */
+
                         occupation = spiltandmatch(data[i].preferred_partner_occupation, data[j].employment_details);
 
-                        if (data[i].gender.toUpperCase() === data[j].gender.toUpperCase()) {
+                        if (data[i].gender.toUpperCase() === data[j].gender.toUpperCase() && data[i].gender != null && data[j].gender != null) {
                             alert(` You are Comparing ${data[i].gender} to ${data[i].gender} !!!!! `);
                         }
-                        if (data[i].preferred_partner_complexion === data[j].complexion) {
+                        if (data[i].preferred_partner_complexion === data[j].complexion && data[i].preferred_partner_complexion != null && data[j].complexion != null) {
                             complexion = `<button type="button" class="btn btn-success btn-lg">Complexion<br>(Desired :${data[i].preferred_partner_complexion})<br>(Available:${data[j].complexion})</button>`;
 
                         } else {
                             complexion = `<button type="button" class="btn btn-danger btn-lg">Complexion<br>(Desired :${data[i].preferred_partner_complexion})<br>(Available:${data[j].complexion})</button>`;
 
                         }
-                        if (data[i].preferred_partner_age === data[j].age) {
+                        if (data[i].preferred_partner_age >= data[j].age && data[i].preferred_partner_age != null && data[j].age != null) {
                             age = `<button type="button" class="btn btn-success btn-lg">Age<br>(Desired :${data[i].preferred_partner_age})<br>(Available:${data[j].age})</button>`;
 
                         } else {
                             age = `<button type="button" class="btn btn-danger btn-lg">Age<br>(Desired :${data[i].preferred_partner_age})<br>(Available:${data[j].age})</button>`;
 
                         }
-                        if (data[i].preferred_partner_body_type === data[j].body_type) {
+                        if (data[i].preferred_partner_body_type === data[j].body_type && data[i].preferred_partner_body_type != null && data[j].body_type != null) {
                             bodytype = `<button type="button" class="btn btn-success btn-lg">Body Type<br>(Desired :${data[i].preferred_partner_body_type})<br>(Available:${data[j].body_type})</button>`;
 
                         } else {
                             bodytype = `<button type="button" class="btn btn-danger btn-lg">Body Type<br>(Desired :${data[i].preferred_partner_body_type})<br>(Available:${data[j].body_type})</button>`;
 
                         }
-                        if (data[i].preferred_partner_marital_status === data[j].marital_status) {
+                        if (data[i].preferred_partner_marital_status === data[j].marital_status && data[i].preferred_partner_marital_status != null && data[j].marital_status != null) {
                             marital = `<button type="button" class="btn btn-success btn-lg">Marital Status<br>(Desired :${data[i].preferred_partner_marital_status})<br>(Available:${data[j].marital_status})</button>`;
 
                         } else {
                             marital = `<button type="button" class="btn btn-danger btn-lg">Marital Status<br>(Desired :${data[i].preferred_partner_marital_status})<br>(Available:${data[j].marital_status})</button>`;
 
                         }
-                        if (data[i].preferred_partner_religion === data[j].religion) {
+                        if (data[i].preferred_partner_religion === data[j].religion && data[i].preferred_partner_religion != null && data[j].religion != null) {
                             religion = `<button type="button" class="btn btn-success btn-lg">Religion<br>(Desired :${data[i].preferred_partner_religion})<br>(Available:${data[j].religion})</button>`;
 
                         } else {
                             religion = `<button type="button" class="btn btn-danger btn-lg">Religion<br>(Desired :${data[i].preferred_partner_religion})<br>(Available:${data[j].religion})</button>`;
 
                         }
-                        if (data[i].preferred_partner_height <= data[j].height) {
+                        if (data[i].preferred_partner_height <= data[j].height && data[i].preferred_partner_height != null && data[j].height != null) {
                             height = `<button type="button" class="btn btn-success btn-lg">Height<br>(Desired :${data[i].preferred_partner_height})<br>(Available:${data[j].height})</button>`;
 
                         } else {
@@ -216,21 +222,21 @@
 
 
                         }
-                        if (data[i].preferred_partner_caste === data[j].caste) {
+                        if (data[i].preferred_partner_caste === data[j].caste && data[i].preferred_partner_caste != null && data[j].caste != null) {
                             caste = `<button type="button" class="btn btn-success btn-lg">Caste<br>(Desired :${data[i].preferred_partner_caste})<br>(Available:${data[j].caste})</button>`;
 
                         } else {
                             caste = `<button type="button" class="btn btn-danger btn-lg">Caste<br>(Desired :${data[i].preferred_partner_caste})<br>(Available:${data[j].caste})</button>`;
 
                         }
-                        if (data[i].preferred_partner_mother_tongue === data[j].mother_tongue) {
+                        if (data[i].preferred_partner_mother_tongue === data[j].mother_tongue && data[i].preferred_partner_mother_tongue != null && data[j].mother_tongue != null) {
                             mother_tongue = `<button type="button" class="btn btn-success btn-lg">Mother Tongue<br>(Desired :${data[i].preferred_partner_mother_tongue})<br>(Available:${data[j].mother_tongue})</button>`;
 
                         } else {
                             mother_tongue = `<button type="button" class="btn btn-danger btn-lg">Mother Tongue<br>(Desired :${data[i].preferred_partner_mother_tongue})<br>(Available:${data[j].mother_tongue})</button>`;
 
                         }
-                        if (data[i].preferred_partner_family_type === data[j].family_type) {
+                        if (data[i].preferred_partner_family_type === data[j].family_type && data[i].preferred_partner_family_type != null && data[j].family_type != null) {
                             family_type = `<button type="button" class="btn btn-success btn-lg">Family Type<br>(Desired :${data[i].preferred_partner_family_type})<br>(Available:${data[j].family_type})</button>`;
 
                         } else {
@@ -239,7 +245,7 @@
                             family_type = `<button type="button" class="btn btn-danger btn-lg">Family Type<br>(Desired :${data[i].preferred_partner_family_type})<br>(Available:${data[j].family_type})</button>`;
 
                         }
-                        if (data[i].preferred_partner_family_values === data[j].family_values) {
+                        if (data[i].preferred_partner_family_values === data[j].family_values && data[i].preferred_partner_family_values != null && data[j].family_values != null) {
                             family_values = `<button type="button" class="btn btn-success btn-lg">Family Values<br>(Desired :${data[i].preferred_partner_family_values})<br>(Available:${data[j].family_values})</button>`;
 
                         } else {
@@ -247,7 +253,7 @@
 
 
                         }
-                        if (data[i].preferred_partner_education === data[j].education) {
+                        if (data[i].preferred_partner_education === data[j].education && data[i].preferred_partner_education != null && data[j].education != null) {
                             education = `<button type="button" class="btn btn-success btn-lg">Education<br>(Desired :${data[i].preferred_partner_education})<br>(Available:${data[j].education})</button>`;
 
                         } else {
@@ -256,30 +262,37 @@
                         }
 
 
-                        var content = `<div class="container"><h4 style="text-align:center"><b>${data[i].candidate_first_name}'s</b> Preferred Comparison with <b>${data[j].candidate_first_name}</b></h4> 
+                        var content = `<div class="container"><h4 style="text-align:center"><b>${data[i].candidate_first_name}'s</b> Preferred Comparison with <b>${data[j].candidate_first_name}</b></h4>
                                  </div>
                                  <br>
                                  <br>
                                  <div class="container" style="text-align:center">
-                                          <div id="partnercomplexion" class="col-sm-3">${complexion}</div>
-                                          <div id="partnerbodytype" class="col-sm-3">${bodytype}</div>
-                                          <div id="partnerheight" class="col-sm-3">${height}</div>
-                                          <div id="partner_mother_tongue" class="col-sm-3">${mother_tongue}</div>
-                                 </div>
+                                          <div id="partnercomplexion" class="col-sm-4">${complexion}</div>
+                                          <div id="partnerbodytype" class="col-sm-4">${bodytype}</div>
+                                          <div id="partnerheight" class="col-sm-4">${height}</div>
+                                          
+                               </div>
                                  <br>
                                 <div class="container" style="text-align:center">
-                                         <div id="partneroccupation" class="col-sm-3">${occupation}</div>
-                                         <div id="partnermaritalstatus" class="col-sm-3">${marital}</div>
-                                         <div id="partnercaste" class="col-sm-3">${caste}</div>
-                                         <div id="partner_family_type" class="col-sm-3">${family_type}</div>
-                                </div> 
+                                         <div id="partneroccupation" class="col-sm-4">${occupation}</div>
+                                         <div id="partnermaritalstatus" class="col-sm-4">${marital}</div>
+                                         <div id="partnercaste" class="col-sm-4">${caste}</div>
+                                        
+                               </div>
                                 <br>
                                 <div class="container" style="text-align:center">    
-                                        <div id="partnerage" class="col-sm-3">${age}</div>
-                                        <div id="partnerreligion" class="col-sm-3">${religion}</div>
-                                        <div id="partner_education" class="col-sm-3">${education}</div>
-                                        <div id="partner_family_values" class="col-sm-3">${family_values}</div>
-                                </div>
+                                      <div id="partnerage" class="col-sm-4">${age}</div>
+                                        <div id="partnerreligion" class="col-sm-4">${religion}</div>
+                                        <div id="partner_education" class="col-sm-4">${education}</div>
+                                        
+                              </div>
+                                <br>
+                                <div class="container" style="text-align:center">    
+                                      <div id="partner_mother_tongue" class="col-sm-4">${mother_tongue}</div>
+                                        <div id="partner_family_type" class="col-sm-4">${family_type}</div>
+                                        <div id="partner_family_values" class="col-sm-4">${family_values}</div>
+                                        
+                              </div>
                                  <br>
                                  <br>
                                  <br>

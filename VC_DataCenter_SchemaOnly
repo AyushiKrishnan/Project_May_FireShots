@@ -1,0 +1,318 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
+
+-- Started on 2017-06-06 01:07:37
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12387)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2163 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 189 (class 1259 OID 16782)
+-- Name: auto_id; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auto_id (
+    entry integer NOT NULL,
+    id text NOT NULL
+);
+
+
+ALTER TABLE auto_id OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 16771)
+-- Name: call_walkin_history; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE call_walkin_history (
+    profile_id text,
+    contact_date date,
+    contact_no text,
+    call_walkin_details text,
+    interaction_type text,
+    call_walkin_response text,
+    next_followup_date date,
+    appointment integer,
+    type_call_walkin integer,
+    emp_username text
+);
+
+
+ALTER TABLE call_walkin_history OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 16748)
+-- Name: emp_details; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE emp_details (
+    username text NOT NULL,
+    password text NOT NULL
+);
+
+
+ALTER TABLE emp_details OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 16732)
+-- Name: user_details; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE user_details (
+    profile_id text NOT NULL,
+    person_of_contact text NOT NULL,
+    mobile_no text NOT NULL,
+    email text NOT NULL,
+    address text NOT NULL,
+    relation_with_candidate text NOT NULL,
+    city text NOT NULL,
+    candidate_first_name text,
+    candidate_middle_name text,
+    candidate_surname text,
+    date_of_birth date,
+    time_of_birth text,
+    body_type text,
+    complexion text,
+    blood_group text,
+    height text,
+    physically_challenged text,
+    employment_details text,
+    age text,
+    high_school text,
+    employment_status text,
+    masters text,
+    other_qualification text,
+    graduation text,
+    intermediate text,
+    caste text,
+    linkedin_id text,
+    religion text,
+    mother_tongue text,
+    family_type text,
+    gotra text,
+    manglik text,
+    rashi text,
+    nakshtra text,
+    marital_status text,
+    facebook_id text,
+    profile_pic_2 text,
+    details_of_family text,
+    about_father text,
+    about_mother text,
+    details_of_father text,
+    preferred_partner_complexion text,
+    preferred_partner_age text,
+    preferred_partner_height text,
+    sibling_details text,
+    details_of_mother text,
+    profile_pic_3 text,
+    preferred_partner_religion text,
+    preferred_partner_occupation text,
+    preferred_partner_body_type text,
+    preferred_partner_marital_status text,
+    preferred_partner_more_details text,
+    profile_pic_1 text,
+    family_values text,
+    preferred_partner_caste text,
+    gender text NOT NULL,
+    education text,
+    place_of_birth text,
+    weight text,
+    annual_income text,
+    more_about_candidate text,
+    fathers_contact text,
+    mothers_contact text,
+    negotiator_name text,
+    negotiator_mobile_no text,
+    negotiator_relation text,
+    negotiator_other_details text,
+    ref1_name text,
+    ref1_contact text,
+    ref2_name text,
+    ref2_contact text,
+    preferred_partner_mother_tongue text,
+    preferred_partner_family_type text,
+    preferred_partner_family_values text,
+    id_proof_type text,
+    id_proof_image text,
+    c_email text,
+    c_mobile_no text,
+    ca_email text,
+    ca_mobile_no text,
+    c_address text,
+    c_pincode text,
+    c_state text,
+    c_city text,
+    c_nationality text,
+    graduation_institute text,
+    masters_institute text,
+    other_institute text,
+    employer_details text,
+    employment_type text,
+    fathers_name text,
+    mothers_name text,
+    no_brothers text,
+    brother_marital text,
+    no_sisters text,
+    sister_marital text,
+    preferred_partner_education text
+);
+
+
+ALTER TABLE user_details OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 16756)
+-- Name: user_status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE user_status (
+    profile_id text NOT NULL,
+    person_of_contact text,
+    mobile_no text,
+    emp_username text,
+    stage integer,
+    service_details text
+);
+
+
+ALTER TABLE user_status OWNER TO postgres;
+
+--
+-- TOC entry 2037 (class 2606 OID 16789)
+-- Name: auto_id auto_id_entry; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auto_id
+    ADD CONSTRAINT auto_id_entry PRIMARY KEY (entry);
+
+
+--
+-- TOC entry 2031 (class 2606 OID 16755)
+-- Name: emp_details emp_details_username; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY emp_details
+    ADD CONSTRAINT emp_details_username PRIMARY KEY (username);
+
+
+--
+-- TOC entry 2021 (class 2606 OID 16743)
+-- Name: user_details user_details_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_details
+    ADD CONSTRAINT user_details_email UNIQUE (email);
+
+
+--
+-- TOC entry 2023 (class 2606 OID 24800)
+-- Name: user_details user_details_facebook_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_details
+    ADD CONSTRAINT user_details_facebook_id UNIQUE (facebook_id);
+
+
+--
+-- TOC entry 2025 (class 2606 OID 24798)
+-- Name: user_details user_details_linkedin_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_details
+    ADD CONSTRAINT user_details_linkedin_id UNIQUE (linkedin_id);
+
+
+--
+-- TOC entry 2027 (class 2606 OID 16741)
+-- Name: user_details user_details_mobile_no; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_details
+    ADD CONSTRAINT user_details_mobile_no UNIQUE (mobile_no);
+
+
+--
+-- TOC entry 2029 (class 2606 OID 16739)
+-- Name: user_details user_details_profile_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_details
+    ADD CONSTRAINT user_details_profile_id PRIMARY KEY (profile_id);
+
+
+--
+-- TOC entry 2033 (class 2606 OID 24807)
+-- Name: user_status user_status_mobile_no; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_status
+    ADD CONSTRAINT user_status_mobile_no UNIQUE (mobile_no);
+
+
+--
+-- TOC entry 2035 (class 2606 OID 16763)
+-- Name: user_status user_status_profile_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_status
+    ADD CONSTRAINT user_status_profile_id PRIMARY KEY (profile_id);
+
+
+--
+-- TOC entry 2039 (class 2606 OID 24801)
+-- Name: call_walkin_history call_walkin_history_pid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY call_walkin_history
+    ADD CONSTRAINT call_walkin_history_pid_fkey FOREIGN KEY (profile_id) REFERENCES user_details(profile_id);
+
+
+--
+-- TOC entry 2038 (class 2606 OID 16766)
+-- Name: user_status user_status_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_status
+    ADD CONSTRAINT user_status_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES user_details(profile_id);
+
+
+-- Completed on 2017-06-06 01:07:39
+
+--
+-- PostgreSQL database dump complete
+--
+

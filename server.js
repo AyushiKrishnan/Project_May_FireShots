@@ -733,12 +733,13 @@ app.get('/cwupdate/:id',function(req,res){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style = "background: linear-gradient(to top left, #003366 0%, #ff9999 100%) fixed">
+
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
-            <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
+            <img src="/uploads/logol.jpg" class = "img-rounded" style="float:left;height:100px;width:300px;margin-left:-60px" />
 
-            <div id="logout">
+            <div id="logout" style="padding-top:10px">
                 <br>
 
             </div>
@@ -753,13 +754,14 @@ app.get('/cwupdate/:id',function(req,res){
                 <li><a href="/html/enquiry2.html">Create New Enquiry</a></li>
                 <li><a href="/html/prospect.html">Prospects</a></li>
                 <li><a href="/html/payment.html">Payment</a></li>
-                <li><a href="/html/query.html">Payment</a></li>
-
+                <li><a href="/html/query.html">Query</a></li>
+                <li><a href="/html/compare.html">Compatibility Match</a></li>
             </ul>
 
         </div>
 
     </nav>
+
     <div class="container">
         <h4 style="text-decoration:underline;text-align:center"><b>Previous History for Profile ID:<span id="pid">${pid}</span> </b></h4>
         <div class="col-sm-12" id="olddetails">
@@ -1533,7 +1535,7 @@ app.get('/upload_photo_form/:id/:no',function(req,res){
 >
 <div class="form-group">
  <label for="idproof">ID Proof Type</label><br>            
-                    <select id="idprooftype" name="id_proof_type" required>
+                    <select id="idprooftype" name="id_proof_type" >
                     <option>-Select-</option>
                     <option>ADHAAR Card</option>
                     <option>Driving License</option>

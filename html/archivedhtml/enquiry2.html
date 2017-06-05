@@ -16,12 +16,12 @@
 </head>
 
 
-<body style = "background: linear-gradient(to top left, #003366 0%, #ff9999 100%) fixed">
+<body>
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
-            <img src="/uploads/logol.jpg" class = "img-rounded"  style="float:left;height:100px;width:300px;margin-left:-60px" />
+            <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
 
-            <div id="logout" style="padding-top:10px">
+            <div id="logout">
                 <br>
 
             </div>
@@ -54,18 +54,18 @@
 
         <div class="btn-group btn-group-justified ">
             <div class="btn-group col-sm-4">
-                <a href="/html/quickadd.html"><button type="button" class="btn btn-primary btn-lg">Quick Add</button></a>
+                <button type="button" class="btn btn-primary btn-lg"><a href="/html/quickadd.html" style="color:white">Quick Add</a></button>
             </div>
             <div class="btn-group">
-                <a href="/html/fulladd.html"><button type="button" class="btn btn-primary btn-lg">Full Add</button></a>
+                <button type="button" class="btn btn-primary btn-lg"><a href="/html/fulladd.html" style="color:white">Full Add</a></button>
             </div>
+
         </div>
-        
         <br><br>
         <div class="col-sm-10">
             <h2> General Instructions : </h2>
             <hr>
-            <ul style="list-style-type:disc;font-size:1.3em">
+            <ul style="list-style-type:disc">
                 <li> Preferably use Block/Capital letters to fill the form, avoid spelling mistakes.</li>
                 <li> Search options are case-sensitive and spelling mistakes may not produce desired output.</li>
                 <li> Do not upload a very high resolution picture at profile picture-1, as it will increase the <br> the time and performance overhead of emailing system
@@ -80,8 +80,7 @@
     <script type="text/javascript">
         function loadLoggedInUser(username) {
 
-            document.getElementById("logout").innerHTML = `<p style = "font-size:1.5em">Hi, <span class="glyphicon glyphicon-user"><strong>${username}</strong></span></p><a href="/logout" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-log-out"></span> Log out</a>`;
-
+            document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
 
         }
 

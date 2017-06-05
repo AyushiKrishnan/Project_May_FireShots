@@ -24,10 +24,10 @@
 
 </head>
 
-<body>
+<body style = "background: linear-gradient(to top left, #003366 0%, #ff9999 100%) fixed">
     <div class="container">
         <div class="col-sm-12" style="text-align:right">
-            <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
+            <img src="/uploads/logol.jpg"  class = "img-rounded" style="float:left;height:100px;width:300px;margin-left:-60px" />
 
             <div id="logout" style="padding-top:10px">
                 <br>
@@ -367,7 +367,8 @@
 
     function loadLoggedInUser(username) {
 
-        document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+        document.getElementById("logout").innerHTML = `<p style = "font-size:1.5em">Hi, <span class="glyphicon glyphicon-user"><strong>${username}</strong></span></p><a href="/logout" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-log-out"></span> Log out</a>`;
+
 
     }
 

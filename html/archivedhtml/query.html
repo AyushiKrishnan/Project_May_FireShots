@@ -54,18 +54,55 @@
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
 
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class='control-label col-sm-2' for="mobile_number">Mobile: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="mobile" required>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn" id="search_submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
 
-                        <div class="col-sm-3">
+                        <form class='form-horizontal'>
+                            <div class="form-group">
+                                <label class='control-label col-sm-2' for="prof_id">Profile ID: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="search_prof_id" required>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn" id="search_prof_id_submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <!--<div class="col-sm-6">
                             <form class="form-inline">
                                 <div class="form-group">
                                     <label for="mobile_number">Mobile: </label>
-                                    <input class="text" class="form-control" id="mobile">
+                                    <input type="text" class="form-control" id="mobile">
                                 </div>
                             </form>
                         </div>
                         <div class="col-sm-3">
                             <button type="button" class="btn" id="search_submit">Search</button>
                         </div>
+                        
+                        <div class="col-sm-6">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="Prof_id">Profile Id: </label>
+                                    <input type="text" class="form-control" id="search_prof_id">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn" id="search_prof_id_submit">Search</button>
+                        </div>-->
+
                         <div class="col-sm-12" id="search_table">
 
                         </div>
@@ -132,10 +169,344 @@
                 </div>
             </div>
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><strong>Advanced Search</strong></a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <h4>Advanced Search options</h4>
+                        <hr/>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Age: </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="age_min" required>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="text-center">-to-</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="age_max" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Height: </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="h_min" placeholder="in cms" required>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="text-center">-to-</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="h_max" placeholder="in cms" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Complexion: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="advs_complexn" placeholder="For any complexion, type 'Any'." required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Body Type: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="advs_body_type" placeholder="For any body type, type 'Any'." required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Religion: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class='form-control' id="advs_religion" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Caste: </label>
+                                <div class="col-sm-10">
+                                    <input type='text' class="form-control" id="advs_caste" placeholder="For any caste, type 'Any'." required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Mother-tongue: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="advs_mt" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Marital-status: </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input selectpicker" id="advs_mart_stat" required>
+                                        <option>Unmarried</option>
+                                        <option>Currently separated</option>
+                                        <option>Divorced</option>
+                                        <option>Widowed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Qualification: </label>
+                                <div class="col-sm-10">
+                                    <select multiple class="form-control input " id="advs_qual" name="advs_qual" required>
+                                        
+                                        <option value = "Any">   Any</option>
+                                        <optgroup label="--Bachelors-Engineering/Computers/Others--">
+                                            <option value = "Aeronautical Engineering">Aeronautical Engineering</option>
+                                            <option value = "B. Arch.">B. Arch.</option>
+                                            <option value = "BCA">BCA</option>
+                                            <option value = "BE">BE</option>
+                                            <option value = "B. Plan">B. Plan</option>
+                                            <option value = "B. Sc. IT / Computer Science">B. Sc. IT / Computer Science</option>
+                                            <option value = "B. Tech.">B. Tech.</option>
+                                            <option value = "Other Bachelor Degree in Engineering / Computers">Other Bachelor Degree in Engineering / Computers</option>
+                                        </optgroup>
+                                        <optgroup label="--Masters-Engineering/Computers/Others--" >
+                                            <option value = "M. Arch.">M. Arch.</option>
+                                            <option value = "MCA">MCA</option>
+                                            <option value = "ME">ME</option>
+                                            <option value = "M. Sc. IT / Computer Science">M. Sc. IT / Computer Science</option>
+                                            <option value = "M.S. (Engg.)">M.S. (Engg.)</option>
+                                            <option value = "M. Tech.">M. Tech.</option>
+                                            <option value = "PGDCA">PGDCA</option>
+                                            <option value = "Other Master Degree in Engineering / Computers">Other Master Degree in Engineering / Computers</option> 
+                                        </optgroup>
+                                        <optgroup label="--Bachelors-Arts/Science/Commerce/Others--">  
+                                            <option value = "Aviation Degree">Aviation Degree</option>
+                                            <option value = "B.A.">B.A.</option>
+                                            <option value = "B.Com.">B.Com.</option>
+                                            <option value = "B. Ed.">B. Ed.</option>
+                                            <option value = "BFA">BFA</option>
+                                            <option value = "BFT">BFT</option>
+                                            <option value = "BLIS">BLIS</option>
+                                            <option value = "B.M.M">B.M.M</option>
+                                            <option value = "B. Sc.">B. Sc.</option>
+                                            <option value = "B.S.W">B.S.W</option>
+                                            <option value = "B. Phil">B. Phil</option>
+                                            <option value = "Other Bachelor Degree in Arts/Science/Commerce">Other Bachelor Degree in Arts/Science/Commerce</option> 
+                                        </optgroup>
+                                        <optgroup label="--Masters-Art/Science/Commerce/Others--">    
+                                            <option value = "M.A.">M.A.</option>
+                                            <option value = "M. Com.">M. Com.</option>
+                                            <option value = "M. Ed.">M. Ed.</option>
+                                            <option value = "MFA">MFA</option>
+                                            <option value = "MLIS">MLIS</option>
+                                            <option value = "M. Sc.">M. Sc.</option>
+                                            <option value = "MSW">MSW</option>
+                                            <option value = "M. Phil">M. Phil</option>
+                                            <option value = "Other Master Degree in Arts / Science / Commerce">Other Master Degree in Arts / Science / Commerce</option>
+                                        </optgroup>
+                                        <optgroup label="-Bchelors-Management/Others--">
+                                            <option value = "BBA">BBA</option>
+                                            <option value = "BFM (Financial Management)">BFM (Financial Manangement)</option>
+                                            <option value = "BHM (Hostel Management)">BHM (Hostel Management)</option>
+                                            <option value = "Other Bachelor Degree in Management">Other Bachelor Degree in Management</option>
+                                        </optgroup>
+                                        <optgroup label="--Masters-Management/Others">  
+                                            <option value = "MBA">MBA</option>
+                                            <option value = "MFM(Financial Management)">MFM(Financial Manangement)</option>
+                                            <option value = "MHRM (Human Resource Management)">MHRM (Human Resource Management)</option>
+                                            <option value = "PGDM">PGDM</option>
+                                            <option value = "Other Master Degree in Management">Other Master Degree in Management</option>
+                                        </optgroup>
+                                        <optgroup label="--Bachelors-Medicine-General/Dental/Surgeon/Others--">
+                                            <option value = "B.A.M.S">B.A.M.S</option>
+                                            <option value = "BDS">BDS</option>
+                                            <option value = "BHMS">BHMS</option>
+                                            <option value = "BSMS">BSMS</option>
+                                            <option value = "BPharm">BPharm</option>
+                                            <option value = "BPT">BPT</option>
+                                            <option value = 'BUMS'>BUMS</option>
+                                            <option value = "BVSc">BVSc</option>
+                                            <option value = "MBBS">MBBS</option>
+                                            <option value = "B.Sc. Nursing">B.Sc. Nursing</option>
+                                            <option value = "Other Bachelor Degree in Medicine">Other Bachelor Degree in Medicine</option>
+                                        </optgroup>
+                                        <optgroup label="--Masters-Medicine-General/Dental/Surgeon/Others--">   
+                                            <option value = "MDS">MDS</option>        
+                                            <option value = "M.Pharm">M.Pharm</option>
+                                            <option value = "MVSc">MVSc</option>    
+                                            <option value = "MD / MS(Medical)">MD / MS(Medical)</option>    
+                                            <option value = "MPT">MPT</option>
+                                            <option value = "Other Master Degree in Medicine">Other Master Degree in Medicine </option>
+                                        </optgroup>
+                                        <optgroup label="--Bchelors-Legal/Others--">    
+                                            <option value = "BGL">BGL</option>
+                                            <option value = "B.L.">B.L.</option>
+                                            <option value = "LL.B.">LL.B.</option>
+                                            <option value = "Other Bachelor Degree in Legal">Other Bachelor Degree in Legal</option>
+                                        </optgroup>
+                                        <optgroup label="--Masters-Legal/Others">    
+                                            <option value = "LL.M.">LL.M.</option>
+                                            <option value = "M.L">M.L</option>    
+                                            <option value = "Other Master Degree in Legal">Other Master Degree in Legal</option>
+                                        </optgroup>
+                                        <optgroup label="--Finance-ICWAI/CA/CS/CFA/Others--">
+                                            <option value = "CA">CA</option>
+                                            <option value = "CFA (Chartered Financial Analyst)">CFA (Chartered Financial Analyst)</option>
+                                            <option value = "CS">CS</option>
+                                            <option value = "ICWA">ICWA</option>
+                                            <option value = "Other Degree in Finance">Other Degree in Finance</option>
+                                        </optgroup>
+                                        <optgroup label="--Service-IAS/IPS/IRS/IES/IFS/Others--">
+                                            <option value = "IAS">IAS</option>
+                                            <option value = "IFS">IFS</option>    
+                                            <option value = "IRS">IRS</option>
+                                            <option value = "IPS">IPS</option>
+                                            <option value = "Other Degree in Service">Other Degree in Service</option>
+                                        </optgroup>
+                                        <optgroup label="--PhD--">    
+                                            <option value = "Ph.D.">Ph.D.</option>
+                                        </optgroup>
+                                        <optgroup label="--Diploma/Others--">   
+                                            <option value = "Diploma">Diploma</option>
+                                            <option value = "Polytechnic">Polytechnic</option>
+                                            <option value = "Trade School">Trade School</option>
+                                            <option value = "Others in Diploma">Others in Diploma</option>    
+                                        </optgroup>    
+                                        <optgroup label="--Higher Secondary/Secondary--">
+                                            <option value = "Higher Secondary School / High School">Higher Secondary School / High School</option>    
+                                        </optgroup>
+                                        
+                                    </select>
+                                    <p>NB: Multiple select list: hold <kbd>ctrl</kbd> to select more than one</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label type="text" class="control-label col-sm-2">Occupation: </label>
+                                <div class="col-sm-10">
+                                    <select multiple class="form-control input" id="advs_occupt" name="advs_occupt" required>
+                                    <option value = "Any">Any</option>
+                                    <option value = "Software Professional">Software Professional</option>
+                                    <option value = "Hardware Professional">Hardware Professional</option>
+                                    <option value = "Engineer Non-IT">Engineer Non-IT</option>
+                                    <option value = "Teaching / Academician">Teaching / Academician</option>
+                                    <option value = "Professor / Lecturer">Professor / Lecturer</option>
+                                    <option value = "Education Professional">Education Professional</option>
+                                    <option value = "Chartered Accountant">Chartered Accountant</option>   
+                                    <option value = "Accounts / Finance Professional">Accounts / Finance Professional</option>
+                                    <option value = "Auditor">Auditor</option>
+                                    <option value = "Company Secretary">Company Secretary</option>
+                                    <option value = "Doctor">Doctor</option> 
+                                    <option value = "Nurse">Nurse</option> 
+                                    <option value = "Health Care Professional">Health Care Professional</option> 
+                                    <option value = "Paramedical Professional">Paramedical Professional</option> 
+                                    <option value = "Banking Service Professional">Banking Service Professional</option> 
+                                    <option value = "Lawyer And Legal Professional">Lawyer And Legal Professional</option> 
+                                    <option value = "Law Enforcement Officer">Law Enforcement Officer</option> 
+                                    <option value = "Architect">Architect</option>
+                                    <option value = "Interior Designer">Interior Designer</option> 
+                                    <option value = "Advertising / PR Professional">Advertising / PR Professional</option> 
+                                    <option value = "Media Professional">Media Professional</option> 
+                                    <option value = "Entertainment Professional">Entertainment Professional</option> 
+                                    <option value = "Fashion Designer">Fashion Designer</option> 
+                                    <option value = "Event Management Professional">Event Management Professional</option> 
+                                    <option value = "Journalist">Journalist</option> 
+                                    <option value = "Air Hostess">Air Hostess</option> 
+                                    <option value = "Airline Professional">Airline Professional</option> 
+                                    <option value = "Pilot">Pilot</option> 
+                                    <option value = "Mariner / Merchant Navy">Mariner / Merchant Navy</option> 
+                                    <option value = "Beautician">Beautician</option>    
+                                    <option value = "Hotel / Hospitality Professional">Hotel / Hospitality Professional</option> 
+                                    <option value = "Scientist / Researcher">Scientist / Researcher</option>
+                                    <option value = "Social Worker">Social Worker</option> 
+                                    <option value = "Agricultural and Farming Professional">Agriculture and Farming Professional</option>
+                                    <option value = "Arts and Craftsman">Arts and Craftsman</option> 
+                                    <option value = "Administrative Professional">Administrative Professional</option> 
+                                    <option value = "Customer Care Professional">Customer Care Professional</option> 
+                                    <option value = "CEO/ Presidents/ Director/Chairperson">CEO/ President/ Director/Chairperson</option> 
+                                    <option value = "Marketing Professional">Marketing Professional</option> 
+                                    <option value = "Sales Professional">Sales Professional</option> 
+                                    <option value = "Technician">Technician</option> 
+                                    <option value = "Consultant">Consultant</option> 
+                                    <option value = "Clerk">Clerk</option> 
+                                    <option value = "Officer">Officer</option> 
+                                    <option value = "Supervisor">Supervisor</option> 
+                                    <option value = "Manager">Manager</option>
+                                    <option value = "Executive">Executive</option>
+                                    <option value = 'Sportsperson'>Sportsperson</option>
+                                    <option value = "Civil Services(IAS/IES/IPS/IRS/IFSs)">Civil Services(IAS/IES/IPS/IRS/IFS)</option>
+                                    <option value = "Army">Army</option>
+                                    <option value = "Navy">Navy</option>
+                                    <option value = "Airforce">Airforce</option>
+                                    <option value = "Human Resource Professional">Human Resource Professional</option>
+                                    <option value = "Financial Analyst/Planning">Financial Analyst/Planning</option>
+                                    <option value = "Designer- It and Engineering">Designer- It and Engineering</option>
+                                    <option value = "Designer- Media and Entertainment">Designer- Media and Entertainment</option>
+                                    <option value = "Student">Student</option>
+                                    <option value = "Librarian">Librarian</option>
+                                    <option value = "Financial Accountant">Financial Accountant</option>
+                                    <option value = "Business Analyst">Business Analyst</option>
+                                    <option value = "Business Owner/ Entreprenuer">Business Owner/ Entrepreneur </option>
+                                    <option value = "Retired">Retired</option>
+                                    <option value = "Others">Others</option>
+                                    <option value = "Business">Business</option>
+                                    <option value = "Not Working">Not Working</option>
+
+                                    </select>
+
+                                    <p>NB: Multiple select list: hold <kbd>ctrl</kbd> to select more than one</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Family type: </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input" id="advs_family_val" name="advs_family_values" required>
+                                        <option>Any</option> 
+                                        <option>Conservative</option>
+                                        <option>Traditional</option>
+                                        <option>Moderate</option>
+                                        <option>Liberal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Family type: </label>
+                                <div class='col-sm-10'>
+                                    <select class="form-control input" id="advs_family_type" name="advs_family_type" required>
+                                        <option>Any</option>
+                                        <option>Nuclear</option>
+                                        <option>Joint</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Gender: </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input" id="advs_gender" name="advs_gender" required>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Manglik: </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input" id="advs_manglik">
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <div class="col-sm-offset-2 col-sm-2">
+                                    <button type="button" class='btn btn-primary' id="advs_submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-sm-12" id="advs_table">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
-
     <div id="myModal" class="modal fade">
         <div class="modal-dialog" style="width:1080px">
             <div class="modal-content">
@@ -158,7 +529,7 @@
                             <p id="complexion"></p>
                             <p id="annual_income"></p>
                             <p id="employment_type"></p>
-                            <p id="highschool"></p>        
+                            <p id="highschool"></p>
                             <p id="masters"></p>
                             <p id="graduation_institute"></p>
                             <p id="fbid"></p>
@@ -173,7 +544,7 @@
                             <p id="partnerage"></p>
                             <p id="partnerheight"></p>
                             <p id="partneroccupation"></p>
-                            <p id="partner_family_type"></p> 
+                            <p id="partner_family_type"></p>
                             <p id="negotiator_relation"></p>
                             <p id="ref1_name"></p>
                             <p id="ref1_contact"></p>
@@ -189,7 +560,7 @@
                             <p id="dob"></p>
                             <p id="weight"></p>
                             <p id="bloodgp"></p>
-                            <p id="employmentstatus"></p>                                                   
+                            <p id="employmentstatus"></p>
                             <p id="employer_details"></p>
                             <p id="intermediate"></p>
                             <p id="masters_institute"></p>
@@ -209,8 +580,8 @@
                             <p id="negotiator_mobile_no"></p>
                             <p id="partner_education"></p>
                             <p id="partnermoredetail"></p>
-                        
-                            
+
+
                         </div>
                         <div class="col-sm-4">
                             <p id="city"></p>
@@ -249,20 +620,20 @@
                     </div>
                     <br>
                     <br>
-                
+
                     <div class="container" style="width:inherit">
-		                  <div class="col-sm-4" id="pic1"></div>
+                        <div class="col-sm-4" id="pic1"></div>
                         <div class="col-sm-4" id="pic2"></div>
                         <div class="col-sm-4" id="pic3"></div>
                     </div>
                     <br>
                     <br>
                     <div class="container" style="width:inherit">
-		                  <div id="id_proof_type"></div>
+                        <div id="id_proof_type"></div>
                         <div id="id_proof_image" style="text-align:center"></div>
-                        
+
                     </div>
-                    
+
                     <br>
                     <br>
                 </div>
@@ -282,6 +653,7 @@
 
         </div>
     </div>
+
 
     <script type="application/javascript">
         function loadLogin() {
@@ -308,7 +680,242 @@
         loadLogin();
 
 
+        //--------------------------- advanced search  ----------------------------------
 
+
+        function show_advs_table() {
+            var advs_submit_btn = document.getElementById("advs_submit");
+            advs_submit_btn.onclick = function() {
+
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (request.readyState === XMLHttpRequest.DONE) {
+                        if (request.status === 200) {
+
+                            var content = ``;
+                            var data = JSON.parse(this.responseText);
+                            if (data.length === 0) {
+                                content = "No information to display....";
+                                document.getElementById("advs_table").innerHTML = content;
+                                return;
+                            }
+
+                            content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-2">Profile id</th><th class = "col-sm-3">Person of Contact</th><th class = "col-sm-2">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th><th class = "col-sm-1">Stage</th><th class = "col-sm-1">Print/email</th></tr></thead><tbody>`;
+
+                            var i = 0;
+                            var j = 0;
+                            var k = 0;
+                            var stagename = "";
+                            for (; i < data.length; i++) {
+                                //alert("iteration: "+ JSON.stringify(i+1));
+
+                                if ((data[i].height === null) || (data[i].age === null) || (data[i].complexion === null) || (data[i].body_type === null) || (data[i].religion === null) || (data[i].caste === null) || (data[i].mother_tongue === null) || (data[i].marital_status === null) || (data[i].family_type === null) || (data[i].family_values === null) || (data[i].gender === null) || (data[i].manglik === null) || (data[i].education === null) || (data[i].employment_details === null))
+                                    continue;
+
+                                // alert(data[i].person_of_contact);
+                                if (parseInt(document.getElementById("age_min").value) >= parseInt(data[i].age) || parseInt(document.getElementById("age_max").value) <= parseInt(data[i].age))
+                                    continue;
+                                // alert("checked age");
+                                if (parseFloat(document.getElementById("h_min").value) > parseFloat(data[i].height) || parseFloat(document.getElementById("h_max").value) < parseFloat(data[i].height))
+                                    continue;
+                                // alert("checked height");
+                                if ((document.getElementById("advs_complexn").value.toUpperCase() != "ANY") && (document.getElementById("advs_complexn").value.toUpperCase() != data[i].complexion.toUpperCase()))
+                                    continue;
+                                // alert("checked complexn");
+                                if ((document.getElementById("advs_body_type").value.toUpperCase() != "ANY") && (document.getElementById("advs_body_type").value.toUpperCase() != data[i].body_type.toUpperCase()))
+                                    continue;
+                                //  alert("checked body type");
+                                if (document.getElementById("advs_religion").value.toUpperCase() != data[i].religion.toUpperCase())
+                                    continue;
+                                // alert("checked religion");
+                                if ((document.getElementById("advs_caste").value.toUpperCase() != "ANY") && (document.getElementById("advs_caste").value.toUpperCase() != data[i].caste.toUpperCase()))
+                                    continue;
+                                // alert("checked caste");
+                                if (document.getElementById("advs_mt").value.toUpperCase() != data[i].mother_tongue.toUpperCase())
+                                    continue;
+                                // alert("checked mt");
+                                if (document.getElementById("advs_mart_stat").value.toUpperCase() != data[i].marital_status.toUpperCase())
+                                    continue;
+                                // alert("checked mart stat");
+                                if ((document.getElementById("advs_family_type").value.toUpperCase() != "ANY") && (document.getElementById("advs_family_type").value.toUpperCase() != data[i].family_type.toUpperCase()))
+                                    continue;
+                                // alert("checked family type");
+                                if ((document.getElementById("advs_family_val").value.toUpperCase() != "ANY") && (document.getElementById("advs_family_val").value.toUpperCase() != data[i].family_values.toUpperCase()))
+                                    continue;
+                                // alert("checked family value");
+                                if (document.getElementById("advs_gender").value.toUpperCase() != data[i].gender.toUpperCase())
+                                    continue;
+                                // alert("checked gender");
+                                if (document.getElementById("advs_manglik").value.toUpperCase() != data[i].manglik.toUpperCase())
+                                    continue;
+                                //  alert("checked manglik");
+                                switch (data[i].stage) {
+                                    case 0:
+                                        stagename = "LEAD";
+                                        break;
+                                    case 1:
+                                        stagename = "PROSPECT";
+                                        break;
+                                    case 2:
+                                        stagename = "OPPURTUNITY";
+                                        break;
+                                    case 3:
+                                        stagename = "VCC-3 MONTHS";
+                                        break;
+                                    case 4:
+                                        stagename = "VCC-6 MONTHS";
+                                        break;
+                                    case 5:
+                                        stagename = "VCC-12 MONTHS";
+                                        break;
+                                    case 6:
+                                        stagename = "VAC-3 MONTHS";
+                                        break;
+                                    case 7:
+                                        stagename = "VAC-6 MONTHS";
+                                        break;
+                                    default:
+                                        stagename = "-";
+                                }
+
+                                for (j = 0; j < document.getElementById("advs_qual").options.length; j++) {
+
+                                    //  alert("j = " + JSON.stringify(j + 1));
+                                    if ((document.getElementById("advs_qual").options[j].selected == true) && ((document.getElementById("advs_qual").options[j].value.toUpperCase() === data[i].education.toUpperCase()) || (document.getElementById("advs_qual").options[j].value === "Any"))) {
+
+                                        for (k = 0; k < document.getElementById("advs_occupt").options.length; k++) {
+
+                                            // alert("k = " + JSON.stringify(k + 1));
+                                            if ((document.getElementById("advs_occupt").options[k].selected == true) && ((document.getElementById("advs_occupt").options[k].value.toUpperCase() === data[i].employment_details.toUpperCase()) || (document.getElementById("advs_occupt").options[k].value.toUpperCase() === "ANY"))) {
+
+                                                content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            content += `</tbody></table>`
+                            document.getElementById('advs_table').innerHTML = content;
+
+                        } else if (request.status === 500) {
+                            alert("Internal Server error");
+                        } else if (request.status === 403) {
+                            alert("Something went wrong with the server.");
+                        } else {
+                            alert("Something else went wrong with the server ");
+
+                        }
+                    }
+                };
+                request.open("GET", "/comparedetails", true);
+                request.send(null);
+            };
+        }
+
+        show_advs_table();
+
+
+
+
+        /*function show_advs_table(){
+            var advs_submit_btn = document.getElementById('advs_submit');
+            advs_submit_btn.onclick = function() {
+                var inp_age_min = document.activeElement("age_min");
+                var inp_age_max = document.getElementById("age_max");
+                var inp_h_min = document.getElementById("h_min");
+                var inp_h_max = document.getElementById("h_max");
+                var inp_mt = document.getElementById("mt_advs");
+                var inp_religion = document.getElementById("religion_advs");
+                var inp_qual = document.getElementById("qual_advs");
+                var inp_occupt = document.getElementById("occupt_advs");
+                if( (inp_age_min === '') || (inp_age_max === '') || (inp_h_min === '') || (inp_h_max === '') || (inp_mt === '') || (inp_religion === '') ) {
+                    alert("Please ensure proper inputs in each field...");
+                    return;
+                }
+                
+                var content = ``;
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if(request.readyState === XMLHttpRequest.DONE) {
+                        if(request.status === 200) {
+                            var data = JSON.parse(this.responseText);
+                            if (data.length === 0) {
+                                content = "No information to display....";
+                                doccument.getElementById("advs_table").innerHTML = content;
+                                return;
+                            }
+                            
+                            content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Person of Contact</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th></tr></thead><tbody>`;
+
+                            var i = 0;
+                            var stagename = "";
+                            for (; i < data.length; i++) {
+
+                                switch (data[i].stage) {
+                                    case 0:
+                                        stagename = "LEAD";
+                                        break;
+                                    case 1:
+                                        stagename = "PROSPECT";
+                                        break;
+                                    case 2:
+                                        stagename = "OPPURTUNITY";
+                                        break;
+                                    case 3:
+                                        stagename = "VCC-3 MONTHS";
+                                        break;
+                                    case 4:
+                                        stagename = "VCC-6 MONTHS";
+                                        break;
+                                    case 5:
+                                        stagename = "VCC-12 MONTHS";
+                                        break;
+                                    case 6:
+                                        stagename = "VAC-3 MONTHS";
+                                        break;
+                                    case 7:
+                                        stagename = "VAC-6 MONTHS";
+                                        break;
+                                    default:
+                                        stagename = "-";
+                                }
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                //check qualification in schema..
+                                //double check content.
+                            }
+                            content += `</tbody></table>`
+                            document.getElementById('advs_table').innerHTML = content;
+
+                        } else if(request.status === 403) {
+                            alert("Error ...status code 403");
+                        } else if(request.status === 500) {
+                            alert("Internal Server Error");
+                        } else 
+                            alert("Something went wrong");
+                    }
+                };
+                
+                request.open("GET",'/advs-search/'+inp_age_min+'/'+inp_age_max+'/'+inp_h_min+'/'+inp_h_max+'/'+inp_mt+'/'+inp_religion+'/'+inp_qual+'/'+inp_occupt,true);
+                /*request.setRequestHeader("Content-Type" , "application/json");
+                request.send(JSON.stringify({
+                    age_min: inp_age_min,
+                    age_max: inp_age_max,
+                    h_min: inp_h_min,
+                    h_max: inp_h_max,
+                    mt: inp_mt,
+                    religion: inp_religion,
+                    qual: inp_qual,
+                    occupt: inp_occupt
+                }));
+                request.send(null);
+                
+            };
+        }
+        show_advs_table();*/
+
+
+        //--------------------------   filter table   ---------------------------------
         function show_filter_table() {
             var filter_submit_btn = document.getElementById('filter_submit');
             filter_submit_btn.onclick = function() {
@@ -320,7 +927,7 @@
                     alert("Please enter inputs to the required field....");
                     return;
                 }
-
+                var content = ``;
                 var criteria = '';
                 switch (inp_criteria.value) {
                     case 'Marital-status':
@@ -337,8 +944,7 @@
                 request.onreadystatechange = function() {
                     if (request.readyState === XMLHttpRequest.DONE) {
                         if (request.status === 200) {
-                            var content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Name</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th></tr></thead><tbody>`;
-
+                            content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-2">Profile id</th><th class = "col-sm-3">Person of Contact</th><th class = "col-sm-2">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th><th class = "col-sm-1">Stage</th><th class = "col-sm-1">Print/email</th></tr></thead><tbody>`;
 
                             var data = JSON.parse(this.responseText);
                             if (data.length === 0) {
@@ -377,7 +983,7 @@
                                     default:
                                         stagename = "-";
                                 }
-                                content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
                                 //check qualification in schema..
                                 //double check content.
                             }
@@ -420,6 +1026,7 @@
                         console.log('hi');
                         var data = JSON.parse(this.responseText);
                         var i = 0;
+                        var dob = new Date(`${data[i].date_of_birth}`);
                         document.getElementById("profileid").innerHTML = `<b>Profile Id:</b>${data[i].profile_id}`;
                         document.getElementById("email").innerHTML = `<b>Email:</b>${data[i].email}`;
                         document.getElementById("firstname").innerHTML = `<b>First Name:</b>${data[i].candidate_first_name}`;
@@ -441,7 +1048,7 @@
                         document.getElementById("mobile").innerHTML = `<b>Mobile:</b>${data[i].mobile_no}`;
                         document.getElementById("middlename").innerHTML = `<b>Middle Name:</b>${data[i].candidate_middle_name}`;
                         document.getElementById("city").innerHTML = `<b>City:</b>${data[i].city}`;
-                        document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${data[i].date_of_birth}`;
+                        document.getElementById("dob").innerHTML = `<b>Date of Birth:</b>${dob.toDateString()}`;
                         document.getElementById("bodytype").innerHTML = `<b>Body Type:</b>${data[i].body_type}`;
                         document.getElementById("bloodgp").innerHTML = `<b>Blood Group:</b>${data[i].blood_group}`;
                         document.getElementById("employmentstatus").innerHTML = `<b>Employment Status:</b>${data[i].employment_status}`;
@@ -473,50 +1080,51 @@
                         document.getElementById("partnerreligion").innerHTML = `<b>Preferred Partner Religion:</b>${data[i].preferred_partner_religion}`;
                         document.getElementById("partnerheight").innerHTML = `<b>Preferred Partner Height:</b>${data[i].preferred_partner_height}`;
                         document.getElementById("partnercaste").innerHTML = `<b>Preferred Partner Caste:</b>${data[i].preferred_partner_caste}`;
-                        document.getElementById("pic1").innerHTML = 'okkkkk';
-                        document.getElementById("pic2").innerHTML = ` cool`;
+                        document.getElementById("pic1").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_1}" />`;
+                        document.getElementById("pic2").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_2}" />`;
                         document.getElementById("pic3").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].profile_pic_3}" />`;
-                         document.getElementById("place_of_birth").innerHTML = `<b>Place of Birth:</b>${data[i].place_of_birth}`;
-                    document.getElementById("weight").innerHTML = `<b>Weight:</b>${data[i].weight}`;
-                    document.getElementById("education").innerHTML = `<b>Education:</b>${data[i].education}`;
-                    document.getElementById("annual_income").innerHTML = `<b>Annual Incme:</b>${data[i].annual_income}`;
-                    document.getElementById("more_about_candidate").innerHTML = `<b>More about Candidate:</b>${data[i].more_about_candidate}`;
-                    document.getElementById("fathers_contact").innerHTML = `<b>Father's Contact:</b>${data[i].fathers_contact}`;
-                    document.getElementById("mothers_contact").innerHTML = `<b>Mother's Contact:</b>${data[i].mothers_contact}`;
-                    document.getElementById("partner_mother_tongue").innerHTML = `<b>Preferred Partner Mother Tongue:</b>${data[i].preferred_partner_mother_tongue}`;
-                    document.getElementById("partner_family_type").innerHTML = `<b>Preferred Partner Family Type:</b>${data[i].preferred_partner_family_type}`;
-                    document.getElementById("partner_family_values").innerHTML = `<b>Preferred Partner Family Values:</b>${data[i].preferred_partner_family_values}`;
-                    document.getElementById("negotiator_name").innerHTML = `<b>Negotiator Name:</b>${data[i].negotiator_name}`;
-                    document.getElementById("negotiator_mobile_no").innerHTML = `<b>Negotiator Mobile no:</b>${data[i].negotiator_mobile_no}`;
-                    document.getElementById("negotiator_relation").innerHTML = `<b>Negotiator Relation:</b>${data[i].negotiator_relation}`;
-                    document.getElementById("negotiator_other_details").innerHTML = `<b>Negotiator other details:</b>${data[i].negotiator_other_details}`;
-                    document.getElementById("ref1_name").innerHTML = `<b>Reference_1 Name:</b>${data[i].ref1_name}`;
-                    document.getElementById("ref1_contact").innerHTML = `<b>Reference_1 Contact:</b>${data[i].ref1_contact}`;
-                    document.getElementById("ref2_name").innerHTML = `<b>Reference_2 Name:</b>${data[i].ref2_name}`;
-                    document.getElementById("ref2_contact").innerHTML = `<b>Reference_2 Contact:</b>${data[i].ref2_contact}`;
-                                            document.getElementById("c_email").innerHTML = `<b>Candidate Email:</b>${data[i].c_email}`;
-                    document.getElementById("c_mobile_no").innerHTML = `<b>Candidate Mobile:</b>${data[i].c_mobile_no}`;
-                    document.getElementById("ca_email").innerHTML = `<b>Candidate Alternate Email:</b>${data[i].ca_email}`;
-                    document.getElementById("ca_mobile_no").innerHTML = `<b>Candidate Alternate Mobile:</b>${data[i].ca_mobile_no}`;
-		            document.getElementById("c_address").innerHTML = `<b>Candidate Address:</b>${data[i].c_address}`;
-                    document.getElementById("c_pincode").innerHTML = `<b>Candidate Pincode:</b>${data[i].c_pincode}`;		 
-	                document.getElementById("c_state").innerHTML = `<b>Candidate State:</b>${data[i].c_state}`;
-		            document.getElementById("c_city").innerHTML = `<b>Candidate City:</b>${data[i].c_city}`;
-		            document.getElementById("c_nationality").innerHTML = `<b>Candidate Nationality:</b>${data[i].c_nationality}`;
-		            document.getElementById("graduation_institute").innerHTML = `<b>Graduation Institute:</b>${data[i].graduation_institute}`;
-		            document.getElementById("masters_institute").innerHTML = `<b>Masters Institute:</b>${data[i].masters_institute}`;
-		            document.getElementById("other_institute").innerHTML = `<b>Other Institute:</b>${data[i].other_institute}`;
-		 		    document.getElementById("employer_details").innerHTML = `<b>Employer Details:</b>${data[i].employer_details}`;
-                	document.getElementById("employment_type").innerHTML = `<b>Employment Type:</b>${data[i].employment_type}`;	 
-             		document.getElementById("fathers_name").innerHTML = `<b>Father's Name:</b>${data[i].fathers_name}`; 
-            		document.getElementById("mothers_name").innerHTML = `<b>Mother's Name:</b>${data[i].mothers_name}`; 
-             		document.getElementById("no_brothers").innerHTML = `<b>No. of Brothers:</b>${data[i].no_brothers}`; 
-         		    document.getElementById("brother_marital").innerHTML = `<b>Brother Marital Status:</b>${data[i].brother_marital}`;
-             		document.getElementById("no_sisters").innerHTML = `<b>No. of Sisters:</b>${data[i].no_sisters}`; 
-		            document.getElementById("sister_marital").innerHTML = `<b>Sister Marital Status:</b>${data[i].sister_marital}`;
-		            document.getElementById("partner_education").innerHTML = `<b>Preferred Partner Education:</b>${data[i].preferred_partner_education}`; 
-                    document.getElementById("id_proof_type").innerHTML = `<b>ID Proof Type:</b>${data[i].id_proof_type}`; 
-                    document.getElementById("id_proof_image").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].id_proof_image}" />`; 
+                        document.getElementById("place_of_birth").innerHTML = `<b>Place of Birth:</b>${data[i].place_of_birth}`;
+                        document.getElementById("weight").innerHTML = `<b>Weight:</b>${data[i].weight}`;
+                        document.getElementById("education").innerHTML = `<b>Education:</b>${data[i].education}`;
+                        document.getElementById("annual_income").innerHTML = `<b>Annual Incme:</b>${data[i].annual_income}`;
+                        document.getElementById("more_about_candidate").innerHTML = `<b>More about Candidate:</b>${data[i].more_about_candidate}`;
+                        document.getElementById("fathers_contact").innerHTML = `<b>Father's Contact:</b>${data[i].fathers_contact}`;
+                        document.getElementById("mothers_contact").innerHTML = `<b>Mother's Contact:</b>${data[i].mothers_contact}`;
+                        document.getElementById("partner_mother_tongue").innerHTML = `<b>Preferred Partner Mother Tongue:</b>${data[i].preferred_partner_mother_tongue}`;
+                        document.getElementById("partner_family_type").innerHTML = `<b>Preferred Partner Family Type:</b>${data[i].preferred_partner_family_type}`;
+                        document.getElementById("partner_family_values").innerHTML = `<b>Preferred Partner Family Values:</b>${data[i].preferred_partner_family_values}`;
+                        document.getElementById("negotiator_name").innerHTML = `<b>Negotiator Name:</b>${data[i].negotiator_name}`;
+                        document.getElementById("negotiator_mobile_no").innerHTML = `<b>Negotiator Mobile no:</b>${data[i].negotiator_mobile_no}`;
+                        document.getElementById("negotiator_relation").innerHTML = `<b>Negotiator Relation:</b>${data[i].negotiator_relation}`;
+                        document.getElementById("negotiator_other_details").innerHTML = `<b>Negotiator other details:</b>${data[i].negotiator_other_details}`;
+                        document.getElementById("ref1_name").innerHTML = `<b>Reference_1 Name:</b>${data[i].ref1_name}`;
+                        document.getElementById("ref1_contact").innerHTML = `<b>Reference_1 Contact:</b>${data[i].ref1_contact}`;
+                        document.getElementById("ref2_name").innerHTML = `<b>Reference_2 Name:</b>${data[i].ref2_name}`;
+                        document.getElementById("ref2_contact").innerHTML = `<b>Reference_2 Contact:</b>${data[i].ref2_contact}`;
+                        document.getElementById("c_email").innerHTML = `<b>Candidate Email:</b>${data[i].c_email}`;
+                        document.getElementById("c_mobile_no").innerHTML = `<b>Candidate Mobile:</b>${data[i].c_mobile_no}`;
+                        document.getElementById("ca_email").innerHTML = `<b>Candidate Alternate Email:</b>${data[i].ca_email}`;
+                        document.getElementById("ca_mobile_no").innerHTML = `<b>Candidate Alternate Mobile:</b>${data[i].ca_mobile_no}`;
+                        document.getElementById("c_address").innerHTML = `<b>Candidate Address:</b>${data[i].c_address}`;
+                        document.getElementById("c_pincode").innerHTML = `<b>Candidate Pincode:</b>${data[i].c_pincode}`;
+                        document.getElementById("c_state").innerHTML = `<b>Candidate State:</b>${data[i].c_state}`;
+                        document.getElementById("c_city").innerHTML = `<b>Candidate City:</b>${data[i].c_city}`;
+                        document.getElementById("c_nationality").innerHTML = `<b>Candidate Nationality:</b>${data[i].c_nationality}`;
+                        document.getElementById("graduation_institute").innerHTML = `<b>Graduation Institute:</b>${data[i].graduation_institute}`;
+                        document.getElementById("masters_institute").innerHTML = `<b>Masters Institute:</b>${data[i].masters_institute}`;
+                        document.getElementById("other_institute").innerHTML = `<b>Other Institute:</b>${data[i].other_institute}`;
+                        document.getElementById("employer_details").innerHTML = `<b>Employer Details:</b>${data[i].employer_details}`;
+                        document.getElementById("employment_type").innerHTML = `<b>Employment Type:</b>${data[i].employment_type}`;
+                        document.getElementById("fathers_name").innerHTML = `<b>Father's Name:</b>${data[i].fathers_name}`;
+                        document.getElementById("mothers_name").innerHTML = `<b>Mother's Name:</b>${data[i].mothers_name}`;
+                        document.getElementById("no_brothers").innerHTML = `<b>No. of Brothers:</b>${data[i].no_brothers}`;
+                        document.getElementById("brother_marital").innerHTML = `<b>Brother Marital Status:</b>${data[i].brother_marital}`;
+                        document.getElementById("no_sisters").innerHTML = `<b>No. of Sisters:</b>${data[i].no_sisters}`;
+                        document.getElementById("sister_marital").innerHTML = `<b>Sister Marital Status:</b>${data[i].sister_marital}`;
+                        document.getElementById("partner_education").innerHTML = `<b>Preferred Partner Education:</b>${data[i].preferred_partner_education}`;
+                        document.getElementById("id_proof_type").innerHTML = `<b>ID Proof Type:</b>${data[i].id_proof_type}`;
+                        document.getElementById("id_proof_image").innerHTML = `<img class="img-responsive" src="/uploads/${data[i].id_proof_image}" />`;
+
 
                         var req = new XMLHttpRequest();
                         req.onreadystatechange = function() {
@@ -524,7 +1132,7 @@
 
                                 if (req.status === 200) {
                                     var data = JSON.parse(this.responseText);
-                                    var hcontent;
+                                    var hcontent = '';
                                     var typ;
                                     var apt;
                                     for (i = 0; i < data.length; i++) {
@@ -538,7 +1146,9 @@
                                         } else {
                                             apt = "Yes";
                                         }
-                                        hcontent += `<div class="col-sm-4">
+                                        var cdate = new Date(`${data[i].contact_date}`);
+                                        var fdate = new Date(`${data[i].next_followup_date}`);
+                                        hcontent += `<br><div class="col-sm-4">
                             
                             <p><b>Type:</b>${typ}</p>
                             <p><b>Contact No:</b>${data[i].contact_no}</p>
@@ -548,15 +1158,15 @@
                         <div class="col-sm-4">
                             <p><b>Profile Id:</b>${data[i].profile_id}</p>
                             <p><b>Call Details:</b>${data[i].call_walkin_details}</p>
-                            <p><b>Follow up Date</b>${data[i].next_followup_date}</p>
+                            <p><b>Follow up Date</b>${fdate.toDateString()}</p>
                             
                         </div>
                         <div class="col-sm-4">
-                            <p><b>Contact Date:</b>${data[i].contact_date}</p>
+                            <p><b>Contact Date:</b>${cdate.toDateString()}</p>
                             <p><b>Interaction Type:</b>${data[i].interaction_type}</p>
                             <p><b>Appointment:</b>${apt}</p>
                             
-                        </div> `;
+                        </div> <hr>`;
 
                                     }
 
@@ -607,16 +1217,99 @@
                     return;
                 }
 
+                var content = ``;
+                request.onreadystatechange = function() {
+                    if (request.readyState === XMLHttpRequest.DONE) {
+                        if (request.status === 200) {
+                            content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-2">Profile id</th><th class = "col-sm-3">Person of Contact</th><th class = "col-sm-2">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th><th class = "col-sm-1">Stage</th><th class = "col-sm-1">Print/email</th></tr></thead><tbody>`;
+
+                            var data = JSON.parse(this.responseText);
+                            if (data.length === 0) {
+                                alert('No imformation available');
+                                return;
+                            }
+                            var i = 0;
+                            var stagename = "";
+                            for (; i < data.length; i++) {
+                                // alert(data[i].stage);
+                                switch (data[i].stage) {
+                                    case 0:
+                                        stagename = "LEAD";
+                                        break;
+                                    case 1:
+                                        stagename = "PROSPECT";
+                                        break;
+                                    case 2:
+                                        stagename = "OPPURTUNITY";
+                                        break;
+                                    case 3:
+                                        stagename = "VCC-3 MONTHS";
+                                        break;
+                                    case 4:
+                                        stagename = "VCC-6 MONTHS";
+                                        break;
+                                    case 5:
+                                        stagename = "VCC-12 MONTHS";
+                                        break;
+                                    case 6:
+                                        stagename = "VAC-3 MONTHS";
+                                        break;
+                                    case 7:
+                                        stagename = "VAC-6 MONTHS";
+                                        break;
+                                    default:
+                                        stagename = "-";
+                                }
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
+                                //check qualification in schema..
+                                //double check content.
+                            }
+                            content += `</tbody></table>`
+                            document.getElementById('search_table').innerHTML = content;
+
+                        } else if (request.status === 403) {
+                            alert('Something went wrong');
+                        } else if (request.status === 500) {
+                            alert("Internal server error...You may be seeing this because input value doesn't exist in database..");
+                        } else {
+                            alert('Something else went wrong with the server.');
+                        }
+                    }
+                };
+
+
+                request.open('GET', '/search-query/' + inp_phone.value, true);
+                /*request.setRequestHeader('content-type','application/json');
+                request.send(JSON.stringify({
+                    gender:inp_gender.value.toLowerCase(),
+                    criteria:criteria,
+                    value:inp_value.value
+                }));*/
+                request.send(null);
+            };
+        }
+
+        show_search_table();
+
+        function show_search_table_for_profid() {
+            var search_prof_id_submit_btn = document.getElementById('search_prof_id_submit');
+            search_prof_id_submit_btn.onclick = function() {
+                var request = new XMLHttpRequest();
+                var inp_prof_id = document.getElementById("search_prof_id");
+                if (inp_prof_id.value === '') {
+                    alert("Please Enter Data");
+                    return;
+                }
+
 
                 request.onreadystatechange = function() {
                     if (request.readyState === XMLHttpRequest.DONE) {
                         if (request.status === 200) {
-                            var content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-1">Profile id</th><th class = "col-sm-2">Name</th><th class = "col-sm-1">Age</th><th class = "col-sm-1">Religion</th><th class = "col-sm-1">Caste</th><th class = "col-sm-1">Mother tongue</th><th class = "col-sm-1">Marital-status</th><th class = "col-sm-1">Location</th><th class = "col-sm-1">Education</th><th class = "col-sm-1">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th></tr></thead><tbody>`;
-
+                            content = `<table class = "table-condensed"><thead><tr><th class = "col-sm-2">Profile id</th><th class = "col-sm-3">Person of Contact</th><th class = "col-sm-2">Mobile no</th><th class = "col-sm-1">Call-in-Update</th><th class = "col-sm-1">Walk-in-Update</th><th class = "col-sm-1">Stage</th><th class = "col-sm-1">Print/email</th></tr></thead><tbody>`;
 
                             var data = JSON.parse(this.responseText);
                             if (data.length === 0) {
-                                alert('Empty string');
+                                alert('No imformation available');
                                 return;
                             }
                             var i = 0;
@@ -651,7 +1344,8 @@
                                     default:
                                         stagename = "-";
                                 }
-                                content += `<tr><td><input type="submit" value="${data[i].profile_id}"onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td><td>${data[i].age}&nbsp</td><td>${data[i].religion}&nbsp</td><td>${data[i].caste}&nbsp</td><td>${data[i].mother_tongue}&nbsp</td><td>${data[i].marital_status}&nbsp</td><td>${data[i].city}&nbsp</td><td>${data[i].education}&nbsp</td><td> ${data[i].mobile_no}&nbsp</td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td></tr>`;
+                                content += `<tr><td><input type="submit" value="${data[i].profile_id}" onclick="clicked('${data[i].profile_id}');"></td><td>${data[i].person_of_contact}&nbsp</td> <td> ${data[i].mobile_no}&nbsp</td> <td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td><td><a href="/cwupdate/${data[i].profile_id}"><img src="/uploads/updatelogo.png" style="height:20px;width:20px;margin-left:50px"/></a></td> <td>${stagename}&nbsp</td><td><a href="/printprofile/${data[i].profile_id}" target="_blank">Print</a></td></tr>`;
+
                                 //check qualification in schema..
                                 //double check content.
                             }
@@ -669,7 +1363,7 @@
                 };
 
 
-                request.open('GET', '/search-query/' + inp_phone.value, true);
+                request.open('GET', '/user_details/' + inp_prof_id.value, true);
                 /*request.setRequestHeader('content-type','application/json');
                 request.send(JSON.stringify({
                     gender:inp_gender.value.toLowerCase(),
@@ -680,10 +1374,12 @@
             };
         }
 
-        show_search_table();
+        show_search_table_for_profid();
 
 
-        function clicked(item) {
+        //----------------------------------------------------------- below function is repeated --------------------------------------------------------
+
+        /*function clicked(item) {
             console.log('clicked');
             alert(item);
             var request = new XMLHttpRequest();
@@ -827,7 +1523,7 @@
             };
             request.open('GET', `/user_details/${item}`, true);
             request.send(null);
-        }
+        }*/
     </script>
 </body>
 
