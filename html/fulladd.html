@@ -222,22 +222,150 @@
                     <h3>EDUCATIONAL QUALIFICATIONS</h3><br>
                     <label for="education">*Highest Education</label><br>
                     <select class="form-control input-lg" id="emplyoment-status" name="education" value="${data[0].education} "required>
-                    <option>MATRICULATION</option>
-                    <option>INTERMEDIATE</option>
-                    <option>GRADUATION</option>
-                    <option>PG</option>
-                    <option>DOCTORATE OR ABOVE</option>
+                   <option>Select Education Category</option>
+                
+        <optgroup label="--Bachelors-Engineering/Computers/Others--">
+
+          
+        <option>Aeronautical Engineering</option>
+        <option>B. Arch.</option>
+        <option>BCA</option>
+        <option>BE</option>
+        <option>B. Plan</option>
+        <option>B. Sc. IT / Computer Science</option>
+        <option>B. Tech.</option>
+        <option>Other Bachelor Degree in Engineering / Computers</option>
+        </optgroup>
+        <optgroup label="--Masters-Engineering/Computers/Others--" >
+              
+        <option>M. Arch.</option>
+        <option>MCA</option>
+        <option>ME</option>
+        <option>M. Sc. IT / Computer Science</option>
+        <option>M.S. (Engg.)</option>
+        <option>M. Tech.</option>
+        <option>PGDCA</option>
+        <option>Other Masters Degree in Engineering / Computers</option> 
+            </optgroup>
+        <optgroup label="--Bachelors-Arts/Science/Commerce/Others--">  
+        
+        <option>Aviation Degree</option>
+        <option>B.A.</option>
+        <option>B.Com.</option>
+        <option>B. Ed.</option>
+        <option>BFA</option>
+        <option>BFT</option>
+        <option>BLIS</option>
+        <option>B.M.M</option>
+        <option>B. Sc.</option>
+        <option>B.S.W</option>
+        <option>B. Phil</option>
+        <option>Other Bachelor Degree in Arts/Science/Commerce</option> 
+            </optgroup>
+        <optgroup label="--Masters-Art/Science/Commerce/Others--">    
+       
+        <option>M.A.</option>
+        <option>M. Com.</option>
+        <option>M. Ed.</option>
+        <option>MFA</option>
+        <option>MLIS</option>
+        <option>M. Sc.</option>
+        <option>MSW</option>
+        <option>M. Phil</option>
+        <option>Other Master Degree in Arts / Science / Commerce</option>
+            </optgroup>
+        <optgroup label="-Bchelors-Management/Others--">
+       
+        <option>BBA</option>
+        <option>BFM (Financial Manangement)</option>
+        <option>BHM (Hostel Management)</option>
+        <option>Other Bachelor Degree in Management</option>
+            </optgroup>
+        <optgroup label="--Masters-Management/Others">  
+        
+        <option>MBA</option>
+        <option>MFM(Financial Manangement)</option>
+        <option>MHRM (Human Resource Management)</option>
+        <option>PGDM</option>
+        <option>Other Master Degree in Manangement</option>
+            </optgroup>
+            <optgroup label="--Bachelors-Medicine-General/Dental/Surgeon/Others--">
+        
+        <option>B.A.M.S</option>
+        <option>BDS</option>
+        <option>BHMS</option>
+        <option>BSMS</option>
+        <option>BPharm</option>
+        <option>BPT</option>
+        <option>BUMS</option>
+        <option>BVSc</option>
+        <option>MBBS</option>
+        <option>B.Sc. Nursing</option>
+        <option>Other Bachelor Degree in Medicine</option>
+            </optgroup>
+        <optgroup label="--Masters-Medicine-General/Dental/Surgeon/Others--">   
+       
+        <option>MDS</option>        
+        <option>M.Pharm</option>
+        <option>MVSc</option>    
+        <option>MD / MS(Medical)</option>    
+        <option>MPT</option>
+        <option>Other Masters Degree in Medicine </option>
+            </optgroup>
+        <optgroup label="--Bchelors-Legal/Others--">    
+       
+        <option>BGL</option>
+        <option>B.L.</option>
+        <option>LL.B.</option>
+        <option>Other Bachelor Degree in Legal</option>
+            </optgroup>
+        <optgroup label="--Masters-Legal/Others">    
+           
+        <option>LL.M.</option>
+        <option>M.L</option>    
+        <option>Other Masters Degree in Legal</option>
+            </optgroup>
+            <optgroup label="--Finance-ICWAI/CA/CS/CFA/Others--">
+        
+            <option>CA</option>
+        <option>CFA (Chartered Financial Analyst)</option>
+        <option>CS</option>
+        <option>ICWA</option>
+        <option>Other Degree in Finance</option>
+            </optgroup>
+            <optgroup label="--Service-IAS/IPS/IRS/IES/IFS/Others--">
+       
+        <option>IAS</option>
+        <option>IFS</option>    
+        <option>IRS</option>
+        <option>IPS</option>
+        <option>Other Degree in Service</option>
+            </optgroup>
+        <optgroup label="--PhD--">    
+        <option>Ph.D.</option>
+            </optgroup>
+        <optgroup label="--Diploma/Others--">   
+       
+            <option>Diploma</option>
+        <option>Polytechnic</option>
+        <option>Trade School</option>
+        <option>Others in Diploma</option>    
+            </optgroup>    
+        <optgroup label="--Higher Secondary/Secondary--">
+        <option>Higher Secondary School / High School</option>    
+            </optgroup>    
+        
                     </select>
                     <br>
 
-                    <label for="highschool">*High School</label><br>
+                    <label for="highschool">*High School ( Specify Specialization )</label><br>
                     <input class="form-control input-lg" type="text" id="high_school" name="high_s" value="${data[0].high_school}" required><br>
 
-                    <label for="intermediate">*Intermediate</label><br>
+                    <label for="intermediate">*Intermediate  ( Specify Specialization )</label><br>
                     <input class="form-control input-lg" type="text" id="intermediate" name="intermediate" value="${data[0].intermediate}" required><br>
 
 
-                    <label for="graduation">*Graduation</label><br>
+                    <label for="graduation">*Graduation  ( Specify Specialization and college name )</label><br>
                     
 
                    <select class="form-control input-lg selectpicker" id="graduation" name="graduation" value="${data[0].graduation}" required>    
@@ -300,7 +428,7 @@
 
 
 
-                    <label for="masters">*Masters</label><br>
+                    <label for="masters">*Masters ( Specify Specialization and college name )</label><br>
                     <select class="form-control input-lg selectpicker" id="masters" name="masters" value="${data[0].masters}" required>      
 
                      <option>-Select Masters Category-</option>
@@ -357,7 +485,7 @@
 
 
 
-                    <label for="otherqualification">*Other qualifications</label><br>
+                    <label for="otherqualification">*Other qualifications ( Specify Specialization and college name )</label><br>
                     
 
 

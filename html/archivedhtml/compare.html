@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<style>
+    .btn btn-success btn-lg {
+        height: 45px;
+        width: 200px;
+    }
+    
+    .btn btn-danger btn-lg {
+        height: 45px;
+        width: auto;
+    }
+</style>
+<html>
+
+<head>
+    <title>Compatibility Match</title>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="col-sm-12" style="text-align:right">
+            <img src="/uploads/logol.jpg" style="float:left;height:60px;width:300px;margin-left:-60px" />
+
+            <div id="logout">
+                <br>
+
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/html/dashboard.html">Dashboard</a></li>
+                <li><a href="/html/leads.html">Leads</a></li>
+                <li><a href="/html/enquiry2.html">Create New Enquiry</a></li>
+                <li><a href="/html/prospect.html">Prospects</a></li>
+                <li><a href="/html/payment.html">Payment</a></li>
+                <li><a href="/html/query.html">Query</a></li>
+                <li class="active"><a href="/html/compare.html">Compatibility Match</a></li>
+            </ul>
+
+        </div>
+
+    </nav>
+    <div id="matching" class="container">
+        <div class="container" style="width:400px">
+
+            <h3 style="text-align:center">Enter IDs to match</h3>
+            <input id="id1" type="text" class="form-control" placeholder="Primary ID">
+            <br>
+            <br>
+            <input id="id2" type="text" class="form-control" placeholder="Preferred ID">
+            <br>
+            <br>
+            <button id="comp" class="btn btn-lg btn-primary btn-block" type="submit" onclick="letscompare()">Match</button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function loadLoggedInUser(username) {
+
+            document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
+            viewleads();
+        }
+
+        function letscompare() {
+            var i, j;
+            var complexion = `<button type="button" class="btn btn-danger btn-lg">Complexion</button>`;
+            var bodytype = `<button type="button" class="btn btn-danger btn-lg">Body Type</button>`;
+            var height = `<button type="button" class="btn btn-danger btn-lg">Height</button>`;
+            var occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation</button>`;
+            var marital = `<button type="button" class="btn btn-danger btn-lg">Marital Status</button>`;
+            var caste = `<button type="button" class="btn btn-danger btn-lg">Caste</button>`;
+            var age = `<button type="button" class="btn btn-danger btn-lg">Age</button>`;
+            var religion = `<button type="button" class="btn btn-danger btn-lg">Religion</button>`;
+            var detail = `<button id="partnermoredetail" type="button" class="btn btn-danger btn-lg">More Details</button>`;
+            var pid1 = document.getElementById("id1").value;
+            var pid2 = document.getElementById("id2").value;
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+                        var data = JSON.parse(this.responseText);
+                        for (i = 0; i < data.length; i++) {
+
+                            if (data[i].profile_id === pid1) {
+
+                                break;
+                            }
+
+
+                        }
+
+                        for (j = 0; j < data.length; j++) {
+
+                            if (data[j].profile_id === pid2) {
+
+                                break;
+                            }
+                        }
+                        if (data[i].preferred_partner_complexion === data[j].complexion) {
+                            complexion = `<button type="button" class="btn btn-success btn-lg">Complexion</button>`;
+
+                        } else if (data[i].preferred_partner_occupation === data[j].employment_details) {
+                            occupation = `<button type="button" class="btn btn-success btn-lg">Occupation</button>`;
+
+
+                        } else if (data[i].preferred_partner_age === data[j].age) {
+                            age = `<button type="button" class="btn btn-success btn-lg">Age</button>`;
+
+                        } else if (data[i].preferred_partner_body_type === data[j].body_type) {
+                            bodytype = `<button type="button" class="btn btn-success btn-lg">Body Type</button>`;
+
+                        } else if (data[i].preferred_partner_marital_status === data[j].marital_status) {
+                            marital = `<button type="button" class="btn btn-success btn-lg">Marital Status</button>`;
+
+                        } else if (data[i].preferred_partner_more_details === data[j].more_details) {
+                            detail = `<button id="partnermoredetail" type="button" class="btn btn-success btn-lg">More Details</button>`;
+
+                        } else if (data[i].preferred_partner_religion === data[j].religion) {
+                            religion = `<button type="button" class="btn btn-success btn-lg">Religion</button>`;
+
+                        } else if (data[i].preferred_partner_height === data[j].height) {
+                            height = `<button type="button" class="btn btn-success btn-lg">Height</button>`;
+
+                        } else if (data[i].preferred_partner_caste === data[j].caste) {
+                            caste = `<button type="button" class="btn btn-success btn-lg">Caste</button>`;
+
+                        }
+
+                        var content = `<div class="container"><h4 style="text-align:center"><b>${data[i].candidate_first_name}</b> Preferred Comaprison with <b>${data[j].candidate_first_name}</b></h4> 
+                                 </div>
+                                 <br>
+                                 <br>
+                                 <div class="container" style="text-align:center">
+                                          <div id="partnercomplexion" class="col-sm-4">${complexion}</div>
+                                          <div id="partnerbodytype" class="col-sm-4">${bodytype}</div>
+                                          <div id="partnerheight" class="col-sm-4">${height}</div>
+                                 </div>
+                                 <br>
+                                <div class="container" style="text-align:center">
+                                         <div id="partneroccupation" class="col-sm-4">${occupation}</div>
+                                         <div id="partnermaritalstatus" class="col-sm-4">${marital}</div>
+                                         <div id="partnercaste" class="col-sm-4">${caste}</div>
+                                </div>
+                                <br>
+                                <div class="container" style="text-align:center">    
+                                        <div id="partnerage" class="col-sm-4">${age}</div>
+                                        <div id="partnerreligion" class="col-sm-4">${religion}</div>
+                                        <div id="partnermoredetail" class="col-sm-4">${detail}</div>
+                            
+                                </div>
+                                 <br>
+                                 <br>
+                                 <br>
+                                 <br>
+                                 <div class="container">
+                                          <p><b>Matched Preference</b>&nbsp<button type="button" class="btn btn-success btn-lg"></button></p>
+                                          <br>
+                                          <p style="margin-left:-20px"><b>Unmatched Preference</b>&nbsp<button type="button" class="btn btn-danger btn-lg"></button></p>
+                                 </div>`;
+
+                        document.getElementById("matching").innerHTML = content;
+
+
+                    } else if (request.status === 403) {
+                        alert('something went wrong on the server');
+                    } else if (request.status === 500) {
+                        alert('Something went wrong on the server');
+
+                    } else {
+
+                        alert('Something went wrong');
+
+                    }
+
+                }
+            };
+            request.open('GET', `/comparedetails`, true);
+            request.send(null);
+
+        }
+
+        function loadLogin() {
+            // Check if the user is already logged in
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
+                        loadLoggedInUser(this.responseText);
+
+                    }
+
+                }
+            };
+
+            request.open('GET', '/check-login', true);
+            request.send(null);
+        }
+        loadLogin();
+    </script>

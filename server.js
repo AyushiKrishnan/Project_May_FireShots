@@ -63,11 +63,11 @@ app.post('/send_email', function (req, res) {
     var pid = req.body.pid;
     var profileid=req.body.profileid;
     
-    if(pic_1==='blank'||pic_1===''||pic_1==='NULL')
+    if(pic_1==='blank'||pic_1===''||pic_1==='NULL'||pic_1===null)
         pic_1='blank.jpg';
-        if(pic_2==='blank'||pic_2===''||pic_2==='NULL')
+        if(pic_2==='blank'||pic_2===''||pic_2==='NULL'||pic_2===null)
         pic_2='blank.jpg';
-        if(pic_3==='blank'||pic_3===''||pic_3==='NULL')
+        if(pic_3==='blank'||pic_3===''||pic_3==='NULL'||pic_3===null)
         pic_3='blank.jpg';
  
  
@@ -182,7 +182,7 @@ app.post('/updatestage',function(req,res){
 });
 app.get('/search-query/:mob',function(req,res){
    var mob= req.params.mob;
-    pool.query('select * from user_details where mobile_no= $1',[mob],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where user_details.mobile_no= $1',[mob],function(err,result){
        
         if(err)
             {
@@ -204,7 +204,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
     console.log(value.toUpperCase());
     if(criteria.toUpperCase()==='CASTE')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(caste)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(caste)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -218,7 +218,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='RELIGION')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(religion)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(religion)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -232,7 +232,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='MARITAL-STATUS')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(marital_status)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(marital_status)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -246,7 +246,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='MOTHER-TONGUE')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(mother_tongue)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(mother_tongue)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -260,7 +260,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='AGE')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and age<=($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and age<=($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -274,7 +274,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='LOCATION')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(city)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(city)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -288,7 +288,7 @@ app.get('/filter-query/:gender/:criteria/:value',function(req,res){
         }
     if(criteria.toUpperCase()==='EDUCATION')
         {
-    pool.query('select * from user_details where upper(gender)=upper($1) and upper(education)=upper($2)',[gender,value],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where upper(gender)=upper($1) and upper(education)=upper($2)',[gender,value],function(err,result){
     
         if(err)
             {
@@ -543,7 +543,7 @@ app.post('/fulladd',function(req,res){
     console.log(ref1_name);
     console.log(ref1_mob);
     console.log(ref2_name);*/
-    pool.query('update user_details set profile_id=$1,person_of_contact=$2,mobile_no=$3,address=$5,email=$4,relation_with_candidate=$6,city=$7,candidate_first_name=$8,candidate_middle_name=$9,candidate_surname=$10,date_of_birth=$11,time_of_birth=$12,body_type=$13,complexion=$14,blood_group=$15,height=$16,physically_challenged=$17,employment_details=$18,age=$19,high_school=$20,employment_status=$21,masters=$22,other_qualification=$23,graduation=$24,intermediate=$25,caste=$26,linkedin_id=$27,religion=$28,mother_tongue=$29,family_type=$30,gotra=$31,manglik=$32,rashi=$33,nakshtra=$34,marital_status=$35,facebook_id=$36,profile_pic_2=$37,details_of_family=$38,about_father=$39,details_of_father=$40,about_mother=$41,details_of_mother=$42,preferred_partner_complexion=$43,preferred_partner_age=$44,preferred_partner_height=$45,sibling_details=$46,profile_pic_3=$47,preferred_partner_religion=$48,preferred_partner_occupation=$49,preferred_partner_body_type=$50,preferred_partner_marital_status=$51,preferred_partner_more_details=$52,profile_pic_1=$53,family_values=$54,preferred_partner_caste=$55,gender=$56,education=$57,place_of_birth=$58,weight=$59,annual_income=$60,more_about_candidate=$61,fathers_contact=$62,mothers_contact=$63,negotiator_name=$64,negotiator_mobile_no=$65,negotiator_relation=$66,negotiator_other_details=$67,ref1_name=$68,ref1_contact=$69,ref2_name=$70,ref2_contact=$71,preferred_partner_mother_tongue=$72,preferred_partner_family_type=$73,preferred_partner_family_values=$74,c_email=$75,c_mobile_no=$76,ca_email=$77,ca_mobile_no=$78,c_address=$79,c_pincode=$80,c_state=$81,c_city=$82,c_nationality=$83,graduation_institute=$84,masters_institute=$85,other_institute=$86,employer_details=$87,employment_type=$88,fathers_name=$89,mothers_name=$90,no_brothers=$91,brother_marital=$92,no_sisters=$93,sister_marital=$94,preferred_partner_education=$95 where profile_id=$1',[profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,first_name,middle_name,surname,dob,tob,body_type,complexion,blood_g,height,pwd,employment_details,age,high_s,emp_status,masters,other_quali,graduation,intermediate,caste,linkedin_id,religion,mother_tongue,family_type,gotra,manglik,rashi,nakshtra,marital_status,facebook_id,profile_pic_2,details_of_family,about_father,details_of_father,about_mother,details_of_mother,pp_complexion,pp_age,pp_height,sibling_details,profile_pic_3,pp_religion,pp_occupation,pp_body_type,pp_marital_status,pp_more_details,profile_pic_1,family_values,pp_caste,gender,education,pob,weight,annual_income,more_candidate,fathers_contact,mothers_contact,n_name,n_mobile_no,n_relation,n_other_details,ref1_name,ref1_mob,ref2_name,ref2_mob,pp_mother_tongue,pp_family_type,pp_family_values,c_email,c_mobile_no,ca_email,ca_mobile_no,c_address,c_pincode,c_state,c_city,c_nationality,graduation_institute,masters_institute,other_institute,employer_details,employment_type,fathers_name,mothers_name,no_brothers,brother_marital,no_sisters,sister_marital,pp_education],function(err,result){
+    pool.query('update user_details set profile_id=$1,person_of_contact=$2,mobile_no=$3,address=$5,email=$4,relation_with_candidate=$6,city=$7,candidate_first_name=$8,candidate_middle_name=$9,candidate_surname=$10,date_of_birth=$11,time_of_birth=$12,body_type=$13,complexion=$14,blood_group=$15,height=$16,physically_challenged=$17,employment_details=$18,age=$19,high_school=$20,employment_status=$21,masters=$22,other_qualification=$23,graduation=$24,intermediate=$25,caste=$26,linkedin_id=$27,religion=$28,mother_tongue=$29,family_type=$30,gotra=$31,manglik=$32,rashi=$33,nakshtra=$34,marital_status=$35,facebook_id=$36,details_of_family=$37,about_father=$38,details_of_father=$39,about_mother=$40,details_of_mother=$41,preferred_partner_complexion=$42,preferred_partner_age=$43,preferred_partner_height=$44,sibling_details=$45,preferred_partner_religion=$46,preferred_partner_occupation=$47,preferred_partner_body_type=$48,preferred_partner_marital_status=$49,preferred_partner_more_details=$50,family_values=$51,preferred_partner_caste=$52,gender=$53,education=$54,place_of_birth=$55,weight=$56,annual_income=$57,more_about_candidate=$58,fathers_contact=$59,mothers_contact=$60,negotiator_name=$61,negotiator_mobile_no=$62,negotiator_relation=$63,negotiator_other_details=$64,ref1_name=$65,ref1_contact=$66,ref2_name=$67,ref2_contact=$68,preferred_partner_mother_tongue=$69,preferred_partner_family_type=$70,preferred_partner_family_values=$71,c_email=$72,c_mobile_no=$73,ca_email=$74,ca_mobile_no=$75,c_address=$76,c_pincode=$77,c_state=$78,c_city=$79,c_nationality=$80,graduation_institute=$81,masters_institute=$82,other_institute=$83,employer_details=$84,employment_type=$85,fathers_name=$86,mothers_name=$87,no_brothers=$88,brother_marital=$89,no_sisters=$90,sister_marital=$91,preferred_partner_education=$92 where profile_id=$1',[profile_id,person_of_contact,mobile_no,email,address,relation_with_candidate,city,first_name,middle_name,surname,dob,tob,body_type,complexion,blood_g,height,pwd,employment_details,age,high_s,emp_status,masters,other_quali,graduation,intermediate,caste,linkedin_id,religion,mother_tongue,family_type,gotra,manglik,rashi,nakshtra,marital_status,facebook_id,details_of_family,about_father,details_of_father,about_mother,details_of_mother,pp_complexion,pp_age,pp_height,sibling_details,pp_religion,pp_occupation,pp_body_type,pp_marital_status,pp_more_details,family_values,pp_caste,gender,education,pob,weight,annual_income,more_candidate,fathers_contact,mothers_contact,n_name,n_mobile_no,n_relation,n_other_details,ref1_name,ref1_mob,ref2_name,ref2_mob,pp_mother_tongue,pp_family_type,pp_family_values,c_email,c_mobile_no,ca_email,ca_mobile_no,c_address,c_pincode,c_state,c_city,c_nationality,graduation_institute,masters_institute,other_institute,employer_details,employment_type,fathers_name,mothers_name,no_brothers,brother_marital,no_sisters,sister_marital,pp_education],function(err,result){
        
         if(err)
             {
@@ -605,7 +605,7 @@ app.post('/quickadd',function(req,res){
 app.get('/user_details/:id',function(req,res){
    var pid= req.params.id;
     
-    pool.query('select * from user_details where profile_id=$1',[pid],function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id where user_details.profile_id=$1',[pid],function(err,result){
         if(err)
             {
                 res.status(500).send(err.toString());
@@ -1488,7 +1488,7 @@ app.post('/api/photo/:id/:no', function(req, res) {
 
 app.get('/comparedetails',function(req,res){
    
-    pool.query('select * from user_details',function(err,result){
+    pool.query('select * from user_details inner join user_status on user_details.profile_id=user_status.profile_id',function(err,result){
        if(err)
            {
                res.status(500).send(err.toString());
@@ -1603,7 +1603,7 @@ app.get('/autoid',function(req,res){
                  var profile_id = result.rows[0].id;
                console.log('here you '+profile_id);
                var integer_id=0;
-            for(var i=2;i<profile_id.length;i++)
+          /*  for(var i=2;i<profile_id.length;i++)
                 {
                     var k= parseInt(profile_id[i]);
                     integer_id=integer_id*10+k;
@@ -1622,7 +1622,10 @@ app.get('/autoid',function(req,res){
                 if(profile_id.length===2)
                 profile_id='0000'+profile_id;
             else
-                profile_id='00000'+profile_id;
+                profile_id='00000'+profile_id;*/
+               integer_id=parseInt(profile_id);
+               integer_id=integer_id+1;
+               profile_id=integer_id.toString();
                console.log('change process');
                console.log('changed id'+profile_id);
                

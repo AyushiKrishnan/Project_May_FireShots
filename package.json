@@ -1,0 +1,39 @@
+{
+  "name": "vc_informativa_by_fireshots",
+  "version": "1.0.0",
+  "description": "efficient and interactive interface for real time industry database management",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "fs": "^0.0.1-security",
+    "mailgun-js": "^0.11.1",
+    "morgan": "^1.7.0",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.0.1",
+    "pg": "^6.1.0",
+    "split": "^1.0.0",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhilashkasap/Project_May_FireShots.git"
+  },
+  "keywords": [
+    "database",
+    "management",
+    "applications"
+  ],
+  "author": "team_fireshots",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhilashkasap/Project_May_FireShots/issues"
+  },
+  "homepage": "https://github.com/abhilashkasap/Project_May_FireShots#readme"
+}

@@ -67,14 +67,64 @@
 
 
     <script>
+        function spiltandmatch(str, emp_detail) {
+            var occupation = '';
+            // alert(str);
+            // alert(emp_detail);
+            if (str[0] === '{') {
+
+                var temp = '';
+                for (var i = 0; i < str.length; i++) {
+                    if (str[i] === '"') {
+                        for (var j = i + 1; str[j] != '"'; j++) {
+                            temp = temp + str[j];
+                            // console.log(str[j]);
+                            i = j + 1;
+
+
+                        }
+                        // alert(temp);
+
+                        if (emp_detail.toUpperCase() === temp.toUpperCase()) {
+                            occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${temp})<br>(Available:${emp_detail})</button>`;
+                            return occupation;
+                        }
+                        temp = '';
+                    }
+                }
+                occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Available:${emp_detail})</button>`;
+                return occupation;
+
+            } else {
+                if (str === 'Any') {
+                    occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available: --)</button>`;
+                    return occupation;
+                } else
+                if (str.toUpperCase() === emp_detail.toUpperCase()) {
+                    occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
+                    return occupation;
+                } else {
+                    occupation = `<button type="button" class="btn btn-danger btn-lg">Occupation<br>(Desired :${str})<br>(Available:${emp_detail})</button>`;
+                    return occupation;
+                }
+
+            }
+
+        }
+
         function loadLoggedInUser(username) {
 
             document.getElementById("logout").innerHTML = `<p>Hi,${username}</p><a href="/logout">Logout</a>`;
-            viewleads();
+            //viewleads();
         }
 
         function letscompare() {
             var i, j;
+            var family_type = `<button type="button" class="btn btn-danger btn-lg">Family Type</button>`;
+            var family_values = `<button type="button" class="btn btn-danger btn-lg">Family Values</button>`;
+            var education = `<button type="button" class="btn btn-danger btn-lg">Education</button>`;
+            var mother_tongue = `<button type="button" class="btn btn-danger btn-lg">Mother Tongue</button>`;
+
             var complexion = `<button type="button" class="btn btn-danger btn-lg">Complexion</button>`;
             var bodytype = `<button type="button" class="btn btn-danger btn-lg">Body Type</button>`;
             var height = `<button type="button" class="btn btn-danger btn-lg">Height</button>`;
@@ -83,7 +133,7 @@
             var caste = `<button type="button" class="btn btn-danger btn-lg">Caste</button>`;
             var age = `<button type="button" class="btn btn-danger btn-lg">Age</button>`;
             var religion = `<button type="button" class="btn btn-danger btn-lg">Religion</button>`;
-            var detail = `<button id="partnermoredetail" type="button" class="btn btn-danger btn-lg">More Details</button>`;
+            //var detail = `<button id="partnermoredetail" type="button" class="btn btn-danger btn-lg">More Details</button>`;
             var pid1 = document.getElementById("id1").value;
             var pid2 = document.getElementById("id2").value;
             var request = new XMLHttpRequest();
@@ -108,57 +158,127 @@
                                 break;
                             }
                         }
+
+                        /* var partner_occupation=data[i].data[0].preferred_partner_occupation;
+                         var k=0;
+                         console.log(partner_occupation);
+                         for(k=0;k<partner_occupation.length;k++){
+                         if (data[k].partner_occupation === data[j].employment_details) {
+                             occupation = `<button type="button" class="btn btn-success btn-lg">Occupation<br>(${data[j].employment_details})</button>`;
+                          }
+                         }
+                         */
+                        occupation = spiltandmatch(data[i].preferred_partner_occupation, data[j].employment_details);
+
+                        if (data[i].gender.toUpperCase() === data[j].gender.toUpperCase()) {
+                            alert(` You are Comparing ${data[i].gender} to ${data[i].gender} !!!!! `);
+                        }
                         if (data[i].preferred_partner_complexion === data[j].complexion) {
-                            complexion = `<button type="button" class="btn btn-success btn-lg">Complexion</button>`;
+                            complexion = `<button type="button" class="btn btn-success btn-lg">Complexion<br>(Desired :${data[i].preferred_partner_complexion})<br>(Available:${data[j].complexion})</button>`;
 
-                        } else if (data[i].preferred_partner_occupation === data[j].employment_details) {
-                            occupation = `<button type="button" class="btn btn-success btn-lg">Occupation</button>`;
+                        } else {
+                            complexion = `<button type="button" class="btn btn-danger btn-lg">Complexion<br>(Desired :${data[i].preferred_partner_complexion})<br>(Available:${data[j].complexion})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_age === data[j].age) {
+                            age = `<button type="button" class="btn btn-success btn-lg">Age<br>(Desired :${data[i].preferred_partner_age})<br>(Available:${data[j].age})</button>`;
+
+                        } else {
+                            age = `<button type="button" class="btn btn-danger btn-lg">Age<br>(Desired :${data[i].preferred_partner_age})<br>(Available:${data[j].age})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_body_type === data[j].body_type) {
+                            bodytype = `<button type="button" class="btn btn-success btn-lg">Body Type<br>(Desired :${data[i].preferred_partner_body_type})<br>(Available:${data[j].body_type})</button>`;
+
+                        } else {
+                            bodytype = `<button type="button" class="btn btn-danger btn-lg">Body Type<br>(Desired :${data[i].preferred_partner_body_type})<br>(Available:${data[j].body_type})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_marital_status === data[j].marital_status) {
+                            marital = `<button type="button" class="btn btn-success btn-lg">Marital Status<br>(Desired :${data[i].preferred_partner_marital_status})<br>(Available:${data[j].marital_status})</button>`;
+
+                        } else {
+                            marital = `<button type="button" class="btn btn-danger btn-lg">Marital Status<br>(Desired :${data[i].preferred_partner_marital_status})<br>(Available:${data[j].marital_status})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_religion === data[j].religion) {
+                            religion = `<button type="button" class="btn btn-success btn-lg">Religion<br>(Desired :${data[i].preferred_partner_religion})<br>(Available:${data[j].religion})</button>`;
+
+                        } else {
+                            religion = `<button type="button" class="btn btn-danger btn-lg">Religion<br>(Desired :${data[i].preferred_partner_religion})<br>(Available:${data[j].religion})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_height <= data[j].height) {
+                            height = `<button type="button" class="btn btn-success btn-lg">Height<br>(Desired :${data[i].preferred_partner_height})<br>(Available:${data[j].height})</button>`;
+
+                        } else {
+                            height = `<button type="button" class="btn btn-danger btn-lg">Height<br>(Desired :${data[i].preferred_partner_height})<br>(Available:${data[j].height})</button>`;
 
 
-                        } else if (data[i].preferred_partner_age === data[j].age) {
-                            age = `<button type="button" class="btn btn-success btn-lg">Age</button>`;
+                        }
+                        if (data[i].preferred_partner_caste === data[j].caste) {
+                            caste = `<button type="button" class="btn btn-success btn-lg">Caste<br>(Desired :${data[i].preferred_partner_caste})<br>(Available:${data[j].caste})</button>`;
 
-                        } else if (data[i].preferred_partner_body_type === data[j].body_type) {
-                            bodytype = `<button type="button" class="btn btn-success btn-lg">Body Type</button>`;
+                        } else {
+                            caste = `<button type="button" class="btn btn-danger btn-lg">Caste<br>(Desired :${data[i].preferred_partner_caste})<br>(Available:${data[j].caste})</button>`;
 
-                        } else if (data[i].preferred_partner_marital_status === data[j].marital_status) {
-                            marital = `<button type="button" class="btn btn-success btn-lg">Marital Status</button>`;
+                        }
+                        if (data[i].preferred_partner_mother_tongue === data[j].mother_tongue) {
+                            mother_tongue = `<button type="button" class="btn btn-success btn-lg">Mother Tongue<br>(Desired :${data[i].preferred_partner_mother_tongue})<br>(Available:${data[j].mother_tongue})</button>`;
 
-                        } else if (data[i].preferred_partner_more_details === data[j].more_details) {
-                            detail = `<button id="partnermoredetail" type="button" class="btn btn-success btn-lg">More Details</button>`;
+                        } else {
+                            mother_tongue = `<button type="button" class="btn btn-danger btn-lg">Mother Tongue<br>(Desired :${data[i].preferred_partner_mother_tongue})<br>(Available:${data[j].mother_tongue})</button>`;
 
-                        } else if (data[i].preferred_partner_religion === data[j].religion) {
-                            religion = `<button type="button" class="btn btn-success btn-lg">Religion</button>`;
+                        }
+                        if (data[i].preferred_partner_family_type === data[j].family_type) {
+                            family_type = `<button type="button" class="btn btn-success btn-lg">Family Type<br>(Desired :${data[i].preferred_partner_family_type})<br>(Available:${data[j].family_type})</button>`;
 
-                        } else if (data[i].preferred_partner_height === data[j].height) {
-                            height = `<button type="button" class="btn btn-success btn-lg">Height</button>`;
+                        } else {
 
-                        } else if (data[i].preferred_partner_caste === data[j].caste) {
-                            caste = `<button type="button" class="btn btn-success btn-lg">Caste</button>`;
+
+                            family_type = `<button type="button" class="btn btn-danger btn-lg">Family Type<br>(Desired :${data[i].preferred_partner_family_type})<br>(Available:${data[j].family_type})</button>`;
+
+                        }
+                        if (data[i].preferred_partner_family_values === data[j].family_values) {
+                            family_values = `<button type="button" class="btn btn-success btn-lg">Family Values<br>(Desired :${data[i].preferred_partner_family_values})<br>(Available:${data[j].family_values})</button>`;
+
+                        } else {
+                            family_values = `<button type="button" class="btn btn-danger btn-lg">Family Values<br>(Desired :${data[i].preferred_partner_family_values})<br>(Available:${data[j].family_values})</button>`;
+
+
+                        }
+                        if (data[i].preferred_partner_education === data[j].education) {
+                            education = `<button type="button" class="btn btn-success btn-lg">Education<br>(Desired :${data[i].preferred_partner_education})<br>(Available:${data[j].education})</button>`;
+
+                        } else {
+                            education = `<button type="button" class="btn btn-danger btn-lg">Education<br>(Desired :${data[i].preferred_partner_education})<br>(Available:${data[j].education})</button>`;
 
                         }
 
-                        var content = `<div class="container"><h4 style="text-align:center"><b>${data[i].candidate_first_name}</b> Preferred Comaprison with <b>${data[j].candidate_first_name}</b></h4> 
+
+                        var content = `<div class="container"><h4 style="text-align:center"><b>${data[i].candidate_first_name}'s</b> Preferred Comparison with <b>${data[j].candidate_first_name}</b></h4> 
                                  </div>
                                  <br>
                                  <br>
                                  <div class="container" style="text-align:center">
-                                          <div id="partnercomplexion" class="col-sm-4">${complexion}</div>
-                                          <div id="partnerbodytype" class="col-sm-4">${bodytype}</div>
-                                          <div id="partnerheight" class="col-sm-4">${height}</div>
+                                          <div id="partnercomplexion" class="col-sm-3">${complexion}</div>
+                                          <div id="partnerbodytype" class="col-sm-3">${bodytype}</div>
+                                          <div id="partnerheight" class="col-sm-3">${height}</div>
+                                          <div id="partner_mother_tongue" class="col-sm-3">${mother_tongue}</div>
                                  </div>
                                  <br>
                                 <div class="container" style="text-align:center">
-                                         <div id="partneroccupation" class="col-sm-4">${occupation}</div>
-                                         <div id="partnermaritalstatus" class="col-sm-4">${marital}</div>
-                                         <div id="partnercaste" class="col-sm-4">${caste}</div>
-                                </div>
+                                         <div id="partneroccupation" class="col-sm-3">${occupation}</div>
+                                         <div id="partnermaritalstatus" class="col-sm-3">${marital}</div>
+                                         <div id="partnercaste" class="col-sm-3">${caste}</div>
+                                         <div id="partner_family_type" class="col-sm-3">${family_type}</div>
+                                </div> 
                                 <br>
                                 <div class="container" style="text-align:center">    
-                                        <div id="partnerage" class="col-sm-4">${age}</div>
-                                        <div id="partnerreligion" class="col-sm-4">${religion}</div>
-                                        <div id="partnermoredetail" class="col-sm-4">${detail}</div>
-                            
+                                        <div id="partnerage" class="col-sm-3">${age}</div>
+                                        <div id="partnerreligion" class="col-sm-3">${religion}</div>
+                                        <div id="partner_education" class="col-sm-3">${education}</div>
+                                        <div id="partner_family_values" class="col-sm-3">${family_values}</div>
                                 </div>
                                  <br>
                                  <br>
@@ -168,7 +288,8 @@
                                           <p><b>Matched Preference</b>&nbsp<button type="button" class="btn btn-success btn-lg"></button></p>
                                           <br>
                                           <p style="margin-left:-20px"><b>Unmatched Preference</b>&nbsp<button type="button" class="btn btn-danger btn-lg"></button></p>
-                                 </div>`;
+                                 </div>
+                                `;
 
                         document.getElementById("matching").innerHTML = content;
 
